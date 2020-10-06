@@ -9,5 +9,6 @@ To set up the application, once you have the clone on your computer, run:
 * `npm install`
 * `npm start`
 
-Any problem do not hesitate to ask. Happy coding!
+We can always fork the repo and keep, this would be a better way of contribute as a team.
 
+Any problem do not hesitate to ask. Happy coding!
