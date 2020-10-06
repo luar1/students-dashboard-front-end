@@ -10,3 +10,4 @@ To set up the application, once you have the clone on your computer, run:
 * `npm start`
 
 Any problem do not hesitate to ask. Happy coding!
+
