@@ -9,6 +9,8 @@ To set up the application, once you have the clone on your computer, run:
 * `npm install`
 * `npm start`
 
+Make some changes to the application without breaking it (adding some lines of code, creating a component, etc), and pull request your changes.
+
 We can always fork the repo and keep, this would be a better way of contribute as a team.
 
 Any problem do not hesitate to ask. Happy coding!
