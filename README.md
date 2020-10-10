@@ -22,4 +22,4 @@ To install the <a href=https://ant.design/docs/react/introduce>Ant Design Librar
 
 Please read the Getting Started with <a href=https://ant.design/docs/react/introduce>Ant Design</a> Documentation.
 
-Any problem do not hesitate to ask. Happy coding!
+Any problem do not hesitate to ask. Thanks and Happy coding!
