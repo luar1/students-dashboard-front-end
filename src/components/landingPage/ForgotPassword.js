@@ -1,141 +1,214 @@
-import React, { useState, useRef } from 'react';
+// import React, { useState, useRef } from 'react';
+// import { Button, Modal, Form, Input, Row } from 'antd';
+
+// const layout = {
+//   wrapperCol: {
+//     span: 24,
+//   },
+// };
+
+// const tailFormItemLayout = {
+//   wrapperCol: {
+//     xs: {
+//       span: 24,
+//       offset: 0,
+//     },
+//     sm: {
+//       span: 16,
+//       offset: 8,
+//     },
+//   },
+// };
+
+// const ForgotPassword = () => {
+//   const [state, setState] = useState({ ModalText: 'Content of the modal', visible: false, email: null });
+//   const [form] = Form.useForm();
+//   const { ModalText, visible, email } = state;
+
+//   console.log(state)
+
+//   const onChange = (e) => {
+//     setState({ email: e.target.value, visible: true });
+//   }
+
+//   const onSubmit = (e) => {
+//     console.log(e)
+//     setState({ visible: false });
+//   };
+
+//   const onFinishFailed = (errorInfo) => {
+//     console.log('Failed:', errorInfo);
+//   };
+
+//   const showModal = () => {
+//     setState({ visible: true });
+//   };
+
+//   const handleOk = () => {
+//     setState({
+//       ModalText: 'The modal will be closed after two seconds',
+//       confirmLoading: true,
+//     })
+//   };
+
+//   const handleCancel = () => {
+//     console.log('Clicked cancel button');
+//     setState({
+//       visible: false,
+//     });
+//   };
+
+//   return (
+//     <>
+//       <Button type="primary" onClick={showModal}>
+//         Open Modal with async logic
+//         </Button>
+//       <Modal
+//         title="Forgot Password"
+//         visible={visible}
+//         onOk={handleOk}
+//         onCancel={handleCancel}
+//         footer={[
+//           <Button key="back" onClick={handleCancel}>
+//             Cancel
+//         </Button>,
+//           <Button key="submit" type="primary" form="forgotPasswordForm" onClick={onSubmit}>
+//             Submit
+//         </Button>,
+//         ]}
+//       >
+//         <Row type="flex" justify="center" >
+//           <Row type="flex" align="center" >
+//             Enter your user account's verified email address and we will send you a password reset link.
+//           </Row>
+//           <Form
+//             {...layout}
+//             id="forgotPasswordForm"
+//             name="basic"
+//             initialValues={{
+//               remember: true,
+//             }}
+//             onFinish={onSubmit}
+//             onFinishFailed={onFinishFailed}
+//           >
+//             <Form.Item
+//               name="email"
+//               form={form}
+//               rules={[
+//                 {
+//                   type: 'email',
+//                   message: 'The input is not valid E-mail!',
+//                 },
+//                 {
+//                   required: true,
+//                   message: 'Please input your E-mail!',
+//                 }
+//               ]}
+//             >
+//               <Input name="email" value={email} placeholder="Enter email" onChange={onChange} />
+//             </Form.Item>
+//             {/* <Form.Item {...tailFormItemLayout}>
+//               <Button type="primary" htmlType="submit">
+//                 Submit
+//               </Button>
+//             </Form.Item> */}
+//           </Form>
+//         </Row>
+//       </Modal>
+//     </>
+//   );
+// }
+
+import React, { useState } from 'react';
 import { Button, Modal, Form, Input, Row } from 'antd';
 
-const layout = {
-  wrapperCol: {
-    span: 24,
-  },
+const ForgotPasswordForm = ({ visible, onSubmit, onCancel }) => {
+  const [form] = Form.useForm();
+  return (
+    <Modal
+      visible={visible}
+      title="Forgot Password"
+      okText="Submit"
+      cancelText="Cancel"
+      onCancel={onCancel}
+      onOk={() => {
+        form
+          .validateFields()
+          .then((values) => {
+            form.resetFields();
+            onSubmit(values);
+          })
+          .catch((info) => {
+            console.log('Validate Failed:', info);
+          });
+      }}
+    >
+      <Row type="flex" align="center" >
+        Enter your user account's verified email address and we will send you a password reset link.
+      </Row>
+      <Form
+        form={form}
+        layout="vertical"
+        name="form_in_modal"
+        initialValues={{
+          modifier: 'public',
+        }}
+      >
+        <Form.Item
+          name="email"
+          style={{ paddingTop: "10px" }}
+          rules={[
+            {
+              type: 'email',
+              message: 'The input is not valid E-mail!',
+            },
+            {
+              required: true,
+              message: 'Please input your email',
+            }
+          ]}
+        >
+          <Input placeholder="johndoe@email.com" />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
 };
 
 const ForgotPassword = () => {
-  const [state, setState] = useState({ ModalText: 'Content of the modal', visible: false, confirmLoading: false, });
-  const stateRef = useRef(state);
-  stateRef.current = state;
-  const { ModalText, visible, confirmLoading } = state;
+  const [state, setState] = useState({ visible: false, email: null });
+  const { visible, email } = state;
 
-  console.log(state)
+  // const onChange = () => {
+  //   setState({ visible: false, email });
+  // }
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
-  const showModal = () => {
-    setState({ visible: true });
-  };
-
-  const handleOk = () => {
-    setState({
-      ModalText: 'The modal will be closed after two seconds',
-      confirmLoading: true,
-    })
-  };
-
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setState({
-      visible: false,
-    });
+  const onSubmit = (email) => {
+    console.log('Received values of form: ', email);
+    setState({ visible: false, email });
   };
 
   return (
-    <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal with async logic
-        </Button>
-      <Modal
-        title="Forgot Password"
-        visible={visible}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
+    <div>
+      <Button
+        type="primary"
+        onClick={() => {
+          setState({ visible: true });
+        }}
       >
-        <Row type="flex" justify="center" >
-          <Row type="flex" align="center" >
-            Enter your user account's verified email address and we will send you a password reset link.
-          </Row>
-          <Form
-            {...layout}
-            name="basic"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-          >
-            <Form.Item
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your email!',
-                },
-              ]}
-            >
-              <Input placeholder="Enter email" />
-            </Form.Item>
-          </Form>
-        </Row>
-      </Modal>
-    </>
+        Forgot Password
+      </Button>
+      <ForgotPasswordForm
+        email={email}
+        visible={visible}
+        onSubmit={onSubmit}
+        onCancel={() => {
+          setState({ visible: false });
+        }}
+      />
+    </div>
   );
-}
+};
 
-// class ForgotPassword extends React.Component {
-//   state = {
-//     ModalText: "Content of the modal",
-//     visible: false,
-//     confirmLoading: false
-//   };
-
-//   showModal = () => {
-//     this.setState({
-//       visible: true
-//     });
-//   };
-
-//   handleOk = () => {
-//     this.setState({
-//       ModalText: "The modal will be closed after two seconds",
-//       confirmLoading: true
-//     });
-//     setTimeout(() => {
-//       this.setState({
-//         visible: false,
-//         confirmLoading: false
-//       });
-//     }, 2000);
-//   };
-
-//   handleCancel = () => {
-//     console.log("Clicked cancel button");
-//     this.setState({
-//       visible: false
-//     });
-//   };
-
-//   render() {
-//     const {visible, confirmLoading, ModalText} = this.state;
-//     return (
-//       <>
-//         <Button type="primary" onClick={this.showModal}>
-//           Open Modal with async logic
-//         </Button>
-//         <Modal
-//           title="Title"
-//           visible={visible}
-//           onOk={this.handleOk}
-//           confirmLoading={confirmLoading}
-//           onCancel={this.handleCancel}
-//         >
-//           <p>{ModalText}</p>
-//         </Modal>
-//       </>
-//     );
-//   }
-// }
 
 export default ForgotPassword;
