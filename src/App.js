@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import Main from './components/main';
+import Login from "./components/Login"
+
 
 function App() {
   return (
-    <Main />
+    <div className= "container center">
+
+    <Login />
+    </div>
   );
 }
 
