@@ -1,11 +1,19 @@
 import React from 'react';
-import Dummy from './landingPage/Dummy';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'antd/dist/antd.css';
+
+import Dummy from './landingPage/Dummy';
 
 const App = () => {
   return (
     <div>
-      <Dummy />
+      <Router>
+        <Switch>
+          <Dummy />
+          <Route path="/" exact component={Landing} />
+          <Route path="/home" exact component={Home} />
+        </Switch>
+      </Router>
     </div>
   )
 };
