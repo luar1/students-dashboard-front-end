@@ -15,7 +15,7 @@ const ForgotPasswordForm = ({ visible, message, email, onSubmit, onCancel }) => 
         onSubmit(values);
       })
       .catch((info) => {
-        console.log('Validate Failed:', info);
+
       });
   }
 
