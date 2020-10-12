@@ -6,24 +6,32 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const ForgotPasswordForm = ({ visible, message, email, onSubmit, onCancel }) => {
   const [form] = Form.useForm();
+
+  const onOk = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        form.resetFields();
+        onSubmit(values);
+      })
+      .catch((info) => {
+        console.log('Validate Failed:', info);
+      });
+  }
+
   return (
     <Modal
       visible={visible}
       title="Forgot Password"
-      okText="Submit"
-      cancelText="Cancel"
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onSubmit(values);
-          })
-          .catch((info) => {
-            console.log('Validate Failed:', info);
-          });
-      }}
+      footer={[
+        <Button key="back" onClick={onCancel}>
+          Cancel
+        </Button>,
+        <Button key="submit" type="primary" disabled={email} onClick={onOk}>
+          Submit
+        </Button>
+      ]}
     >
       { message
         ? message.error
@@ -75,7 +83,6 @@ const ForgotPassword = () => {
   const { visible, email, message } = state;
 
   const onSubmit = async (email) => {
-    console.log('Received values of form: ', email);
     try {
       setState({ email, visible: true })
       const res = await fetch("https://reqres.in/api/login", {
@@ -84,10 +91,10 @@ const ForgotPassword = () => {
         headers: { "Content-Type": "application/json" }
       });
       const message = await res.json();
-      console.log(message)
-      setState({ visible: true, message });
+
+      setState({ email, visible: true, message });
     } catch (e) {
-      console.log(e.message)
+      setState({ email, visible: true, message: e.message });
     }
   };
 
