@@ -4,6 +4,7 @@ import './index.css';
 import { Layout,  Menu, Button, Row, Col} from 'antd';
 import{ SlackOutlined,GithubOutlined,}from '@ant-design/icons';
 import Login from './Login'
+
 const { Footer,Content } = Layout;
 const Main = () => {
   return (
@@ -25,6 +26,7 @@ const Main = () => {
                   </p>
                 </div>
                   <div><Login /></div>
+                  
               </div> 
             </Col>
           </Row>  

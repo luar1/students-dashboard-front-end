@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './index.css';
+import ForgotPassword from './ForgotPassword';
 
 const Login = () => {
 	const onFinish = (values) => {
@@ -26,7 +27,7 @@ const Login = () => {
 						rules={[
 							{
 								required : true,
-								message  : 'Please input your Username!'
+								message  : 'Enter a valid email address'
 							}
 						]}
 					>
@@ -37,16 +38,16 @@ const Login = () => {
 						rules={[
 							{
 								required : true,
-								message  : 'Please input your Password!'
+								message  : 'Enter your password'
 							}
 						]}
 					>
 						<Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='password' />
 					</Form.Item>
 					<Form.Item>
-						<a className='login-form-forgot' href='/'>
-							Forgot password
-						</a>
+						<div className='login-form-forgot '>
+							<ForgotPassword />
+						</div>
 					</Form.Item>
 					<Form.Item>
 						<Button type='primary' htmlType='submit' className='login-form-button button-hover'>
