@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
-import Main from './components/main';
+import Landing from './components/landingpage/landing';
 
 function App() {
-  return (
-    <Main />
-  );
+	return <Landing />;
 }
 
 export default App;
