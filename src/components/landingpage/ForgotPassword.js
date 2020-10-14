@@ -100,14 +100,14 @@ const ForgotPassword = () => {
 
   return (
     <div>
-      <Button
+      <a
         type="primary"
         onClick={() => {
           setState({ visible: true });
         }}
       >
         Forgot Password
-      </Button>
+      </a>
       <ForgotPasswordForm
         message={message}
         email={email}

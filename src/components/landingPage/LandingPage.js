@@ -11,9 +11,9 @@ const LandingPage = () => {
     <>
       <Layout className="content-landing">
         <Menu mode="horizontal">
-          <Button className="modified-item" type="link" href="https://www.codethedream.org/about/" target="_blank">About</Button>
-          <Button className="modified-item" type="link" href="https://www.codethedream.org/classes/" target="_blank">FAQS</Button>
-          <Button className="apply-btn" type="primary" href="https://www.codethedream.org/apply-now/" target="_blank" >Apply Now</Button>
+          <Menu.Item className="modified-item"><Button className="modified-item" type="link" href="https://www.codethedream.org/about/" target="_blank">About</Button></Menu.Item>
+          <Menu.Item className="modified-item"><Button className="modified-item" type="link" href="https://www.codethedream.org/classes/" target="_blank">FAQS</Button></Menu.Item>
+          <Menu.Item className="modified-item"><Button className="apply-btn" type="primary" href="https://www.codethedream.org/apply-now/" target="_blank" >Apply Now</Button></Menu.Item>
         </Menu>
         <Content >
           <Row gutter={[8, 8]} >

@@ -4,6 +4,7 @@ import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './index.css';
+import ForgotPassword from './ForgotPassword';
 
 
 const Login = ({ history }) => {
@@ -83,9 +84,7 @@ const Login = ({ history }) => {
               />
             </Form.Item>
             <Form.Item>
-              <a className="login-form-forgot" href="">
-                Forgot password
-          </a>
+              <ForgotPassword />
             </Form.Item>
 
             <Form.Item

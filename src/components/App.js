@@ -11,8 +11,6 @@ const App = () => {
     <div>
       <Router>
         <LandingPage />
-        {/* <Route path="/" exact component={Landing} />
-          <Route path="/home" exact component={Home} /> */}
       </Router>
     </div>
   )
