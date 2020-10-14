@@ -22,7 +22,7 @@ const ForgotPasswordForm = ({ visible, message, email, onSubmit, onCancel }) => 
   return (
     <Modal
       visible={visible}
-      title="Reset your password"
+      title="Forgot Password"
       onCancel={onCancel}
       footer={[
         <Button key="back" onClick={onCancel}>
@@ -43,7 +43,7 @@ const ForgotPasswordForm = ({ visible, message, email, onSubmit, onCancel }) => 
             :
             <>
               <Row type="flex" align="center" >
-                <strong>Enter your user account's verified email address and we will send you a password reset link.</strong>
+                Enter your user account's verified email address and we will send you a password reset link.
                 </Row>
               <Form
                 form={form}
@@ -101,7 +101,7 @@ const ForgotPassword = () => {
   return (
     <div>
       <Button
-        type="link"
+        type="primary"
         onClick={() => {
           setState({ visible: true });
         }}

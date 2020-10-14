@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import 'antd/dist/antd.css';
 
-import Dummy from './landingPage/Dummy';
-import Sidebar from './homePage/Sidebar';
+
+import LandingPage from './landingpage/LandingPage';
 
 const App = () => {
   return (
     <div>
       <Router>
-        <Sidebar />
+        <LandingPage />
         {/* <Route path="/" exact component={Landing} />
           <Route path="/home" exact component={Home} /> */}
       </Router>

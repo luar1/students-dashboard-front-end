@@ -20,7 +20,7 @@ import {
 
 import './Sidebar.css';
 import logo from '../../graphics/logo.png';
-import Dummy from '../landingPage/Dummy';
+import Dummy from '../landingpage/Dummy';
 import Assignments from '../homePage/Assignments';
 
 const { Header, Content, Footer, Sider } = Layout;
