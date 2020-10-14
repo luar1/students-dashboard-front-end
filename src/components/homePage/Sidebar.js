@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Avatar, Layout, Menu, Breadcrumb, Row, Col } from 'antd';
+import { Route, Switch, Link } from 'react-router-dom';
+import { Avatar, PageHeader, Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import {
-  DesktopOutlined,
+  BellOutlined,
   DashboardOutlined,
+  GithubOutlined,
   NotificationOutlined,
   BookOutlined,
   CalendarOutlined,
@@ -17,6 +19,9 @@ import {
 } from '@ant-design/icons';
 
 import './Sidebar.css';
+import logo from '../../graphics/logo.png';
+import Dummy from '../landingPage/Dummy';
+import Assignments from '../homePage/Assignments';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -43,13 +48,13 @@ const SiderDemo = () => {
         </Row>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="1" icon={<DashboardOutlined />}>
-            Dashboard
+            <Link to="/dummy">Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<NotificationOutlined />}>
             News
           </Menu.Item>
           <Menu.Item key="3" icon={<BookOutlined />}>
-            Assignments
+            <Link to="/assignments">Assignments</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<CalendarOutlined />}>
             Calendar
@@ -72,18 +77,42 @@ const SiderDemo = () => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }} />
+      <Layout className="site-layout" style={{ backgroundColor: "white" }}>
+        <Row type="flex">
+          <Col span={12}>
+            <img src={logo} style={{ width: "300px", height: "100px" }} />
+          </Col>
+          <Col span={12} align="center">
+            <BellOutlined style={{ width: "300px", height: "100px" }} />
+          </Col>
+        </Row>
+        <PageHeader className="site-layout-background" style={{ padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+            <Switch>
+              <Route path="/assignments" exact component={Assignments} />
+              <Route path="/dummy" exact component={Dummy} />
+            </Switch>
+          </div>
+          {/* <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
             Bill is a cat.
-            </div>
+          </div> */}
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer>
+          <Row type="flex">
+            <Col span={12}>
+              <div><strong>CODE THE DREAM | WWW.CODETHEDREAM.ORG</strong></div>
+            </Col>
+            <Col span={12} align="right" justify="center">
+              <GithubOutlined />
+            </Col>
+          </Row>
+        </Footer>
       </Layout>
     </Layout>
   );
