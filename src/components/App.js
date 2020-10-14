@@ -9,11 +9,9 @@ const App = () => {
   return (
     <div>
       <Router>
-        <Switch>
-          <Sidebar />
-          {/* <Route path="/" exact component={Landing} />
+        <Sidebar />
+        {/* <Route path="/" exact component={Landing} />
           <Route path="/home" exact component={Home} /> */}
-        </Switch>
       </Router>
     </div>
   )
