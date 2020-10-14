@@ -1,11 +1,18 @@
 import React from 'react';
-import './App.css';
-import Main from './components/main';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-function App() {
-  return (
-    <Main />
-  );
-}
+import 'antd/dist/antd.css';
+
+import LandingPage from './components/landingpage/LandingPage';
+
+const App = () => {
+	return (
+		<div>
+			<Router>
+				<LandingPage />
+			</Router>
+		</div>
+	);
+};
 
 export default App;
