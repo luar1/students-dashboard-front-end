@@ -25,7 +25,7 @@ import Assignments from '../homePage/Assignments';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const SiderDemo = () => {
+const Sidebar = () => {
   const [state, setState] = useState({ collapsed: false });
   const { collapsed } = state;
 
@@ -116,4 +116,4 @@ const SiderDemo = () => {
   );
 }
 
-export default SiderDemo;
+export default Sidebar;
