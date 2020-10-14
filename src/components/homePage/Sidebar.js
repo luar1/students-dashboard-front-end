@@ -20,7 +20,6 @@ import {
 
 import './Sidebar.css';
 import logo from '../../graphics/logo.png';
-import Dummy from '../landingPage/Dummy';
 import Assignments from '../homePage/Assignments';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -48,7 +47,7 @@ const SiderDemo = () => {
         </Row>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="1" icon={<DashboardOutlined />}>
-            <Link to="/dummy">Dashboard</Link>
+            Dashboard
           </Menu.Item>
           <Menu.Item key="2" icon={<NotificationOutlined />}>
             News
@@ -96,7 +95,6 @@ const SiderDemo = () => {
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
             <Switch>
               <Route path="/assignments" exact component={Assignments} />
-              <Route path="/dummy" exact component={Dummy} />
             </Switch>
           </div>
           {/* <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
