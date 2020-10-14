@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+
 import './index.css';
 import ForgotPassword from './ForgotPassword';
+import PrivateRoute from '../routes/PrivateRoute';
+import PublicRoute from '../routes/PublicRoute';
 
 const Login = ({ history }) => {
-	const [ state, setState ] = useState({ username: null, password: null, message: null, loading: null });
+	const [state, setState] = useState({ username: null, password: null, message: null, loading: null });
 	const { username, password, message, loading } = state;
 	const onFinish = async (values) => {
 		try {
@@ -25,9 +28,9 @@ const Login = ({ history }) => {
 	async function fetchData(values) {
 		try {
 			const response = await fetch('https://reqres.in/api/login', {
-				method  : 'POST',
-				body    : JSON.stringify(values),
-				headers : { 'Content-Type': 'application/json' }
+				method: 'POST',
+				body: JSON.stringify(values),
+				headers: { 'Content-Type': 'application/json' }
 			});
 			const message = await response.json();
 			return message;
@@ -44,7 +47,7 @@ const Login = ({ history }) => {
 					name='normal_login'
 					className='login-form'
 					initialValues={{
-						remember : true
+						remember: true
 					}}
 					onFinish={onFinish}
 				>
@@ -52,8 +55,8 @@ const Login = ({ history }) => {
 						name='username'
 						rules={[
 							{
-								required : true,
-								message  : 'Enter a valid email address'
+								required: true,
+								message: 'Enter a valid email address'
 							}
 						]}
 						help={message ? message.error : null}
@@ -64,8 +67,8 @@ const Login = ({ history }) => {
 						name='password'
 						rules={[
 							{
-								required : true,
-								message  : 'Enter your password'
+								required: true,
+								message: 'Enter your password'
 							}
 						]}
 					>

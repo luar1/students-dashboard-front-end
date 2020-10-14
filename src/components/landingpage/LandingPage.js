@@ -2,8 +2,9 @@ import React from 'react';
 import { Layout, Menu, Button, Row, Col } from 'antd';
 import { SlackOutlined, GithubOutlined, } from '@ant-design/icons';
 
+
 import './index.css';
-import Login from './Login'
+import Login from './Login';
 
 const { Footer, Content } = Layout;
 const LandingPage = () => {
