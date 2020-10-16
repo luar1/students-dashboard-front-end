@@ -12,7 +12,7 @@ const App = () => {
     <Router>
       <CookiesProvider>
         <AuthStore>
-          <Sidebar />
+          <LandingPage />
         </AuthStore>
       </CookiesProvider>
     </Router>
