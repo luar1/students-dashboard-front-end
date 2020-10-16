@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+/* @import '~antd/dist/antd.css'; */
 html {
   box-sizing: border-box;
 }
@@ -108,7 +108,6 @@ width:380px;
     z-index:2;
     background: url(main.png) no-repeat center center fixed;
     background-size: cover; 
- 
   }
 
   /*footer*/
