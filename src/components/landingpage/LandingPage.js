@@ -3,7 +3,6 @@ import { Layout, Menu, Button, Row, Col } from 'antd';
 import { SlackOutlined, GithubOutlined, } from '@ant-design/icons';
 import styled from 'styled-components';
 
-
 // import './index.css';
 import Login from './Login';
 import main from './main.png';
@@ -250,7 +249,7 @@ box-shadow: 7px 7px 19px -12px rgba(0,0,0,0.72);
 `
 
 const { Footer, Content } = Layout;
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
   return (
     <StyledDiv>
       <Layout className="content-landing">
@@ -269,7 +268,7 @@ const LandingPage = () => {
                     This website is your main hub for class materials for Code the Dream’s classes.</p><p>Login to access and start your assignments.
                   </p>
                 </div>
-                <div><Login /></div>
+                <div><Login history={history} /></div>
 
               </div>
             </Col>

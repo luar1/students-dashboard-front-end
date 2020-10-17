@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import AuthContext from '../contexts/AuthContext';
 import 'antd/dist/antd.css';
 
 import './index.css';
+import { LOGIN_LINK } from '../../constants/constants';
 import ForgotPassword from './ForgotPassword';
-import PrivateRoute from '../routes/PrivateRoute';
-import PublicRoute from '../routes/PublicRoute';
 
 const Login = ({ history }) => {
-	const [state, setState] = useState({ username: null, password: null, message: null, loading: null });
-	const { username, password, message, loading } = state;
+	const [state, setState] = useState({ email: null, password: null, user: null, loading: null });
+	const { email, password, user, loading } = state;
+	const [authUser, setAuthUser] = useContext(AuthContext);
+
 	const onFinish = async (values) => {
 		try {
 			setState({ loading: true });
-			const message = await fetchData(values);
-			setState({ values, message, loading: false });
-			console.log(message);
-			history.push('/home');
+			const res = await fetchData(values);
+			setState({ values, user: res, loading: false });
+			if (res.hasOwnProperty('token')) {
+				setAuthUser(res.token)
+				history.push('/home');
+			}
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -27,7 +31,7 @@ const Login = ({ history }) => {
 
 	async function fetchData(values) {
 		try {
-			const response = await fetch('https://reqres.in/api/login', {
+			const response = await fetch(LOGIN_LINK, {
 				method: 'POST',
 				body: JSON.stringify(values),
 				headers: { 'Content-Type': 'application/json' }
@@ -52,16 +56,16 @@ const Login = ({ history }) => {
 					onFinish={onFinish}
 				>
 					<Form.Item
-						name='username'
+						name='email'
 						rules={[
 							{
 								required: true,
 								message: 'Enter a valid email address'
 							}
 						]}
-						help={message ? message.error : null}
+						help={user ? user.error : null}
 					>
-						<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='username' />
+						<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='email' />
 					</Form.Item>
 					<Form.Item
 						name='password'
