@@ -20,7 +20,7 @@ import {
 
 // import './Sidebar.css';
 import logo from '../../graphics/logo.png';
-import Assignments from '../homePage/Assignments';
+import Assignments from './Assignments';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
