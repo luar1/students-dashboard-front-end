@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import ForgotPassword from './ForgotPassword';
 
 import './index.css';
+import ForgotPassword from './ForgotPassword';
+import AuthContext from '../contexts/AuthContext';
 import { LOGIN_LINK } from '../../constants/constants';
 
 const Login = ({ history }) => {
 	const [state, setState] = useState({ username: null, password: null, signIn: null, loading: null });
 	const { username, password, signIn, loading } = state;
+	const setAuth = useContext(AuthContext);
 	const onFinish = async (values) => {
 		try {
 			setState({ loading: true });
 			const res = await fetchData(values);
 			setState({ values, signIn: res, loading: false });
-
+			console.log(res)
 			if (res.hasOwnProperty('token')) {
+				setAuth(res.token);
 				history.push('/home');
 			}
 

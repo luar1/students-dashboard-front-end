@@ -34,13 +34,13 @@ padding:150px 20px 0 20px;
   }
 `;
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
   return (
     <>
       <Navbar />
       <Section>
         <Main>
-          <Login />
+          <Login history={history} />
         </Main>
       </Section>
       <FooterPage />
