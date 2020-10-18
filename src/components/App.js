@@ -8,6 +8,8 @@ import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import LandingPage from './landingPage/LandingPage';
 import Sidebar from './homePage/HomePage';
+import GlobalStyle from '../styles/Global';
+import 'antd/dist/antd.css';
 
 const App = () => {
   return (
