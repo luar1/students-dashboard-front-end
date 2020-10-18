@@ -47,7 +47,7 @@ const Login = ({ history }) => {
 		<div className=' col-4 contain'>
 			<h1>
 				Welcome to CTD's School
-				<span class='span-txt'>This website is your main hub for class materials for Code the Dream’s classes.</span>
+				<span className='span-txt'>This website is your main hub for class materials for Code the Dream’s classes.</span>
 			</h1>
 
 			<div className='form'>
@@ -71,6 +71,8 @@ const Login = ({ history }) => {
 								}
 							]}
 							help={signIn ? signIn.error : null}
+							hasFeedback
+							validateStatus={loading ? 'validating' : null}
 						>
 							<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='email' />
 						</Form.Item>
@@ -82,6 +84,8 @@ const Login = ({ history }) => {
 									message: 'Enter your password'
 								}
 							]}
+							hasFeedback
+							validateStatus={loading ? 'validating' : null}
 						>
 							<Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='password' />
 						</Form.Item>
@@ -90,12 +94,15 @@ const Login = ({ history }) => {
 								<ForgotPassword />
 							</div>
 						</Form.Item>
-						<Form.Item hasFeedback validateStatus={loading ? 'validating' : null}>
+						<Form.Item>
 							<Button type='primary' htmlType='submit' className='login-form-button button-hover' id='validating'>
 								Login
 							</Button>
 						</Form.Item>
 					</Form>
+					{/* <div align="center">
+						{signIn ? signIn.error : null}
+					</div> */}
 				</div>
 			</div>
 		</div>
