@@ -10,7 +10,7 @@ import { LOGIN_LINK } from '../../constants/constants';
 const Login = ({ history }) => {
 	const [state, setState] = useState({ username: null, password: null, signIn: null, loading: null });
 	const { username, password, signIn, loading } = state;
-	const setAuth = useContext(AuthContext);
+	const [authUser, setAuthUser] = useContext(AuthContext);
 	const onFinish = async (values) => {
 		try {
 			setState({ loading: true });
@@ -18,7 +18,7 @@ const Login = ({ history }) => {
 			setState({ values, signIn: res, loading: false });
 			console.log(res)
 			if (res.hasOwnProperty('token')) {
-				setAuth(res.token);
+				setAuthUser(res.token);
 				history.push('/home');
 			}
 
@@ -66,6 +66,7 @@ const Login = ({ history }) => {
 							rules={[
 								{
 									required: true,
+									type: 'email',
 									message: 'Enter a valid email address'
 								}
 							]}
