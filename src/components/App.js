@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import { AuthStore } from './contexts/AuthContext';
-import './landingPage/node_modules/antd/dist/antd.css';
 
 import * as ROUTES from '../constants/routes';
 import PrivateRoute from './routes/PrivateRoute';
