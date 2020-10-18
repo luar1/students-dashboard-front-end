@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styled from 'styled-components';
 import Login from './Login'
@@ -35,15 +34,15 @@ padding:150px 20px 0 20px;
   }
 `;
 
-const LandingPage = () => {
+const LandingPage = ({ history }) => {
   return (
-      <>
+    <>
       <Navbar />
-        <Section>
-          <Main>
-            <Login />
-          </Main>
-        </Section>
+      <Section>
+        <Main>
+          <Login history={history} />
+        </Main>
+      </Section>
       <FooterPage />
     </>
   );

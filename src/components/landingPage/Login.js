@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
 import './index.css';
 import ForgotPassword from './ForgotPassword';
+import AuthContext from '../contexts/AuthContext';
+import { LOGIN_LINK } from '../../constants/constants';
 
 const Login = ({ history }) => {
-	const [ state, setState ] = useState({ username: null, password: null, message: null, loading: null });
-	const { username, password, message, loading } = state;
+	const [state, setState] = useState({ username: null, password: null, signIn: null, loading: null });
+	const { username, password, signIn, loading } = state;
+	const [authUser, setAuthUser] = useContext(AuthContext);
 	const onFinish = async (values) => {
 		try {
 			setState({ loading: true });
-			const message = await fetchData(values);
-			setState({ values, message, loading: false });
-			console.log(message);
-			history.push('/home');
+			const res = await fetchData(values);
+			setState({ values, signIn: res, loading: false });
+			console.log(res)
+			if (res.hasOwnProperty('token')) {
+				setAuthUser(res.token);
+				history.push('/home');
+			}
+
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -23,10 +31,10 @@ const Login = ({ history }) => {
 
 	async function fetchData(values) {
 		try {
-			const response = await fetch('https://reqres.in/api/login', {
-				method  : 'POST',
-				body    : JSON.stringify(values),
-				headers : { 'Content-Type': 'application/json' }
+			const response = await fetch(LOGIN_LINK, {
+				method: 'POST',
+				body: JSON.stringify(values),
+				headers: { 'Content-Type': 'application/json' }
 			});
 			const message = await response.json();
 			return message;
@@ -39,7 +47,7 @@ const Login = ({ history }) => {
 		<div className=' col-4 contain'>
 			<h1>
 				Welcome to CTD's School
-				<span class='span-txt'>This website is your main hub for class materials for Code the Dream’s classes.</span>
+				<span className='span-txt'>This website is your main hub for class materials for Code the Dream’s classes.</span>
 			</h1>
 
 			<div className='form'>
@@ -49,30 +57,35 @@ const Login = ({ history }) => {
 						name='normal_login'
 						className='login-form'
 						initialValues={{
-							remember : true
+							remember: true
 						}}
 						onFinish={onFinish}
 					>
 						<Form.Item
-							name='username'
+							name='email'
 							rules={[
 								{
-									required : true,
-									message  : 'Enter a valid email address'
+									required: true,
+									type: 'email',
+									message: 'Enter a valid email address'
 								}
 							]}
-							help={message ? message.error : null}
+							help={signIn ? signIn.error : null}
+							hasFeedback
+							validateStatus={loading ? 'validating' : null}
 						>
-							<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='username' />
+							<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='email' />
 						</Form.Item>
 						<Form.Item
 							name='password'
 							rules={[
 								{
-									required : true,
-									message  : 'Enter your password'
+									required: true,
+									message: 'Enter your password'
 								}
 							]}
+							hasFeedback
+							validateStatus={loading ? 'validating' : null}
 						>
 							<Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='password' />
 						</Form.Item>
@@ -81,12 +94,15 @@ const Login = ({ history }) => {
 								<ForgotPassword />
 							</div>
 						</Form.Item>
-						<Form.Item hasFeedback validateStatus={loading ? 'validating' : null}>
+						<Form.Item>
 							<Button type='primary' htmlType='submit' className='login-form-button button-hover' id='validating'>
 								Login
 							</Button>
 						</Form.Item>
 					</Form>
+					{/* <div align="center">
+						{signIn ? signIn.error : null}
+					</div> */}
 				</div>
 			</div>
 		</div>

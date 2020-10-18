@@ -44,7 +44,7 @@ const ForgotPasswordForm = ({ visible, message, email, onSubmit, onCancel }) => 
             <>
               <Row type="flex" align="center" >
                 <strong>Enter your user account's verified email address and we will send you a password reset link.</strong>
-                </Row>
+              </Row>
               <Form
                 form={form}
                 layout="vertical"
