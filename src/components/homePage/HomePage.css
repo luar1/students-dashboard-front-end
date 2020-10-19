@@ -1,13 +1,14 @@
-.logo {
-  height: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px;
-}
 
-.site-layout .site-layout-background {
-  background: #fff;
+.site-layout, .site-layout-background , .header{
+  background-color: #fff;
 }
 
 .username {
   color: white;
+}
+
+.white-gray{
+
+  border: 1px solid #ccc;
+  margin:20px;
 }
