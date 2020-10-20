@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  
+  .calendar-button {
+    background-color: #ff5c35;
+    color: #12284c;
+  }
+  
+  .calendar-button:hover {
+    background-color: #f1f1f2;
+    color: #ff5c35;
+    border: 1px solid #C0C0C0;
+  }
+  
+  .home-block {
+    color: black;
+    border: 1px solid #C0C0C0;
+    border-radius: 10px;
+    width: 70%;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .todo-list {
+    margin: 10px;
+    padding: 10px;
+    padding-left: 40px;
+    border: 1px solid #D3D3D3;
+    border-radius: 10px;
+    width: 250px;
+    background-color: #f1f1f2;
+    box-shadow: 0 3px #C8C8C8;
+  }
+  
+  .todo-buttons {
+    color: #0275d8;
+    border-style: none;
+  }
+  
+  .todo-input {
+    border-radius: 10px;
+    border: 1px solid #0275d8;
+  }
