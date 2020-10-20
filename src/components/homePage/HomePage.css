@@ -12,3 +12,35 @@
   border: 1px solid #ccc;
   margin:20px;
 }
+
+.cal-home{
+  display:flex;
+  flex-flow:column wrap;
+  width: 300px;
+  font-size:0.6rem;
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
+}
+
+.cal-legend{
+  padding:30px 10px;
+  border-top:1px solid #ccc;
+}
+
+.custom-card {
+  display:flex;
+  position: 'absolute';
+  left: 0;
+  right: 0;
+}
+
+.badge{
+  width:100%;
+  display:flex;
+}
+.badge img{
+  width:100px;
+  margin-right: 40px;
+  display:flex;
+}

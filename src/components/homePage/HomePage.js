@@ -6,6 +6,8 @@ import logo from '../../graphics/logo.png';
 import ctd from '../landingPage/graphics/ctd.png';
 import treehouse from '../landingPage/graphics/treehouse.png';
 import Assignments from './Assignments';
+import Calendar from './Calendar';
+import Summary from './Summary';
 import {UserCircle} from '@styled-icons/boxicons-solid/UserCircle'
 import {PageHeader, Layout, Menu, Row, Col} from 'antd';
 import {
@@ -201,12 +203,20 @@ const Sidebar = () => {
               <Route path="/assignments" exact component={Assignments} />
             </Switch>
 
-            <Row>
+            <Row gutter={[16, 24]}>
     <Col span={6} push={18}  style={{border: "1px solid #ccc" }}>
-      col-18 col-push-6
+    <Row gutter={[16, 24]}>
+      <Col span={24} style={{border: "1px solid #ccc" }}>Buttons</Col>
+      <Col span={24} style={{border: "1px solid #ccc" }}>To Do </Col>
+      <Col span={24} style={{border: "1px solid #ccc" }}><Calendar /></Col>
+    </Row>
     </Col>
     <Col span={18} pull={6}  style={{border: "1px solid #ccc" }}>
-      col-6 col-pull-18
+    <Row gutter={[16, 24]}>
+      <Col span={24} style={{border: "1px solid #ccc" }}><Summary /></Col>
+      <Col span={24} style={{border: "1px solid #ccc" }}>Progress</Col>
+      <Col span={24} style={{border: "1px solid #ccc" }}>Quick Links</Col>
+    </Row>
     </Col>
   </Row>
           </div>
