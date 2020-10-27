@@ -32,7 +32,8 @@ const HomePage = ({ match, history }) => {
   const KEYS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   const [collapsed, setCollapsed] = useState(false);
   const [selectedKey, setSelectedKey] = useState([KEYS[0]]);
-  const page = `${history.location.pathname.split('/')[2].charAt(0).toUpperCase()}${history.location.pathname.split('/')[2].slice(1)}`;
+  const page = 'home';
+  // const page = `${history.location.pathname.split('/')[2].charAt(0).toUpperCase()}${history.location.pathname.split('/')[2].slice(1)}` || 'home';
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);

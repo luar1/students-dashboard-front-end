@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import { AuthStore } from './contexts/AuthContext';
 
@@ -18,6 +18,7 @@ const App = () => {
         <AuthStore>
           <GlobalStyles />
           <Switch>
+            <Route path={ROUTES.HOME} exact render={() => <Redirect to={`${ROUTES.HOME}${ROUTES.DASHBOARD}`} />} />
             <PrivateRoute path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.LANDING} exact component={LandingPage} />
           </Switch>
