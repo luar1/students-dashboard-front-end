@@ -29,14 +29,13 @@ const { SubMenu } = Menu;
 
 
 const HomePage = ({ match, history }) => {
-  const [state, setState] = useState({ collapsed: false });
-  const { collapsed } = state;
+  const KEYS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const [collapsed, setCollapsed] = useState(false);
+  const [selectedKey, setSelectedKey] = useState([KEYS[0]]);
 
   const onCollapse = collapsed => {
-    setState({ collapsed });
+    setCollapsed(collapsed);
   };
-
-  console.log(history)
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -49,33 +48,33 @@ const HomePage = ({ match, history }) => {
             <div className="username">Username</div>
           </Col>
         </Row>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1" icon={<DashboardOutlined />}>
+        <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" selectedKeys={selectedKey} onClick={({ key }) => setSelectedKey(key)}>
+          <Menu.Item key={KEYS[0]} icon={<DashboardOutlined />}>
             <Link to={`${match.path}${ROUTES.DASHBOARD}`}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<NotificationOutlined />}>
+          <Menu.Item key={KEYS[1]} icon={<NotificationOutlined />}>
             News
           </Menu.Item>
-          <Menu.Item key="3" icon={<BookOutlined />}>
+          <Menu.Item key={KEYS[2]} icon={<BookOutlined />}>
             <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>Assignments</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<CalendarOutlined />}>
+          <Menu.Item key={KEYS[3]} icon={<CalendarOutlined />}>
             Calendar
           </Menu.Item>
-          <Menu.Item key="5" icon={<UserOutlined />}>
+          <Menu.Item key={KEYS[4]} icon={<UserOutlined />}>
             Mentors
           </Menu.Item>
-          <Menu.Item key="6" icon={<TeamOutlined />}>
+          <Menu.Item key={KEYS[5]} icon={<TeamOutlined />}>
             Classmates
           </Menu.Item>
-          <Menu.Item key="7" icon={<DisconnectOutlined />}>
+          <Menu.Item key={KEYS[6]} icon={<DisconnectOutlined />}>
             CTD
           </Menu.Item>
           <SubMenu key="sub1" icon={<FundProjectionScreenOutlined />} title="Resources">
-            <Menu.Item key="8" icon={<SlackOutlined />}>Slack Channel</Menu.Item>
-            <Menu.Item key="9" icon={<YoutubeOutlined />}>Treehouse</Menu.Item>
+            <Menu.Item key={KEYS[7]} icon={<SlackOutlined />}>Slack Channel</Menu.Item>
+            <Menu.Item key={KEYS[8]} icon={<YoutubeOutlined />}>Treehouse</Menu.Item>
           </SubMenu>
-          <Menu.Item key="10" icon={<RocketOutlined />}>
+          <Menu.Item key={KEYS[9]} icon={<RocketOutlined />}>
             Students Projects
           </Menu.Item>
         </Menu>
@@ -97,10 +96,9 @@ const HomePage = ({ match, history }) => {
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            <AssignmentSummary />
             <Switch>
-              {/* <PrivateRoute path={`${match.path}${ROUTES.DASHBOARD}`} component={AssignmentSummary} /> */}
-              {/* <PrivateRoute path={`${match.path}${ROUTES.ASSIGNMENTS}`} component={Assignments} /> */}
+              <PrivateRoute path={`${match.path}${ROUTES.DASHBOARD}`} component={(props) => <AssignmentSummary {...props} menuKey={KEYS[2]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />} />
+              <PrivateRoute path={`${match.path}${ROUTES.ASSIGNMENTS}`} component={Assignments} />
             </Switch>
           </div>
         </Content>

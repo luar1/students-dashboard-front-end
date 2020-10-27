@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './index.css';
+import * as ROUTES from '../../constants/routes';
 import ForgotPassword from './ForgotPassword';
 import AuthContext from '../contexts/AuthContext';
 import { LOGIN_LINK } from '../../constants/constants';
@@ -20,7 +21,7 @@ const Login = ({ history }) => {
 
 			if (res.hasOwnProperty('token')) {
 				setAuthUser(res.token);
-				history.push('/home');
+				history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);
 			}
 
 		} catch (e) {
