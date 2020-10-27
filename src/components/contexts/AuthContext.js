@@ -6,16 +6,20 @@ const Context = React.createContext();
 
 export const AuthStore = ({ children }) => {
   const [cookies, setCookie] = useCookies(['auth_token']);
-  const [authUser, setAuthUser] = useState(null);
+  const [authUser, setAuthUser] = useState(cookies['auth_token']);
   let token = null;
 
-  if (!_.isEmpty(cookies)) {
-    token = cookies['auth_token'];
+  if (authUser && _.isEmpty(cookies)) {
+    setCookie('auth_token', authUser)
   }
+
+  // if (!_.isEmpty(cookies)) {
+  //   token = cookies['auth_token'];
+  // }
 
   return (
     <Context.Provider
-      value={([authUser, setAuthUser])}
+      value={[authUser, setAuthUser]}
     >
       {children}
     </Context.Provider>

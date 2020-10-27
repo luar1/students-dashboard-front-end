@@ -11,12 +11,13 @@ const Login = ({ history }) => {
 	const [state, setState] = useState({ username: null, password: null, signIn: null, loading: null });
 	const { username, password, signIn, loading } = state;
 	const [authUser, setAuthUser] = useContext(AuthContext);
+
 	const onFinish = async (values) => {
 		try {
 			setState({ loading: true });
 			const res = await fetchData(values);
 			setState({ values, signIn: res, loading: false });
-			console.log(res)
+
 			if (res.hasOwnProperty('token')) {
 				setAuthUser(res.token);
 				history.push('/home');
@@ -26,8 +27,6 @@ const Login = ({ history }) => {
 			console.log(e.message);
 		}
 	};
-
-	console.log(state);
 
 	async function fetchData(values) {
 		try {
@@ -52,58 +51,65 @@ const Login = ({ history }) => {
 
 			<div className='form'>
 				<h2>Sign In</h2>
-				<div className='col-10 mx-auto'>
-					<Form
-						name='normal_login'
-						className='login-form'
-						initialValues={{
-							remember: true
-						}}
-						onFinish={onFinish}
-					>
-						<Form.Item
-							name='email'
-							rules={[
-								{
-									required: true,
-									type: 'email',
-									message: 'Enter a valid email address'
-								}
-							]}
-							help={signIn ? signIn.error : null}
-							hasFeedback
-							validateStatus={loading ? 'validating' : null}
-						>
-							<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='email' />
-						</Form.Item>
-						<Form.Item
-							name='password'
-							rules={[
-								{
-									required: true,
-									message: 'Enter your password'
-								}
-							]}
-							hasFeedback
-							validateStatus={loading ? 'validating' : null}
-						>
-							<Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='password' />
-						</Form.Item>
-						<Form.Item>
-							<div className='login-form-forgot'>
-								<ForgotPassword />
-							</div>
-						</Form.Item>
-						<Form.Item>
-							<Button type='primary' htmlType='submit' className='login-form-button button-hover' id='validating'>
-								Login
+				{
+					authUser ?
+						<div>
+							You are signed in
+				</div>
+						:
+						<div className='col-10 mx-auto'>
+							<Form
+								name='normal_login'
+								className='login-form'
+								initialValues={{
+									remember: true
+								}}
+								onFinish={onFinish}
+							>
+								<Form.Item
+									name='email'
+									rules={[
+										{
+											required: true,
+											type: 'email',
+											message: 'Enter a valid email address'
+										}
+									]}
+									help={signIn ? signIn.error : null}
+									hasFeedback
+									validateStatus={loading ? 'validating' : null}
+								>
+									<Input prefix={<UserOutlined className='site-form-item-icon' />} placeholder='email' />
+								</Form.Item>
+								<Form.Item
+									name='password'
+									rules={[
+										{
+											required: true,
+											message: 'Enter your password'
+										}
+									]}
+									hasFeedback
+									validateStatus={loading ? 'validating' : null}
+								>
+									<Input prefix={<LockOutlined className='site-form-item-icon' />} type='password' placeholder='password' />
+								</Form.Item>
+								<Form.Item>
+									<div className='login-form-forgot'>
+										<ForgotPassword />
+									</div>
+								</Form.Item>
+								<Form.Item>
+									<Button type='primary' htmlType='submit' className='login-form-button button-hover' id='validating'>
+										Login
 							</Button>
-						</Form.Item>
-					</Form>
-					{/* <div align="center">
+								</Form.Item>
+							</Form>
+							{/* <div align="center">
 						{signIn ? signIn.error : null}
 					</div> */}
-				</div>
+						</div>
+				}
 			</div>
 		</div>
 	);

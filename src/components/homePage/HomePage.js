@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Avatar, PageHeader, Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import {
   BellOutlined,
@@ -18,22 +18,25 @@ import {
 
 } from '@ant-design/icons';
 
-// import './Sidebar.css';
+import * as ROUTES from '../../constants/routes';
 import logo from '../../graphics/logo.png';
+import AssignmentSummary from './AssignmentSummary';
 import Assignments from './Assignments';
+import PrivateRoute from '../routes/PrivateRoute';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 
-const Sidebar = () => {
+const HomePage = ({ match, history }) => {
   const [state, setState] = useState({ collapsed: false });
   const { collapsed } = state;
 
   const onCollapse = collapsed => {
-    console.log(collapsed);
     setState({ collapsed });
   };
+
+  console.log(history)
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -48,13 +51,13 @@ const Sidebar = () => {
         </Row>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
           <Menu.Item key="1" icon={<DashboardOutlined />}>
-            Dashboard
+            <Link to={`${match.path}${ROUTES.DASHBOARD}`}>Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<NotificationOutlined />}>
             News
           </Menu.Item>
           <Menu.Item key="3" icon={<BookOutlined />}>
-            <Link to="/assignments">Assignments</Link>
+            <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>Assignments</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<CalendarOutlined />}>
             Calendar
@@ -94,13 +97,12 @@ const Sidebar = () => {
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+            <AssignmentSummary />
             <Switch>
-              <Route path="/assignments" exact component={Assignments} />
+              {/* <PrivateRoute path={`${match.path}${ROUTES.DASHBOARD}`} component={AssignmentSummary} /> */}
+              {/* <PrivateRoute path={`${match.path}${ROUTES.ASSIGNMENTS}`} component={Assignments} /> */}
             </Switch>
           </div>
-          {/* <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            Bill is a cat.
-          </div> */}
         </Content>
         <Footer>
           <Row type="flex">
@@ -117,4 +119,4 @@ const Sidebar = () => {
   );
 }
 
-export default Sidebar;
+export default HomePage;

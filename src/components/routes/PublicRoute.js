@@ -5,7 +5,7 @@ import AuthContext from '../contexts/AuthContext';
 
 const PublicRoute = ({ component: Component, ...rest }) => {
   const [authUser, setAuthUser] = useContext(AuthContext);
-
+  console.log(authUser)
   return (
     <Route
       {...rest}
