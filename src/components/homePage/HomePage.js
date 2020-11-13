@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Avatar, PageHeader, Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 import {
@@ -20,8 +20,8 @@ import {
 
 import * as ROUTES from '../../constants/routes';
 import logo from '../../graphics/logo.png';
-import AssignmentSummary from './AssignmentSummary';
-import Assignments from './Assignments';
+import AssignmentSummary from './assignments/AssignmentSummary';
+import Assignments from './assignments/Assignments';
 import PrivateRoute from '../routes/PrivateRoute';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,6 +37,33 @@ const HomePage = ({ match, history }) => {
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
   };
+
+  useEffect(() => {
+    switch (page) {
+      case 'Dashboard':
+        return setSelectedKey(KEYS[0]);
+      case 'News':
+        return setSelectedKey(KEYS[1]);
+      case 'Assignments':
+        return setSelectedKey(KEYS[2]);
+      case 'Calendar':
+        return setSelectedKey(KEYS[3]);
+      case 'Mentors':
+        return setSelectedKey(KEYS[4]);
+      case 'Classmates':
+        return setSelectedKey(KEYS[5]);
+      case 'CTD':
+        return setSelectedKey(KEYS[6]);
+      case 'Slack_Channel':
+        return setSelectedKey(KEYS[7]);
+      case 'Treehouse':
+        return setSelectedKey(KEYS[8]);
+      case 'Projects':
+        return setSelectedKey(KEYS[9]);
+      default:
+        return new Error();
+    }
+  }, [])
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

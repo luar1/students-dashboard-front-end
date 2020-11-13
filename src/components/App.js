@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import { AuthStore } from './contexts/AuthContext';
+import { UserStore } from './contexts/UserContext';
 
 import * as ROUTES from '../constants/routes';
 import PrivateRoute from './routes/PrivateRoute';
@@ -16,12 +17,14 @@ const App = () => {
     <BrowserRouter>
       <CookiesProvider>
         <AuthStore>
-          <GlobalStyles />
-          <Switch>
-            <Route path={ROUTES.HOME} exact render={() => <Redirect to={`${ROUTES.HOME}${ROUTES.DASHBOARD}`} />} />
-            <PrivateRoute path={ROUTES.HOME} component={HomePage} />
-            <Route path={ROUTES.LANDING} exact component={LandingPage} />
-          </Switch>
+          <UserStore>
+            <GlobalStyles />
+            <Switch>
+              <Route path={ROUTES.HOME} exact render={() => <Redirect to={`${ROUTES.HOME}${ROUTES.DASHBOARD}`} />} />
+              <PrivateRoute path={ROUTES.HOME} component={HomePage} />
+              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            </Switch>
+          </UserStore>
         </AuthStore>
       </CookiesProvider>
     </BrowserRouter>

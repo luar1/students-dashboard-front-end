@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 
-import * as ROUTES from '../../constants/routes';
+import * as ROUTES from '../../../constants/routes';
 
 const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
 

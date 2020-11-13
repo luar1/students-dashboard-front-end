@@ -1,26 +1,39 @@
 import React, { useState, useContext } from 'react';
 import { Button, Form, Input } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, AlignLeftOutlined } from '@ant-design/icons';
 
 import './index.css';
 import * as ROUTES from '../../constants/routes';
 import ForgotPassword from './ForgotPassword';
 import AuthContext from '../contexts/AuthContext';
+import UserContext from '../contexts/UserContext';
 import { LOGIN_LINK } from '../../constants/constants';
 
 const Login = ({ history }) => {
-	const [state, setState] = useState({ username: null, password: null, signIn: null, loading: null });
-	const { username, password, signIn, loading } = state;
+	const [loginState, setLoginState] = useState({ error: null, loading: null });
+	const { error, loading } = loginState;
 	const [authUser, setAuthUser] = useContext(AuthContext);
+	const [userInfo, dispatchUser] = useContext(UserContext);
+	// const [state, dispatch] = useContext(AuthContext);
+	// const { authUser, username, email, course } = state;
+	// console.log('authUser', authUser)
 
 	const onFinish = async (values) => {
+		const { email } = values;
 		try {
-			setState({ loading: true });
+			// Have loading symbol turned on
+			setLoginState({ loading: true });
+			// Get user information + token
 			const res = await fetchData(values);
-			setState({ values, signIn: res, loading: false });
-
+			// Update state with form values, token, loading=false
+			setLoginState({ error: res, loading: false });
+			// Check if res has jwt
 			if (res.hasOwnProperty('token')) {
+				// Update auth context with jwt
 				setAuthUser(res.token);
+				console.log(values)
+				// dispatch({ type: 'all', payload: { field: 'all', value: { email, username: 'Jerry', course: 'High Noon' } } });
+				// Switch to home page
 				history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);
 			}
 
@@ -38,8 +51,8 @@ const Login = ({ history }) => {
 			});
 			const message = await response.json();
 			return message;
-		} catch (error) {
-			console.log('error');
+		} catch (e) {
+			console.log(e.message);
 		}
 	}
 
@@ -76,7 +89,7 @@ const Login = ({ history }) => {
 											message: 'Enter a valid email address'
 										}
 									]}
-									help={signIn ? signIn.error : null}
+									help={error ? error.error : null}
 									hasFeedback
 									validateStatus={loading ? 'validating' : null}
 								>
