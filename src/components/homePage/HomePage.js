@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, Link } from "react-router-dom";
-import styled from "styled-components";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
-import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Grid, Tag, Space, Avatar } from "antd";
+import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Avatar } from "antd";
 import {
   SettingOutlined,
   BellOutlined,
@@ -29,90 +28,10 @@ import Dashboard from './dashboard/Dashboard';
 import AssignmentSummary from './assignments/AssignmentSummary';
 import Assignments from './assignments/Assignments';
 import PrivateRoute from '../routes/PrivateRoute';
+import { HeaderPage, Logo, TopNav, FooterBottom, Copyright, Icon, FooterLinks } from './styles/styles';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
-const HeaderPage = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
-`;
-const Logo = styled.div`
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 20px;
-`;
-const TopNav = styled.div`
-    display: flex;
-    padding: 16px;
-    padding-right: 30px;
-    justify-content: space-between;
-    align-items: center;
-    color: #ccc;
-    font-size: 18px;
-    width: 160px;
-`;
-const FooterBottom = styled.footer`
-    z-index: 4;
-    width: 100%;
-    flex: none;
-    display: block;
-    font-weight: 500;
-    color: #272727;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    @media only screen and (max-width: 767px) {
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        height: 100px;
-        padding-left: 0;
-    }
-`;
-const Copyright = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    span {
-        padding-top: 0px;
-        font-size: 20px;
-    }
-`;
-const Icon = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #272727;
-    width: 180px;
-    padding-right: 20px;
-    img {
-        width: 18px;
-        filter: invert(100%);
-    }
-    @media only screen and (max-width: 767px) {
-        padding-right: 0;
-        padding-top: 12px;
-    }
-`;
-const FooterLinks = styled.a`
-    display: flex;
-    font-size: 20px;
-    color: #272727;
-    &:hover {
-        color: #272727;
-        cursor: pointer;
-    }
-`;
 
 const HomePage = ({ match, history }) => {
   const KEYS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
