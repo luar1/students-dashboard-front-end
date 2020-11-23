@@ -5,6 +5,8 @@ import AuthContext from '../contexts/AuthContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const [authUser, setAuthUser] = useContext(AuthContext);
+  // const [state, dispatch] = useContext(AuthContext);
+  // const { authUser, username, email, course } = state;
 
   return (
     <Route
