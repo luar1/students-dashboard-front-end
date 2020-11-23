@@ -20,13 +20,34 @@ const CalendarButton = () => {
         a {
             color: #12284c;
         }
-        a:hover {
-            color: #ff5c35;
-        }
         &:hover {
             background-color: #f1f1f2;
             color: #ff5c35;
             border: 1px solid #c0c0c0;
+        }
+        @media only screen and (max-width: 767px) {
+                position: fixed;
+                right: 32px;
+                bottom: 60px;
+                z-index: 2147483640;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                justify-content:center;
+                align-items:center;
+                cursor: pointer;
+                border-radius: 50%;
+                 height: 80px;
+                width: 80px;
+                padding:0;
+                line-height:1;
+                 box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
+                 transition: all 0.1s ease-in-out;
+}
         }
     `;
 

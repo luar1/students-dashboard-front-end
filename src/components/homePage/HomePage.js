@@ -17,7 +17,7 @@ import SmallCalendar from "../smallCalendar/smallCalendar";
 import BigCalendar from "../bigCalendar/BigCalendar";
 import * as ROUTES from "../../constants/routes";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
-import { PageHeader, Layout, Menu, Row, Col, Grid, Tag, Space } from "antd";
+import { PageHeader, Layout, Menu, Row, Col, Grid, Tag, Space, Avatar } from "antd";
 import {
     SettingOutlined,
     BellOutlined,
@@ -162,16 +162,34 @@ const Sidebar = ({ history }) => {
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Sider
+                breakpoint="md"
+                collapsedWidth="0"
+                onBreakpoint={(broken) => {
+                    console.log(broken);
+                }}
                 style={{ backgroundColor: "#12284C" }}
                 collapsible
                 collapsed={collapsed}
                 onCollapse={onCollapse}>
                 <Row type="flex">
                     <Col span={24} align="center">
-                        <UserCircle
-                            style={{ width: "80px", color: "#fff", marginTop: 30 }}
-                        />
+                        <div className="username" style={{ paddingTop: "30px" }}>
+                            <Col span={24} align="center">
+                                <Avatar
+                                    size={{
+                                        xs: 32,
+                                        sm: 40,
+                                        md: 40,
+                                        lg: 64,
+                                        xl: 80,
+                                        xxl: 80,
+                                    }}
+                                    icon={<UserOutlined />}
+                                />
+                            </Col>
+                        </div>
                     </Col>
+
                     <Col span={24} align="center">
                         <div className="username" style={{ paddingBottom: "30px" }}>
                             Username
