@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import Progress from "../../components/progress/progress";
-import CalendarButton from "../../components/calendarButton/calendarButton";
 import GetHelp from "../../components/getHelp/getHelp";
 import TodoList from "../../components/todoList/todoList";
-import ZoomButton from "../../components/zoomButton/zoomButton";
+import HomeButtons from "../homeButtons/homeButtons";
 import { Avatar, PageHeader, Layout, Menu, Breadcrumb, Row, Col } from "antd";
 import {
   BellOutlined,
@@ -141,8 +140,7 @@ const Sidebar = () => {
                   xxl={6}
                   style={{ border: "1px solid blue" }}
                 >
-                  <CalendarButton />
-                  <ZoomButton /> <br />
+                  <HomeButtons />
                   <TodoList />
                   CalendarHome
                 </Col>

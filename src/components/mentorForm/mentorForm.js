@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   Button,
   Modal,
@@ -18,6 +19,59 @@ const CreateForm = ({ visible, onCreate, onCancel }) => {
   }
 
   const plainOptions = ["Yes", "No", "Working on it"];
+
+  //Fetching data from airtable
+  const getMentorsData = async () => {
+    const response = await fetch(
+      "https://api.airtable.com/v0/appm5NPkqO7P8ePUK/Mentors?api_key=keyclOytaXo7NHQ8M"
+    );
+    const mentorsData = await response.json();
+    return mentorsData;
+  };
+
+  const [mentors, setMentors] = useState(null);
+
+  const getOptions = () => {
+    let options = [];
+    let unique_mentors = [
+      ...new Map(mentors.records.map((o) => [o.fields.Key, o])).values(),
+    ];
+    console.log(unique_mentors);
+    unique_mentors.forEach((mentor) => {
+      let object = {};
+      object.value = mentor.fields.Key;
+      object.label = mentor.fields.Name;
+      object.children = [];
+      let key = mentor.fields.Key;
+      let dates_for_each_mentor = mentors.records.filter(
+        (x) => x.fields.Key === key
+      );
+
+      dates_for_each_mentor.forEach((element) => {
+        let new_date = {
+          value: element.fields.Dates,
+          label: element.fields.Dates,
+          children: [],
+        };
+        let times_foreach_date = mentors.records.filter(
+          (x) => x.fields.Key === key && x.fields.Dates === element.fields.Dates
+        );
+        times_foreach_date.forEach((time) => {
+          new_date.children.push({
+            value: time.fields.Times,
+            label: time.fields.Times,
+          });
+        });
+        object.children.push(new_date);
+      });
+      options.push(object);
+    });
+    return options;
+  };
+
+  useEffect(() => {
+    getMentorsData().then((data) => setMentors(data));
+  }, []);
 
   return (
     <Modal
@@ -46,80 +100,8 @@ const CreateForm = ({ visible, onCreate, onCancel }) => {
           modifier: "public",
         }}
       >
-      
         <Form.Item label="Mentor">
-          <Cascader
-            options={[
-              {
-                value: "mentor1",
-                label: "Jared Siirila",
-                children: [
-                  {
-                    value: "schedule1",
-                    label: "Thursday, 8:30 PM EST 5:30 PM PST",
-                  },
-                  {
-                    value: "schedule2",
-                    label: "Sunday, 3:30 PM EST 12:30 PM PST",
-                  },
-                ],
-              },
-              {
-                value: "mentor2",
-                label: "Gaetan Siry",
-                children: [
-                  {
-                    value: "schedule3",
-                    label: "Wednesday, 5:00 PM EST 2:00 PM PST",
-                  },
-                  {
-                    value: "schedule4",
-                    label: "Saturday, 1:00 PM EST 10:00 AM PST",
-                  },
-                ],
-              },
-              {
-                value: "mentor3",
-                label: "Dan Gilday",
-                children: [
-                  {
-                    value: "schedule5",
-                    label: "Friday, 10:00 PM EST 7:00 PM PST",
-                  },
-                ],
-              },
-              {
-                value: "mentor4",
-                label: "Jamie Hand",
-                children: [
-                  {
-                    value: "schedule6",
-                    label: "Sunday, 5:00PM EST 2:00PM PST",
-                  },
-                ],
-              },
-              {
-                value: "mentor5",
-                label: "Chuck",
-                children: [
-                  {
-                    value: "schedule7",
-                    label: "Monday, 8:00 PM EST 5:00PM PST",
-                  },
-                ],
-              },
-              {
-                value: "mentor6",
-                label: "Ramiro",
-                children: [
-                  {
-                    value: "schedule8",
-                    label: "Tuesday, 8:00 PM EST 5:00PM PST",
-                  },
-                ],
-              },
-            ]}
-          />
+          {mentors && <Cascader options={getOptions()} />}
         </Form.Item>
         <Form.Item label="Date">
           <DatePicker />
@@ -161,7 +143,6 @@ const MentorForm = () => {
 
   return (
     <div>
-
       <Button
         type="primary"
         onClick={() => {
