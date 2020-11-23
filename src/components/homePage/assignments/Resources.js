@@ -5,7 +5,7 @@ const Resources = ({ lessons }) => {
     <>
       <ul>
         {
-          lessons.sources.map(source => <li key={source.id}><a href={source.link} target="_blank">{source.source_title}</a></li>)
+          lessons.sources.map(source => <li key={source.id}><a href={source.link} target="_blank" rel="noopener noreferrer">{source.source_title}</a></li>)
         }
       </ul>
     </>

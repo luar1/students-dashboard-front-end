@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useReducer } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import { Card, Menu, Dropdown, Tabs, Button, Spin, Row, Col } from 'antd';
+import { Card, Menu, Dropdown, Tabs, Button, Spin, Row, Col, Form } from 'antd';
 import _ from 'lodash';
 import Icon, {
   FileDoneOutlined,
@@ -8,7 +8,8 @@ import Icon, {
   LineOutlined,
   YoutubeOutlined,
   GithubOutlined,
-  SmileOutlined
+  SmileOutlined,
+  CheckOutlined
 } from '@ant-design/icons';
 
 import * as ROUTES from '../../../constants/routes';
@@ -19,6 +20,7 @@ import Instructions from './Instructions';
 import Summary from './Summary';
 import Videos from './Resources';
 import GithubLink from './GithubLink';
+
 
 const { TabPane } = Tabs;
 
@@ -51,6 +53,7 @@ const reducer = (state, action) => {
 
 const Assignments = ({ match, history }) => {
   const [state, setState] = useState({ key: 'Week 1' });
+  const [savedProgress, setSavedProgress] = useState(null);
   const { key } = state;
   const [clickedUnitKey, setClickedUnitKey] = useState(0);
   const [clickedLessonKey, setClickedLessonKey] = useState(0);
@@ -110,12 +113,17 @@ const Assignments = ({ match, history }) => {
     )
   }
 
+  const handleSubmit = () => {
+    console.log(classInfo)
+    setSavedProgress(true);
+  }
+
   const tabPanes = (classKey) => {
     return (
       classInfo.units[classKey].lessons.map((lesson, index) => {
         return (
           <TabPane tab={<Link to={`${match.path}`}>Week {index + 1}</Link>} key={`${index}`} >
-            <h3 className="courseOutline" align="center"><FileDoneOutlined /><Link to={`${match.path}${ROUTES.INSTRUCTIONS}`}>Instructions & Goals</Link> <LineOutlined /> <YoutubeOutlined /><Link to={`${match.path}${ROUTES.VIDEOS}`}> Resources</Link> <LineOutlined /> <GithubOutlined /><Link to={`${match.path}${ROUTES.SUBMISSION}`}> Github Link </Link><LineOutlined /> <SmileOutlined /> Done</h3>
+            <h3 className="courseOutline" align="center">{savedProgress ? <CheckOutlined /> : <FileDoneOutlined />}<Link to={`${match.path}${ROUTES.INSTRUCTIONS}`}>Instructions & Goals</Link> <LineOutlined /> <YoutubeOutlined /><Link to={`${match.path}${ROUTES.VIDEOS}`}> Resources</Link> <LineOutlined /> <GithubOutlined /><Link to={`${match.path}${ROUTES.SUBMISSION}`}> Github Link </Link><LineOutlined /> <SmileOutlined /> Done</h3>
             <div className="cardContent">
               <Switch>
                 <Route exact path={`${match.path}`} render={props => <Summary {...props} lesson={lesson.lesson_name} />} />
@@ -127,7 +135,7 @@ const Assignments = ({ match, history }) => {
                 position: 'absolute', right: 0, bottom: 0, marginBottom: '4.5rem',
                 marginRight: '4.5rem'
               }}>
-                <Link to="#"><Button type="primary" style={{ marginRight: '1rem' }}>Save Progress</Button></Link>
+                <Form style={{ display: 'inline-block' }} onFinish={handleSubmit}><Button style={{ marginRight: '1rem' }} type="primary" htmlType="submit">Save Progress</Button></Form>
                 <Link to={location => nextPage(location)}><Button type="primary">Next</Button></Link>
               </div>
             </div>
