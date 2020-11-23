@@ -4,35 +4,28 @@ import styled from "styled-components";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
 import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Grid, Tag, Space, Avatar } from "antd";
 import {
-    SettingOutlined,
-    BellOutlined,
-    DashboardOutlined,
-    GithubOutlined,
-    NotificationOutlined,
-    BookOutlined,
-    CalendarOutlined,
-    TeamOutlined,
-    UserOutlined,
-    DisconnectOutlined,
-    FundProjectionScreenOutlined,
-    SlackOutlined,
-    YoutubeOutlined,
-    RocketOutlined,
+  SettingOutlined,
+  BellOutlined,
+  DashboardOutlined,
+  GithubOutlined,
+  NotificationOutlined,
+  BookOutlined,
+  CalendarOutlined,
+  TeamOutlined,
+  UserOutlined,
+  DisconnectOutlined,
+  FundProjectionScreenOutlined,
+  SlackOutlined,
+  YoutubeOutlined,
+  RocketOutlined,
 } from "@ant-design/icons";
 
 import "./HomePage.css";
 import logo from "../../graphics/logo.png";
 import ctd from "../landingPage/graphics/ctd.png";
 import treehouse from "../landingPage/graphics/treehouse.png";
-import Progress from "../progress/progress";
-import GetHelp from "../getHelp/getHelp";
-import CalendarButton from "../calendarButton/calendarButton";
-import TodoList from "../todoList/todoList";
-import Assignments from "./Assignments";
-import SmallCalendar from "../smallCalendar/smallCalendar";
-import BigCalendar from "../bigCalendar/BigCalendar";
 import * as ROUTES from "../../constants/routes";
-import logo from '../../graphics/logo.png';
+import Dashboard from './dashboard/Dashboard';
 import AssignmentSummary from './assignments/AssignmentSummary';
 import Assignments from './assignments/Assignments';
 import PrivateRoute from '../routes/PrivateRoute';
@@ -160,7 +153,16 @@ const HomePage = ({ match, history }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        breakpoint="md"
+        collapsedWidth="0"
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+      >
         <Row type="flex">
           <Col span={24} align="center">
             <Avatar size={64} icon={<UserOutlined />} style={{ margin: "10px" }} />
@@ -179,9 +181,9 @@ const HomePage = ({ match, history }) => {
           <Menu.Item key={KEYS[2]} icon={<BookOutlined />}>
             <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>Assignments</Link>
           </Menu.Item>
-          <Menu.Item key="4" icon={<CalendarOutlined />}>
-             <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
-           </Menu.Item>
+          <Menu.Item key={KEYS[3]} icon={<CalendarOutlined />}>
+            <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
+          </Menu.Item>
           <Menu.Item key={KEYS[4]} icon={<UserOutlined />}>
             Mentors
           </Menu.Item>
@@ -201,110 +203,79 @@ const HomePage = ({ match, history }) => {
         </Menu>
       </Sider>
       <div className="container-fluid">
-                <Layout className="site-layout">
-                    <HeaderPage>
-                        <Header
-                            className="site-layout-background"
-                            style={{
-                                padding: "0",
-                                backgroundColor: "white",
-                                width: "100%",
-                            }}>
-                            <Row type="flex">
-                                <Col span={12}>
-                                    <Logo>
-                                        <img
-                                            src={logo}
-                                            className="ctd-logo"
-                                            alt="Code the Dream Logo"></img>
-                                    </Logo>
-                                </Col>
-                                <Col span={12} align="right">
-                                    <TopNav className="top-nav">
-                                        <BellOutlined />
-                                        <SettingOutlined />
-                                        <UserCircle style={{ width: "25px" }} />
-                                    </TopNav>
-                                </Col>
-                            </Row>
-                        </Header>
-                    </HeaderPage>
-        <PageHeader className="site-layout-background" style={{ padding: 0 }} />
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>{page === 'Dashboard' ? 'Home' : <Link to={`${match.path}${ROUTES.DASHBOARD}`} onClick={() => setSelectedKey(KEYS[0])}>Home</Link>}</Breadcrumb.Item>
-            <Breadcrumb.Item>{page === 'Dashboard' ? null : page}</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            <Switch>
-              <PrivateRoute path={`${match.path}${ROUTES.DASHBOARD}`} component={(props) => <AssignmentSummary {...props} menuKey={KEYS[2]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />} />
-              <PrivateRoute path={`${match.path}${ROUTES.ASSIGNMENTS}`} component={Assignments} />
-            </Switch>
-          </div>
-<div className="container-fluid">
-                                <Row gutter={[16, 24]}>
-                                    <Col
-                                        xs={24}
-                                        sm={24}
-                                        md={24}
-                                        lg={14}
-                                        xl={16}
-                                        xxl={18}
-                                        style={{ border: "1px solid red" }}>
-                                        <Space direction="vertical">
-                                            <Summary />
-                                            <Progress />
-                                            <GetHelp />
-                                        </Space>
-                                    </Col>
-                                    <Col
-                                        xs={24}
-                                        sm={24}
-                                        md={24}
-                                        lg={10}
-                                        xl={8}
-                                        xxl={6}
-                                        className="site-layout-right">
-                                        <Space direction="vertical">
-                                            <CalendarButton />
-                                            <TodoList />
-                                            <SmallCalendar history={history} />
-                                        </Space>
-                                    </Col>
-                                </Row>
-                            </div>
-        </Content>
-        <Footer>
-                        <FooterBottom>
-                            <Copyright>
-                                Copyright © Code the Dream · All Rights Reserved
+        <Layout className="site-layout">
+          <HeaderPage>
+            <Header
+              className="site-layout-background"
+              style={{
+                padding: "0",
+                backgroundColor: "white",
+                width: "100%",
+              }}>
+              <Row type="flex">
+                <Col span={12}>
+                  <Logo>
+                    <img
+                      src={logo}
+                      className="ctd-logo"
+                      alt="Code the Dream Logo"></img>
+                  </Logo>
+                </Col>
+                <Col span={12} align="right">
+                  <TopNav className="top-nav">
+                    <BellOutlined />
+                    <SettingOutlined />
+                    <UserCircle style={{ width: "25px" }} />
+                  </TopNav>
+                </Col>
+              </Row>
+            </Header>
+          </HeaderPage>
+          <PageHeader className="site-layout-background" style={{ padding: 0 }} />
+          <Content style={{ margin: '0 16px' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+              <Breadcrumb.Item>{page === 'Dashboard' ? 'Home' : <Link to={`${match.path}${ROUTES.DASHBOARD}`} onClick={() => setSelectedKey(KEYS[0])}>Home</Link>}</Breadcrumb.Item>
+              <Breadcrumb.Item>{page === 'Dashboard' ? null : page}</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+              <Switch>
+                <PrivateRoute path={`${match.path}${ROUTES.DASHBOARD}`} component={(props) => <Dashboard {...props} menuKey={KEYS[2]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />} />
+                <PrivateRoute path={`${match.path}${ROUTES.ASSIGNMENTS}`} component={Assignments} />
+              </Switch>
+            </div>
+          </Content>
+          <Footer>
+            <FooterBottom>
+              <Copyright>
+                Copyright © Code the Dream · All Rights Reserved
                             </Copyright>
-                            <Icon>
-                                <FooterLinks
-                                    href="https://www.codethedream.org/"
-                                    target="_blank">
-                                    <img src={ctd} alt="Code The Cream"></img>
-                                </FooterLinks>
-                                <FooterLinks
-                                    href="https://teamtreehouse.com/home"
-                                    target="_blank">
-                                    <img src={treehouse} alt="Team Treehouse"></img>
-                                </FooterLinks>
-                                <FooterLinks
-                                    href="https://app.slack.com/client/T07EHJ738/learning-slack"
-                                    target="_blank">
-                                    <SlackOutlined />
-                                </FooterLinks>
-                                <FooterLinks
-                                    href="https://github.com/Code-the-Dream-School?type=source"
-                                    target="_blank">
-                                    <GithubOutlined />
-                                </FooterLinks>
-                            </Icon>
-                        </FooterBottom>
-                    </Footer>
-        </div>
-      </Layout>
+              <Icon>
+                <FooterLinks
+                  href="https://www.codethedream.org/"
+                  target="_blank">
+                  <img src={ctd} alt="Code The Cream"></img>
+                </FooterLinks>
+                <FooterLinks
+                  href="https://teamtreehouse.com/home"
+                  target="_blank">
+                  <img src={treehouse} alt="Team Treehouse"></img>
+                </FooterLinks>
+                <FooterLinks
+                  href="https://app.slack.com/client/T07EHJ738/learning-slack"
+                  target="_blank">
+                  <SlackOutlined />
+                </FooterLinks>
+                <FooterLinks
+                  href="https://github.com/Code-the-Dream-School?type=source"
+                  target="_blank">
+                  <GithubOutlined />
+                </FooterLinks>
+              </Icon>
+            </FooterBottom>
+          </Footer>
+        </Layout>
+      </div>
+    </Layout>
   );
 }
 

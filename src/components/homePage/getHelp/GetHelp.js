@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Divider } from "antd";
 import { MessageOutlined, CustomerServiceOutlined } from "@ant-design/icons";
-import MentorForm from "../mentorForm/mentorForm";
+import MentorForm from "../mentorForm/MentorForm";
 
 const GetHelp = () => {
   return (
