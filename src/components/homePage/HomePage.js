@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+/** @format */
+
+import React, { useEffect, useState } from "react";
 import { Route, Switch, Link } from "react-router-dom";
-import styled from "styled-components";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
-import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Grid, Tag, Space, Avatar } from "antd";
+import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Avatar } from "antd";
+
 import {
     SettingOutlined,
     BellOutlined,
@@ -24,183 +26,150 @@ import "./HomePage.css";
 import logo from "../../graphics/logo.png";
 import ctd from "../landingPage/graphics/ctd.png";
 import treehouse from "../landingPage/graphics/treehouse.png";
-import Progress from "../progress/progress";
-import GetHelp from "../getHelp/getHelp";
-import CalendarButton from "../calendarButton/calendarButton";
-import TodoList from "../todoList/todoList";
-import Assignments from "./Assignments";
-import SmallCalendar from "../smallCalendar/smallCalendar";
-import BigCalendar from "../bigCalendar/BigCalendar";
 import * as ROUTES from "../../constants/routes";
-import logo from '../../graphics/logo.png';
-import AssignmentSummary from './assignments/AssignmentSummary';
-import Assignments from './assignments/Assignments';
-import PrivateRoute from '../routes/PrivateRoute';
+import Dashboard from "./dashboard/Dashboard";
+import Assignments from "./assignments/Assignments";
+import FullCalendarDashboard from "./fullCalendar/FullCalendarDashboard";
+import PrivateRoute from "../routes/PrivateRoute";
+
+import {
+    HeaderPage,
+    Logo,
+    TopNav,
+    FooterBottom,
+    Copyright,
+    Icon,
+    FooterLinks,
+} from "./styles/styles";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const HeaderPage = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
-`;
-const Logo = styled.div`
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 20px;
-`;
-const TopNav = styled.div`
-    display: flex;
-    padding: 16px;
-    padding-right: 30px;
-    justify-content: space-between;
-    align-items: center;
-    color: #ccc;
-    font-size: 18px;
-    width: 160px;
-`;
-const FooterBottom = styled.footer`
-    z-index: 4;
-    width: 100%;
-    flex: none;
-    display: block;
-    font-weight: 500;
-    color: #272727;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    @media only screen and (max-width: 767px) {
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        height: 100px;
-        padding-left: 0;
-    }
-`;
-const Copyright = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    span {
-        padding-top: 0px;
-        font-size: 20px;
-    }
-`;
-const Icon = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #272727;
-    width: 180px;
-    padding-right: 20px;
-    img {
-        width: 18px;
-        filter: invert(100%);
-    }
-    @media only screen and (max-width: 767px) {
-        padding-right: 0;
-        padding-top: 12px;
-    }
-`;
-const FooterLinks = styled.a`
-    display: flex;
-    font-size: 20px;
-    color: #272727;
-    &:hover {
-        color: #272727;
-        cursor: pointer;
-    }
-`;
-
 const HomePage = ({ match, history }) => {
-  const KEYS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const [collapsed, setCollapsed] = useState(false);
-  const [selectedKey, setSelectedKey] = useState([KEYS[0]]);
-  const page = `${history.location.pathname.split('/')[2].charAt(0).toUpperCase()}${history.location.pathname.split('/')[2].slice(1)}`;
+    const KEYS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    const [collapsed, setCollapsed] = useState(false);
+    const [selectedKey, setSelectedKey] = useState([KEYS[0]]);
+    const page = `${history.location.pathname
+        .split("/")[2]
+        .charAt(0)
+        .toUpperCase()}${history.location.pathname.split("/")[2].slice(1)}`;
 
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed);
-  };
+    const onCollapse = (collapsed) => {
+        setCollapsed(collapsed);
+    };
 
-  useEffect(() => {
-    switch (page) {
-      case 'Dashboard':
-        return setSelectedKey(KEYS[0]);
-      case 'News':
-        return setSelectedKey(KEYS[1]);
-      case 'Assignments':
-        return setSelectedKey(KEYS[2]);
-      case 'Calendar':
-        return setSelectedKey(KEYS[3]);
-      case 'Mentors':
-        return setSelectedKey(KEYS[4]);
-      case 'Classmates':
-        return setSelectedKey(KEYS[5]);
-      case 'CTD':
-        return setSelectedKey(KEYS[6]);
-      case 'Slack_Channel':
-        return setSelectedKey(KEYS[7]);
-      case 'Treehouse':
-        return setSelectedKey(KEYS[8]);
-      case 'Projects':
-        return setSelectedKey(KEYS[9]);
-      default:
-        return new Error();
-    }
-  }, [])
+    useEffect(() => {
+        switch (page) {
+            case "Dashboard":
+                return setSelectedKey(KEYS[0]);
+            case "News":
+                return setSelectedKey(KEYS[1]);
+            case "Assignments":
+                return setSelectedKey(KEYS[2]);
+            case "Calendar":
+                return setSelectedKey(KEYS[3]);
+            case "Mentors":
+                return setSelectedKey(KEYS[4]);
+            case "Classmates":
+                return setSelectedKey(KEYS[5]);
+            case "CTD":
+                return setSelectedKey(KEYS[6]);
+            case "Slack_Channel":
+                return setSelectedKey(KEYS[7]);
+            case "Treehouse":
+                return setSelectedKey(KEYS[8]);
+            case "Projects":
+                return setSelectedKey(KEYS[9]);
+            default:
+                return new Error();
+        }
+    }, []);
 
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <Row type="flex">
-          <Col span={24} align="center">
-            <Avatar size={64} icon={<UserOutlined />} style={{ margin: "10px" }} />
-          </Col>
-          <Col span={24} align="center">
-            <div className="username">Username</div>
-          </Col>
-        </Row>
-        <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" selectedKeys={selectedKey} onClick={({ key }) => setSelectedKey(key)}>
-          <Menu.Item key={KEYS[0]} icon={<DashboardOutlined />}>
-            <Link to={`${match.path}${ROUTES.DASHBOARD}`}>Dashboard</Link>
-          </Menu.Item>
-          <Menu.Item key={KEYS[1]} icon={<NotificationOutlined />}>
-            News
-          </Menu.Item>
-          <Menu.Item key={KEYS[2]} icon={<BookOutlined />}>
-            <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>Assignments</Link>
-          </Menu.Item>
-          <Menu.Item key="4" icon={<CalendarOutlined />}>
-             <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
-           </Menu.Item>
-          <Menu.Item key={KEYS[4]} icon={<UserOutlined />}>
-            Mentors
-          </Menu.Item>
-          <Menu.Item key={KEYS[5]} icon={<TeamOutlined />}>
-            Classmates
-          </Menu.Item>
-          <Menu.Item key={KEYS[6]} icon={<DisconnectOutlined />}>
-            CTD
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<FundProjectionScreenOutlined />} title="Resources">
-            <Menu.Item key={KEYS[7]} icon={<SlackOutlined />}>Slack Channel</Menu.Item>
-            <Menu.Item key={KEYS[8]} icon={<YoutubeOutlined />}>Treehouse</Menu.Item>
-          </SubMenu>
-          <Menu.Item key={KEYS[9]} icon={<RocketOutlined />}>
-            Students Projects
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <div className="container-fluid">
+    return (
+        <Layout style={{ minHeight: "100vh" }}>
+            <Sider
+                style={{ backgroundColor: "#12284C" }}
+                collapsible
+                collapsed={collapsed}
+                onCollapse={onCollapse}
+                breakpoint="md"
+                collapsedWidth="0"
+                onBreakpoint={(broken) => {
+                    console.log(broken);
+                }}>
+                <Row type="flex">
+                    <Col span={24} align="center">
+                        <div className="username" style={{ paddingTop: "30px" }}>
+                            <Col span={24} align="center">
+                                <Avatar
+                                    size={{
+                                        xs: 32,
+                                        sm: 40,
+                                        md: 40,
+                                        lg: 64,
+                                        xl: 80,
+                                        xxl: 80,
+                                    }}
+                                    icon={<UserOutlined />}
+                                />
+                            </Col>
+                        </div>
+                    </Col>
+                    <Col span={24} align="center">
+                        <div className="username" style={{ paddingBottom: "30px" }}>
+                            Username
+                        </div>
+                    </Col>
+                </Row>
+                <Menu
+                    theme="dark"
+                    style={{ backgroundColor: "#12284C" }}
+                    defaultSelectedKeys={selectedKey}
+                    mode="inline"
+                    selectedKeys={selectedKey}
+                    onClick={({ key }) => setSelectedKey(key)}>
+                    <Menu.Item key={KEYS[0]} icon={<DashboardOutlined />}>
+                        <Link to={`${match.path}${ROUTES.DASHBOARD}`}>
+                            Dashboard
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={KEYS[1]} icon={<NotificationOutlined />}>
+                        News
+                    </Menu.Item>
+                    <Menu.Item key={KEYS[2]} icon={<BookOutlined />}>
+                        <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>
+                            Assignments
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key={KEYS[3]} icon={<CalendarOutlined />}>
+                        <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
+                    </Menu.Item>
+                    <Menu.Item key={KEYS[4]} icon={<UserOutlined />}>
+                        Mentors
+                    </Menu.Item>
+                    <Menu.Item key={KEYS[5]} icon={<TeamOutlined />}>
+                        Classmates
+                    </Menu.Item>
+                    <Menu.Item key={KEYS[6]} icon={<DisconnectOutlined />}>
+                        CTD
+                    </Menu.Item>
+                    <SubMenu
+                        key="sub1"
+                        icon={<FundProjectionScreenOutlined />}
+                        title="Resources">
+                        <Menu.Item key={KEYS[7]} icon={<SlackOutlined />}>
+                            Slack Channel
+                        </Menu.Item>
+                        <Menu.Item key={KEYS[8]} icon={<YoutubeOutlined />}>
+                            Treehouse
+                        </Menu.Item>
+                    </SubMenu>
+                    <Menu.Item key={KEYS[9]} icon={<RocketOutlined />}>
+                        Students Projects
+                    </Menu.Item>
+                </Menu>
+            </Sider>
+            <div className="container-fluid">
                 <Layout className="site-layout">
                     <HeaderPage>
                         <Header
@@ -229,52 +198,53 @@ const HomePage = ({ match, history }) => {
                             </Row>
                         </Header>
                     </HeaderPage>
-        <PageHeader className="site-layout-background" style={{ padding: 0 }} />
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>{page === 'Dashboard' ? 'Home' : <Link to={`${match.path}${ROUTES.DASHBOARD}`} onClick={() => setSelectedKey(KEYS[0])}>Home</Link>}</Breadcrumb.Item>
-            <Breadcrumb.Item>{page === 'Dashboard' ? null : page}</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            <Switch>
-              <PrivateRoute path={`${match.path}${ROUTES.DASHBOARD}`} component={(props) => <AssignmentSummary {...props} menuKey={KEYS[2]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />} />
-              <PrivateRoute path={`${match.path}${ROUTES.ASSIGNMENTS}`} component={Assignments} />
-            </Switch>
-          </div>
-<div className="container-fluid">
-                                <Row gutter={[16, 24]}>
-                                    <Col
-                                        xs={24}
-                                        sm={24}
-                                        md={24}
-                                        lg={14}
-                                        xl={16}
-                                        xxl={18}
-                                        style={{ border: "1px solid red" }}>
-                                        <Space direction="vertical">
-                                            <Summary />
-                                            <Progress />
-                                            <GetHelp />
-                                        </Space>
-                                    </Col>
-                                    <Col
-                                        xs={24}
-                                        sm={24}
-                                        md={24}
-                                        lg={10}
-                                        xl={8}
-                                        xxl={6}
-                                        className="site-layout-right">
-                                        <Space direction="vertical">
-                                            <CalendarButton />
-                                            <TodoList />
-                                            <SmallCalendar history={history} />
-                                        </Space>
-                                    </Col>
-                                </Row>
-                            </div>
-        </Content>
-        <Footer>
+                    <PageHeader
+                        className="white-gray"
+                        style={{ backgroundColor: "#fff", margin: "15px" }}
+                        title="Welcome, Student!">
+                        <Breadcrumb style={{ margin: "0" }}>
+                            <Breadcrumb.Item>
+                                {page === "Dashboard" ? (
+                                    "Home"
+                                ) : (
+                                    <Link
+                                        to={`${match.path}${ROUTES.DASHBOARD}`}
+                                        onClick={() => setSelectedKey(KEYS[0])}>
+                                        Home
+                                    </Link>
+                                )}
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                {page === "Dashboard" ? null : page}
+                            </Breadcrumb.Item>
+                        </Breadcrumb>
+                    </PageHeader>
+                    <Content style={{ margin: "0 16px" }}>
+                        <div className="site-layout-background">
+                            <Switch>
+                                <PrivateRoute
+                                    path={`${match.path}${ROUTES.DASHBOARD}`}
+                                    component={(props) => (
+                                        <Dashboard
+                                            {...props}
+                                            menuKey={KEYS[2]}
+                                            selectedKey={selectedKey}
+                                            setSelectedKey={setSelectedKey}
+                                        />
+                                    )}
+                                />
+                                <PrivateRoute
+                                    path={`${match.path}${ROUTES.ASSIGNMENTS}`}
+                                    component={Assignments}
+                                />
+                                <PrivateRoute
+                                    path={`${match.path}${ROUTES.CALENDAR}`}
+                                    component={FullCalendarDashboard}
+                                />
+                            </Switch>
+                        </div>
+                    </Content>
+                    <Footer>
                         <FooterBottom>
                             <Copyright>
                                 Copyright © Code the Dream · All Rights Reserved
@@ -303,9 +273,10 @@ const HomePage = ({ match, history }) => {
                             </Icon>
                         </FooterBottom>
                     </Footer>
-        </div>
-      </Layout>
-  );
-}
+                </Layout>
+            </div>
+        </Layout>
+    );
+};
 
 export default HomePage;

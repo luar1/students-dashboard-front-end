@@ -6,6 +6,9 @@
     background-color: #fff;
 }
 
+.site-layout {
+    width: 100%;
+}
 .username {
     color: white;
 }
@@ -45,7 +48,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid red;
 }
 .badge img {
     width: 100px;
@@ -53,6 +55,11 @@
     display: flex;
 }
 
+.summary {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 .events {
     list-style: none;
     margin: 0 auto;

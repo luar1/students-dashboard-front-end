@@ -6,4 +6,5 @@ export const DASHBOARD = '/dashboard';
 export const INSTRUCTIONS = '/instructions';
 export const VIDEOS = '/videos';
 export const SUBMISSION = '/submission';
+export const DONE = '/done';
 
