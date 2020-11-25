@@ -4,16 +4,40 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@progress/kendo-date-math": "^1.5.1",
+    "@progress/kendo-drawing": "^1.9.3",
+    "@progress/kendo-licensing": "^1.0.1",
+    "@progress/kendo-react-animation": "^4.0.0",
+    "@progress/kendo-react-buttons": "^4.0.0",
+    "@progress/kendo-react-dateinputs": "^4.0.0",
+    "@progress/kendo-react-dialogs": "^4.0.0",
+    "@progress/kendo-react-dropdowns": "^4.0.0",
+    "@progress/kendo-react-form": "^4.0.0",
+    "@progress/kendo-react-inputs": "^4.0.0",
+    "@progress/kendo-react-intl": "^4.0.0",
+    "@progress/kendo-react-popup": "^4.0.0",
+    "@progress/kendo-react-scheduler": "^4.0.0",
+    "@progress/kendo-theme-default": "^4.25.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "antd": "^4.7.2",
-    "react": "^16.14.0",
+    "antd": "^4.7.0",
+    "fullcalendar": "^5.3.2",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "rc-calendar": "^9.15.11",
+    "react": "^16.13.1",
+    "react-big-calendar": "^0.28.6",
+    "react-big-calendar-slot": "^0.22.1",
     "react-cookie": "^4.0.3",
-    "react-dom": "^16.14.0",
+    "react-dom": "^16.13.1",
+    "react-intl": "^5.10.0",
+    "react-moment-proptypes": "^1.7.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "styled-components": "^5.2.1"
+    "react-scripts": "^3.4.4",
+    "react-tackle-box": "^2.1.0",
+    "styled-components": "^5.2.0",
+    "styled-icons": "^10.22.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +62,7 @@
   },
   "devDependencies": {
     "css-loader": "^4.3.0",
-    "style-loader": "^2.0.0"
+    "style-loader": "^2.0.0",
+    "typescript": "^3.6.4"
   }
 }
