@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, Link } from "react-router-dom";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
 import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Avatar } from "antd";
+
 import {
   SettingOutlined,
   BellOutlined,
@@ -28,6 +30,10 @@ import Dashboard from './dashboard/Dashboard';
 import AssignmentSummary from './assignments/AssignmentSummary';
 import Assignments from './assignments/Assignments';
 import PrivateRoute from '../routes/PrivateRoute';
+import Progress from "./progress/MainProgress";
+import GetHelp from "./getHelp/GetHelp";
+import TodoList from "./todoList/TodoList";
+import HomeButtons from "./homeButtons/HomeButtons";
 import { HeaderPage, Logo, TopNav, FooterBottom, Copyright, Icon, FooterLinks } from './styles/styles';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -84,7 +90,11 @@ const HomePage = ({ match, history }) => {
       >
         <Row type="flex">
           <Col span={24} align="center">
-            <Avatar size={64} icon={<UserOutlined />} style={{ margin: "10px" }} />
+            <Avatar
+              size={64}
+              icon={<UserOutlined />}
+              style={{ margin: "10px" }}
+            />
           </Col>
           <Col span={24} align="center">
             <div className="username">Username</div>
@@ -196,6 +206,6 @@ const HomePage = ({ match, history }) => {
       </div>
     </Layout>
   );
-}
+};
 
 export default HomePage;
