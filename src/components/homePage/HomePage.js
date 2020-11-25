@@ -30,10 +30,10 @@ import Dashboard from './dashboard/Dashboard';
 import AssignmentSummary from './assignments/AssignmentSummary';
 import Assignments from './assignments/Assignments';
 import PrivateRoute from '../routes/PrivateRoute';
-import Progress from "../../components/progress/progress";
-import GetHelp from "../../components/getHelp/getHelp";
-import TodoList from "../../components/todoList/todoList";
-import HomeButtons from "../homeButtons/homeButtons";
+import Progress from "./progress/MainProgress";
+import GetHelp from "./getHelp/GetHelp";
+import TodoList from "./todoList/TodoList";
+import HomeButtons from "./homeButtons/HomeButtons";
 import { HeaderPage, Logo, TopNav, FooterBottom, Copyright, Icon, FooterLinks } from './styles/styles';
 
 const { Header, Content, Footer, Sider } = Layout;
