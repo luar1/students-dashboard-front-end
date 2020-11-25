@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Divider, Card, Typography } from "antd";
 import { MessageOutlined, CustomerServiceOutlined } from "@ant-design/icons";
-import MentorForm from "../mentorForm/mentorForm";
+import MentorForm from "../mentorForm/MentorForm";
 
 const GetHelp = () => {
   return (
@@ -38,6 +38,6 @@ const GetHelp = () => {
       </Card>
     </>
   );
-};
+}
 
 export default GetHelp;
