@@ -4,10 +4,10 @@ import { Row, Col, Space } from "antd";
 
 import Progress from "../progress/MainProgress";
 import GetHelp from "../getHelp/GetHelp";
-import CalendarButton from "../calendarButton/CalendarButton";
 import TodoList from "../todoList/TodoList";
 import SmallCalendar from "../smallCalendar/SmallCalendar";
 import AssignmentSummary from '../assignments/AssignmentSummary';
+import HomeButtons from '../homeButtons/HomeButtons';
 
 const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
   return (
@@ -22,6 +22,7 @@ const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
           xxl={18}
           style={{ border: "1px solid red" }}>
           <Space direction="vertical">
+            <AssignmentSummary menuKey={menuKey} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
             <Progress />
             <GetHelp />
           </Space>
@@ -35,8 +36,7 @@ const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
           xxl={6}
           className="site-layout-right">
           <Space direction="vertical">
-            {/* <AssignmentSummary menuKey={menuKey} selectedKey={selectedKey} setSelectedKey={setSelectedKey} /> */}
-            <CalendarButton />
+            <HomeButtons />
             <TodoList />
             <SmallCalendar history={history} />
           </Space>
