@@ -1,23 +1,10 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, Link } from "react-router-dom";
-import styled from "styled-components";
-import "./HomePage.css";
-import logo from "../../graphics/logo.png";
-import ctd from "../landingPage/graphics/ctd.png";
-import treehouse from "../landingPage/graphics/treehouse.png";
-import Summary from "./Summary";
-import Progress from "../progress/progress";
-import GetHelp from "../getHelp/getHelp";
-import CalendarButton from "../calendarButton/calendarButton";
-import TodoList from "../todoList/todoList";
-import Assignments from "./Assignments";
-import SmallCalendar from "../smallCalendar/smallCalendar";
-import FullCalendarDashboard from "../fullCalendar/FullCalendarDashboard";
-import * as ROUTES from "../../constants/routes";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
-import { PageHeader, Layout, Menu, Row, Col, Grid, Tag, Space, Avatar } from "antd";
+import { PageHeader, Breadcrumb, Layout, Menu, Row, Col, Avatar } from "antd";
+
 import {
     SettingOutlined,
     BellOutlined,
@@ -35,125 +22,81 @@ import {
     RocketOutlined,
 } from "@ant-design/icons";
 
-// import './Sidebar.css';
+import "./HomePage.css";
+import logo from "../../graphics/logo.png";
+import ctd from "../landingPage/graphics/ctd.png";
+import treehouse from "../landingPage/graphics/treehouse.png";
+import * as ROUTES from "../../constants/routes";
+import Dashboard from "./dashboard/Dashboard";
+import Assignments from "./assignments/Assignments";
+import FullCalendarDashboard from "./fullCalendar/FullCalendarDashboard";
+import PrivateRoute from "../routes/PrivateRoute";
 
-const HeaderPage = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
-`;
-const Logo = styled.div`
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 20px;
-`;
-const TopNav = styled.div`
-    display: flex;
-    padding: 16px;
-    padding-right: 30px;
-    justify-content: space-between;
-    align-items: center;
-    color: #ccc;
-    font-size: 18px;
-    width: 160px;
-`;
-const FooterBottom = styled.footer`
-    z-index: 4;
-    width: 100%;
-    flex: none;
-    display: block;
-    font-weight: 500;
-    color: #272727;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    @media only screen and (max-width: 767px) {
-        display: flex;
-        flex-flow: column;
-        justify-content: center;
-        align-items: center;
-        height: 100px;
-        padding-left: 0;
-    }
-`;
-const Copyright = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    span {
-        padding-top: 0px;
-        font-size: 20px;
-    }
-`;
-const Icon = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #272727;
-    width: 180px;
-    padding-right: 20px;
-    img {
-        width: 18px;
-        filter: invert(100%);
-    }
-    @media only screen and (max-width: 767px) {
-        padding-right: 0;
-        padding-top: 12px;
-    }
-`;
-const FooterLinks = styled.a`
-    display: flex;
-    font-size: 20px;
-    color: #272727;
-    &:hover {
-        color: #272727;
-        cursor: pointer;
-    }
-`;
+import {
+    HeaderPage,
+    Logo,
+    TopNav,
+    FooterBottom,
+    Copyright,
+    Icon,
+    FooterLinks,
+} from "./styles/styles";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-const routes = [
-    {
-        path: "index",
-        breadcrumbName: "Home",
-    },
-    {
-        path: "first",
-        breadcrumbName: "Dashboard",
-    },
-    {
-        path: "second",
-        breadcrumbName: "Welcome",
-    },
-];
-const Sidebar = ({ history }) => {
-    const [state, setState] = useState({ collapsed: false });
-    const { collapsed } = state;
+
+const HomePage = ({ match, history }) => {
+    const KEYS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    const [collapsed, setCollapsed] = useState(false);
+    const [selectedKey, setSelectedKey] = useState([KEYS[0]]);
+    const page = `${history.location.pathname
+        .split("/")[2]
+        .charAt(0)
+        .toUpperCase()}${history.location.pathname.split("/")[2].slice(1)}`;
+
     const onCollapse = (collapsed) => {
-        console.log(collapsed);
-        setState({ collapsed });
+        setCollapsed(collapsed);
     };
+
+    useEffect(() => {
+        switch (page) {
+            case "Dashboard":
+                return setSelectedKey(KEYS[0]);
+            case "News":
+                return setSelectedKey(KEYS[1]);
+            case "Assignments":
+                return setSelectedKey(KEYS[2]);
+            case "Calendar":
+                return setSelectedKey(KEYS[3]);
+            case "Mentors":
+                return setSelectedKey(KEYS[4]);
+            case "Classmates":
+                return setSelectedKey(KEYS[5]);
+            case "CTD":
+                return setSelectedKey(KEYS[6]);
+            case "Slack_Channel":
+                return setSelectedKey(KEYS[7]);
+            case "Treehouse":
+                return setSelectedKey(KEYS[8]);
+            case "Projects":
+                return setSelectedKey(KEYS[9]);
+            default:
+                return new Error();
+        }
+    }, []);
 
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Sider
+                style={{ backgroundColor: "#12284C" }}
+                collapsible
+                collapsed={collapsed}
+                onCollapse={onCollapse}
                 breakpoint="md"
                 collapsedWidth="0"
                 onBreakpoint={(broken) => {
                     console.log(broken);
-                }}
-                style={{ backgroundColor: "#12284C" }}
-                collapsible
-                collapsed={collapsed}
-                onCollapse={onCollapse}>
+                }}>
                 <Row type="flex">
                     <Col span={24} align="center">
                         <div className="username" style={{ paddingTop: "30px" }}>
@@ -172,7 +115,6 @@ const Sidebar = ({ history }) => {
                             </Col>
                         </div>
                     </Col>
-
                     <Col span={24} align="center">
                         <div className="username" style={{ paddingBottom: "30px" }}>
                             Username
@@ -182,41 +124,47 @@ const Sidebar = ({ history }) => {
                 <Menu
                     theme="dark"
                     style={{ backgroundColor: "#12284C" }}
-                    defaultSelectedKeys={["1"]}
-                    mode="inline">
-                    <Menu.Item key="1" icon={<DashboardOutlined />}>
-                        Dashboard
+                    defaultSelectedKeys={selectedKey}
+                    mode="inline"
+                    selectedKeys={selectedKey}
+                    onClick={({ key }) => setSelectedKey(key)}>
+                    <Menu.Item key={KEYS[0]} icon={<DashboardOutlined />}>
+                        <Link to={`${match.path}${ROUTES.DASHBOARD}`}>
+                            Dashboard
+                        </Link>
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<NotificationOutlined />}>
+                    <Menu.Item key={KEYS[1]} icon={<NotificationOutlined />}>
                         News
                     </Menu.Item>
-                    <Menu.Item key="3" icon={<BookOutlined />}>
-                        <Link to="/assignments">Assignments</Link>
+                    <Menu.Item key={KEYS[2]} icon={<BookOutlined />}>
+                        <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>
+                            Assignments
+                        </Link>
                     </Menu.Item>
-                    <Menu.Item key="4" icon={<CalendarOutlined />}>
-                        <Link to={`${ROUTES.HOME}${ROUTES.CALENDAR}`}>Calendar</Link>
+                    <Menu.Item key={KEYS[3]} icon={<CalendarOutlined />}>
+                        <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
                     </Menu.Item>
-                    <Menu.Item key="5" icon={<UserOutlined />}>
+                    <Menu.Item key={KEYS[4]} icon={<UserOutlined />}>
                         Mentors
                     </Menu.Item>
-                    <Menu.Item key="6" icon={<TeamOutlined />}>
+                    <Menu.Item key={KEYS[5]} icon={<TeamOutlined />}>
                         Classmates
                     </Menu.Item>
-                    <Menu.Item key="7" icon={<DisconnectOutlined />}>
+                    <Menu.Item key={KEYS[6]} icon={<DisconnectOutlined />}>
                         CTD
                     </Menu.Item>
                     <SubMenu
                         key="sub1"
                         icon={<FundProjectionScreenOutlined />}
                         title="Resources">
-                        <Menu.Item key="8" icon={<SlackOutlined />}>
+                        <Menu.Item key={KEYS[7]} icon={<SlackOutlined />}>
                             Slack Channel
                         </Menu.Item>
-                        <Menu.Item key="9" icon={<YoutubeOutlined />}>
+                        <Menu.Item key={KEYS[8]} icon={<YoutubeOutlined />}>
                             Treehouse
                         </Menu.Item>
                     </SubMenu>
-                    <Menu.Item key="10" icon={<RocketOutlined />}>
+                    <Menu.Item key={KEYS[9]} icon={<RocketOutlined />}>
                         Students Projects
                     </Menu.Item>
                 </Menu>
@@ -253,57 +201,47 @@ const Sidebar = ({ history }) => {
                     <PageHeader
                         className="white-gray"
                         style={{ backgroundColor: "#fff", margin: "15px" }}
-                        breadcrumb={{ routes }}
-                        title="Welcome, Student!"
-                    />
+                        title="Welcome, Student!">
+                        <Breadcrumb style={{ margin: "0" }}>
+                            <Breadcrumb.Item>
+                                {page === "Dashboard" ? (
+                                    "Home"
+                                ) : (
+                                    <Link
+                                        to={`${match.path}${ROUTES.DASHBOARD}`}
+                                        onClick={() => setSelectedKey(KEYS[0])}>
+                                        Home
+                                    </Link>
+                                )}
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>
+                                {page === "Dashboard" ? null : page}
+                            </Breadcrumb.Item>
+                        </Breadcrumb>
+                    </PageHeader>
                     <Content style={{ margin: "0 16px" }}>
-                        <div
-                            className="site-layout-background"
-                            style={{ padding: 24, minHeight: 360 }}>
+                        <div className="site-layout-background">
                             <Switch>
-                                <Route
-                                    path="/assignments"
-                                    exact
+                                <PrivateRoute
+                                    path={`${match.path}${ROUTES.DASHBOARD}`}
+                                    component={(props) => (
+                                        <Dashboard
+                                            {...props}
+                                            menuKey={KEYS[2]}
+                                            selectedKey={selectedKey}
+                                            setSelectedKey={setSelectedKey}
+                                        />
+                                    )}
+                                />
+                                <PrivateRoute
+                                    path={`${match.path}${ROUTES.ASSIGNMENTS}`}
                                     component={Assignments}
                                 />
-                                <Route
-                                    path={`${ROUTES.HOME}${ROUTES.CALENDAR}`}
-                                    exact
+                                <PrivateRoute
+                                    path={`${match.path}${ROUTES.CALENDAR}`}
                                     component={FullCalendarDashboard}
                                 />
                             </Switch>
-                            <div className="container-fluid">
-                                <Row gutter={[16, 24]}>
-                                    <Col
-                                        xs={24}
-                                        sm={24}
-                                        md={24}
-                                        lg={14}
-                                        xl={16}
-                                        xxl={18}
-                                        style={{ border: "1px solid red" }}>
-                                        <Space direction="vertical">
-                                            <Summary />
-                                            <Progress />
-                                            <GetHelp />
-                                        </Space>
-                                    </Col>
-                                    <Col
-                                        xs={24}
-                                        sm={24}
-                                        md={24}
-                                        lg={10}
-                                        xl={8}
-                                        xxl={6}
-                                        className="site-layout-right">
-                                        <Space direction="vertical">
-                                            <CalendarButton />
-                                            <TodoList />
-                                            <SmallCalendar history={history} />
-                                        </Space>
-                                    </Col>
-                                </Row>
-                            </div>
                         </div>
                     </Content>
                     <Footer>
@@ -341,4 +279,4 @@ const Sidebar = ({ history }) => {
     );
 };
 
-export default Sidebar;
+export default HomePage;

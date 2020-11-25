@@ -54,7 +54,9 @@ class FullCalendarDashboard extends React.Component {
 
     render() {
         return (
-            <div className="demo-app">
+            <div
+                className="site-layout-background"
+                style={{ padding: 24, minHeight: 360 }}>
                 <Modal
                     title="Add Event"
                     visible={this.state.visible}
@@ -66,7 +68,7 @@ class FullCalendarDashboard extends React.Component {
                     </form>
                 </Modal>
                 {this.renderSidebar()}
-                <div className="demo-app-main">
+                <div className="container-fluid">
                     <FullCalendar
                         theme={true}
                         plugins={[

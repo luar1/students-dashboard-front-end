@@ -50,7 +50,6 @@ p {
     justify-content:center;
     align-items:top;
     width:100%;
-    border:1px solid blue;
     padding:0;
     margin:0 auto;
 }

@@ -1,10 +1,10 @@
 /** @format */
 
 import React, { useState, useContext } from "react";
-import CalendarContext from "../contexts/CalendarContext";
+import CalendarContext from "../../contexts/CalendarContext";
 import { Calendar, Badge, Space, Select, Radio, Col, Row, Typography } from "antd";
-import "../homePage/HomePage.css";
-import * as ROUTES from "../../constants/routes";
+import "../HomePage.css";
+import * as ROUTES from "../../../constants/routes";
 function onPanelChange(value, mode) {
     console.log(value, mode);
 }
