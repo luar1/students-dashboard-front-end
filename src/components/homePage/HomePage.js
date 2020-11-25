@@ -14,7 +14,7 @@ import CalendarButton from "../calendarButton/calendarButton";
 import TodoList from "../todoList/todoList";
 import Assignments from "./Assignments";
 import SmallCalendar from "../smallCalendar/smallCalendar";
-import BigCalendar from "../bigCalendar/BigCalendar";
+import FullCalendarDashboard from "../fullCalendar/FullCalendarDashboard";
 import * as ROUTES from "../../constants/routes";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
 import { PageHeader, Layout, Menu, Row, Col, Grid, Tag, Space, Avatar } from "antd";
@@ -117,23 +117,6 @@ const FooterLinks = styled.a`
         cursor: pointer;
     }
 `;
-const { useBreakpoint } = Grid;
-
-function UseBreakpointDemo() {
-    const screens = useBreakpoint();
-    return (
-        <>
-            Current break point:{" "}
-            {Object.entries(screens)
-                .filter((screen) => !!screen[1])
-                .map((screen) => (
-                    <Tag color="blue" key={screen[0]}>
-                        {screen[0]}
-                    </Tag>
-                ))}
-        </>
-    );
-}
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -274,7 +257,6 @@ const Sidebar = ({ history }) => {
                         title="Welcome, Student!"
                     />
                     <Content style={{ margin: "0 16px" }}>
-                        <UseBreakpointDemo />
                         <div
                             className="site-layout-background"
                             style={{ padding: 24, minHeight: 360 }}>
@@ -287,7 +269,7 @@ const Sidebar = ({ history }) => {
                                 <Route
                                     path={`${ROUTES.HOME}${ROUTES.CALENDAR}`}
                                     exact
-                                    component={BigCalendar}
+                                    component={FullCalendarDashboard}
                                 />
                             </Switch>
                             <div className="container-fluid">
