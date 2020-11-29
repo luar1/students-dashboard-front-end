@@ -1,41 +1,42 @@
-/** @format */
-
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
 import { Modal, Form, Input, Button, Checkbox } from "antd";
+import moment from 'moment';
+
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
-class FullCalendarDashboard extends React.Component {
-    state = {
+import CalendarContext from "../../contexts/CalendarContext";
+
+const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
+    const [selectedDate, setSelectedDate] = useContext(CalendarContext);
+
+    const [state, setState] = useState({
         weekendsVisible: true,
         visible: false,
         currentEvents: [],
+    });
+
+    useEffect(() => {
+        setSelectedKey(menuKey);
+    }, [])
+
+    const showModal = (selectInfo) => {
+        setState({ ...state, visible: true });
     };
 
-    showModal = (selectInfo) => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    handleOk = (e) => {
+    const handleOk = (e) => {
         console.log(e);
-        this.setState({
-            visible: false,
-        });
+        setState({ ...state, visible: false });
     };
 
-    handleCancel = (e) => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
+    const handleCancel = (e) => {
+        setState({ ...state, visible: false });
     };
 
-    handleDateSelect = (selectInfo) => {
+    const handleDateSelect = (selectInfo) => {
         let title = prompt("Please enter a new title for your event");
         let calendarApi = selectInfo.view.calendar;
 
@@ -52,87 +53,17 @@ class FullCalendarDashboard extends React.Component {
         }
     };
 
-    render() {
-        return (
-            <div
-                className="site-layout-background"
-                style={{ padding: 24, minHeight: 360 }}>
-                <Modal
-                    title="Add Event"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}>
-                    <form>
-                        <label for="event">Event Name:</label>
-                        <input type="text"></input>
-                    </form>
-                </Modal>
-                {this.renderSidebar()}
-                <div className="container-fluid">
-                    <FullCalendar
-                        theme={true}
-                        plugins={[
-                            dayGridPlugin,
-                            timeGridPlugin,
-                            interactionPlugin,
-                            listPlugin,
-                        ]}
-                        headerToolbar={{
-                            left: "prev,next today",
-                            center: "title",
-                            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-                        }}
-                        initialView="dayGridMonth"
-                        editable={true}
-                        selectable={true}
-                        selectMirror={true}
-                        dayMaxEvents={true}
-                        weekends={this.state.weekendsVisible}
-                        themeSystem="Lux"
-                        initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-                        select={this.handleDateSelect}
-                        eventContent={renderEventContent} // custom render function
-                        eventClick={this.showModal}
-                        eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-                        /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
-                    />
-                </div>
-            </div>
-        );
-    }
-
-    renderSidebar() {
+    const renderSidebar = () => {
         return <div className="demo-app-sidebar"></div>;
     }
 
-    handleWeekendsToggle = () => {
-        this.setState({
-            weekendsVisible: !this.state.weekendsVisible,
+    const handleWeekendsToggle = () => {
+        setState({
+            ...state, weekendsVisible: !state.weekendsVisible,
         });
     };
 
-    handleDateSelect = (selectInfo) => {
-        let title = prompt("Please enter a new title for your event");
-        let calendarApi = selectInfo.view.calendar;
-
-        calendarApi.unselect(); // clear date selection
-
-        if (title) {
-            calendarApi.addEvent({
-                id: createEventId(),
-                title,
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-                allDay: selectInfo.allDay,
-            });
-        }
-    };
-
-    handleEventClick = (clickInfo) => {
+    const handleEventClick = (clickInfo) => {
         if (
             window.confirm(
                 `Are you sure you want to delete the event '${clickInfo.event.title}'`
@@ -142,11 +73,66 @@ class FullCalendarDashboard extends React.Component {
         }
     };
 
-    handleEvents = (events) => {
-        this.setState({
-            currentEvents: events,
+    const handleEvents = (events) => {
+        setState({
+            ...state, currentEvents: events,
         });
     };
+
+    return (
+        <div
+            className="site-layout-background"
+            style={{ padding: 24, minHeight: 360 }}>
+            <Modal
+                title="Add Event"
+                visible={state.visible}
+                onOk={handleOk}
+                onCancel={handleCancel}>
+                <form>
+                    <label for="event">Event Name:</label>
+                    <input type="text"></input>
+                </form>
+            </Modal>
+            {renderSidebar()}
+            <div className="container-fluid">
+                <FullCalendar
+                    theme={true}
+                    plugins={[
+                        dayGridPlugin,
+                        timeGridPlugin,
+                        interactionPlugin,
+                        listPlugin,
+                    ]}
+                    headerToolbar={{
+                        left: "prev,next today",
+                        center: "title",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                    }}
+                    dateClick={(info) => { console.log(info) }}
+                    now={selectedDate ? selectedDate._d : null}
+                    initialView="dayGridMonth"
+                    editable={true}
+                    selectable={true}
+                    selectMirror={true}
+                    dayMaxEvents={true}
+                    weekends={state.weekendsVisible}
+                    themeSystem="Lux"
+                    initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                    select={handleDateSelect}
+                    eventContent={renderEventContent} // custom render function
+                    eventClick={showModal}
+                    eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+                /* you can update a remote database when these fire:
+    eventAdd={function(){}}
+    eventChange={function(){}}
+    eventRemove={function(){}}
+    */
+                />
+            </div>
+        </div>
+    );
+
+
 }
 
 function renderEventContent(eventInfo) {

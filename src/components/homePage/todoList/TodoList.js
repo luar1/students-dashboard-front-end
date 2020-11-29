@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Checkbox } from "antd";
 import { CheckSquareFilled, CloseSquareFilled } from "@ant-design/icons";
+
 const Todo = ({ todo, completeTodo }) => {
   const boxesStyle = {
     marginRight: 5,
@@ -24,7 +25,7 @@ const Todo = ({ todo, completeTodo }) => {
 const ToDoList = () => {
   const getToDoData = async () => {
     const response = await fetch(
-      "https://api.airtable.com/v0/appm5NPkqO7P8ePUK/List?api_key=keyclOytaXo7NHQ8M"
+      process.env.REACT_APP_GET_TODO_LIST
     );
     const todoData = await response.json();
     return todoData;
@@ -35,7 +36,7 @@ const ToDoList = () => {
   }, []);
 
   const completeTodo = (id, status) => {
-    fetch("https://api.airtable.com/v0/appm5NPkqO7P8ePUK/List", {
+    fetch(process.env.REACT_APP_UPDATE_TODO_LIST, {
       body: JSON.stringify({
         records: [
           {

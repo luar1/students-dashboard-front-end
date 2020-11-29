@@ -3,8 +3,7 @@ import { Space } from "antd";
 import styled from "styled-components";
 import { CalendarOutlined, VideoCameraOutlined } from "@ant-design/icons";
 
-const HomeButtons = () => {
-  const ButtonStyle = styled.button`
+const ButtonStyle = styled.button`
         color: #12284c;
         font-size: 1em;
         margin: 0 auto;
@@ -45,10 +44,11 @@ const HomeButtons = () => {
                 line-height:1;
                  box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
                  transition: all 0.1s ease-in-out;
-}
-        }
+          }
     `;
 
+
+const HomeButtons = () => {
   return (
     <>
       <Space direction="vertical" className="center">

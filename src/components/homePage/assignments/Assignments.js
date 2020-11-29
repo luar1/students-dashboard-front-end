@@ -52,7 +52,7 @@ const reducer = (state, action) => {
   }
 }
 
-const Assignments = ({ match, history }) => {
+const Assignments = ({ match, history, menuKey, setSelectedKey }) => {
   const [state, setState] = useState({ key: 'Week 1' });
   const [savedProgress, setSavedProgress] = useState(null);
   const { key } = state;
@@ -61,6 +61,9 @@ const Assignments = ({ match, history }) => {
   const [classInfo, dispatchClass] = useReducer(reducer, INITIAL_STATE);
   const [userInfo, dispatchUser] = useContext(UserContext);
 
+  useEffect(() => {
+    setSelectedKey(menuKey);
+  }, [])
 
   useEffect(() => {
     const getAssignments = async () => {
@@ -281,7 +284,5 @@ const Assignments = ({ match, history }) => {
     </StyledDiv >
   )
 }
-
-
 
 export default Assignments;
