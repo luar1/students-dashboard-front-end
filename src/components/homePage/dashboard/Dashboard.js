@@ -1,6 +1,4 @@
-/** @format */
-
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Space } from "antd";
 
 import Progress from "../progress/MainProgress";
@@ -11,13 +9,19 @@ import AssignmentSummary from "../assignments/AssignmentSummary";
 import HomeButtons from "../homeButtons/HomeButtons";
 
 const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
+    const { assignmentsKey, calendarKey, dashboardKey } = menuKey;
+
+    useEffect(() => {
+        setSelectedKey(dashboardKey);
+    }, [])
+
     return (
         <div className="container-fluid">
             <Row gutter={[16, 24]}>
                 <Col xs={24} sm={24} md={24} lg={14} xl={16} xxl={18}>
                     <Space direction="vertical">
                         <AssignmentSummary
-                            menuKey={menuKey}
+                            menuKey={assignmentsKey}
                             selectedKey={selectedKey}
                             setSelectedKey={setSelectedKey}
                         />
@@ -36,7 +40,12 @@ const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
                     <Space direction="vertical">
                         <HomeButtons />
                         <TodoList />
-                        <SmallCalendar history={history} />
+                        <SmallCalendar
+                            history={history}
+                            menuKey={calendarKey}
+                            selectedKey={selectedKey}
+                            setSelectedKey={setSelectedKey}
+                        />
                     </Space>
                 </Col>
             </Row>

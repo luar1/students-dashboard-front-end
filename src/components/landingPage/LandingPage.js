@@ -4,6 +4,8 @@ import Login from './Login'
 import Navbar from './Navbar'
 import FooterPage from './FooterPage'
 
+import './index.css';
+
 const Section = styled.div`
   display:flex;
   flex-grow: 1;

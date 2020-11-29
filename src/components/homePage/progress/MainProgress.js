@@ -34,9 +34,9 @@ const MainProgress = () => {
           <div className="progress">
             <Row gutter={24}>
               {progress
-                ? progress.records.map((week) => {
+                ? progress.records.map((week, index) => {
                   return (
-                    <Col flex="1 1 ">
+                    <Col flex="1 1 " key={index}>
                       <Card
                         style={{
                           height: 255,

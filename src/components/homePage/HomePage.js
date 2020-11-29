@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import { Route, Switch, Link } from "react-router-dom";
 import { UserCircle } from "@styled-icons/boxicons-solid/UserCircle";
@@ -94,9 +92,7 @@ const HomePage = ({ match, history }) => {
         onCollapse={onCollapse}
         breakpoint="md"
         collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}>
+      >
         <Row type="flex">
           <Col span={24} align="center">
             <div className="username" style={{ paddingTop: "30px" }}>
@@ -224,21 +220,23 @@ const HomePage = ({ match, history }) => {
               <Switch>
                 <PrivateRoute
                   path={`${match.path}${ROUTES.DASHBOARD}`}
-                  component={(props) => (
-                    <Dashboard
-                      {...props}
-                      menuKey={KEYS[2]}
-                      selectedKey={selectedKey}
-                      setSelectedKey={setSelectedKey}
-                    />
-                  )}
+                  component={Dashboard}
+                  menuKey={{ dashboardKey: KEYS[0], assignmentsKey: KEYS[2], calendarKey: KEYS[3] }}
+                  selectedKey={selectedKey}
+                  setSelectedKey={setSelectedKey}
                 />
                 <PrivateRoute
                   path={`${match.path}${ROUTES.ASSIGNMENTS}`}
+                  menuKey={KEYS[2]}
+                  selectedKey={selectedKey}
+                  setSelectedKey={setSelectedKey}
                   component={Assignments}
                 />
                 <PrivateRoute
                   path={`${match.path}${ROUTES.CALENDAR}`}
+                  menuKey={KEYS[3]}
+                  selectedKey={selectedKey}
+                  setSelectedKey={setSelectedKey}
                   component={FullCalendarDashboard}
                 />
               </Switch>
