@@ -1,20 +1,23 @@
+/** @format */
+
 import React from "react";
 import { Space } from "antd";
 import styled from "styled-components";
 import { CalendarOutlined, VideoCameraOutlined } from "@ant-design/icons";
 
 const HomeButtons = () => {
-  const ButtonStyle = styled.button`
+    const ButtonStyle = styled.button`
         color: #12284c;
         font-size: 1em;
         margin: 0 auto;
         padding: 8px;
         background-color: #ff5c35;
         border: 1px solid #f1f1f2;
-        border-radius: 5px;
-        width: 300px;
+        border-radius: 3px;
+        width: 305px;
         text-align: center;
         display: block;
+
         a {
             color: #12284c;
         }
@@ -49,23 +52,22 @@ const HomeButtons = () => {
         }
     `;
 
-  return (
-    <>
-      <Space direction="vertical" className="center">
-        <ButtonStyle as="a" href="/">
-          <CalendarOutlined /> View Calendar
-        </ButtonStyle>
-        <ButtonStyle
-          as="a"
-          href="https://us02web.zoom.us/j/8270372532?pwd=cGJHazFVUURyTTc1a3REQytqZjYyZz09"
-          target="_blank"
-        >
-          <VideoCameraOutlined /> Mentor Session
-        </ButtonStyle>
-      </Space>
-      <br />
-    </>
-  );
+    return (
+        <>
+            <Space direction="vertical" className="center">
+                <ButtonStyle as="a" href="/" className="shadow ">
+                    <CalendarOutlined /> View Calendar
+                </ButtonStyle>
+                <ButtonStyle
+                    as="a"
+                    href="https://us02web.zoom.us/j/8270372532?pwd=cGJHazFVUURyTTc1a3REQytqZjYyZz09"
+                    target="_blank"
+                    className="shadow ">
+                    <VideoCameraOutlined /> Mentor Session
+                </ButtonStyle>
+            </Space>
+        </>
+    );
 };
 
 export default HomeButtons;

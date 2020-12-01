@@ -21,8 +21,6 @@ import {
     YoutubeOutlined,
     RocketOutlined,
 } from "@ant-design/icons";
-
-import "./HomePage.css";
 import logo from "../../graphics/logo.png";
 import ctd from "../landingPage/graphics/ctd.png";
 import treehouse from "../landingPage/graphics/treehouse.png";
@@ -198,10 +196,7 @@ const HomePage = ({ match, history }) => {
                             </Row>
                         </Header>
                     </HeaderPage>
-                    <PageHeader
-                        className="white-gray"
-                        style={{ backgroundColor: "#fff", margin: "15px" }}
-                        title="Welcome, Student!">
+                    <PageHeader className="white-gray" title="Welcome, Student!">
                         <Breadcrumb style={{ margin: "0" }}>
                             <Breadcrumb.Item>
                                 {page === "Dashboard" ? (

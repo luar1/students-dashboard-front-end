@@ -6,7 +6,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import listPlugin from "@fullcalendar/list";
-import { Modal, Form, Input, Button, Checkbox } from "antd";
+import { Modal, Row, Col, Space } from "antd";
+import SmallCalendar from "../smallCalendar/SmallCalendar";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 class FullCalendarDashboard extends React.Component {
     state = {
@@ -54,52 +55,55 @@ class FullCalendarDashboard extends React.Component {
 
     render() {
         return (
-            <div
-                className="site-layout-background"
-                style={{ padding: 24, minHeight: 360 }}>
-                <Modal
-                    title="Add Event"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}>
-                    <form>
-                        <label for="event">Event Name:</label>
-                        <input type="text"></input>
-                    </form>
-                </Modal>
-                {this.renderSidebar()}
-                <div className="container-fluid">
-                    <FullCalendar
-                        theme={true}
-                        plugins={[
-                            dayGridPlugin,
-                            timeGridPlugin,
-                            interactionPlugin,
-                            listPlugin,
-                        ]}
-                        headerToolbar={{
-                            left: "prev,next today",
-                            center: "title",
-                            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-                        }}
-                        initialView="dayGridMonth"
-                        editable={true}
-                        selectable={true}
-                        selectMirror={true}
-                        dayMaxEvents={true}
-                        weekends={this.state.weekendsVisible}
-                        themeSystem="Lux"
-                        initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-                        select={this.handleDateSelect}
-                        eventContent={renderEventContent} // custom render function
-                        eventClick={this.showModal}
-                        eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-                        /* you can update a remote database when these fire:
+            <div className="container-fluid">
+                <div
+                    className="site-layout-background cards-border"
+                    style={{ padding: 24, minHeight: 360 }}>
+                    <Modal
+                        title="Add Event"
+                        visible={this.state.visible}
+                        onOk={this.handleOk}
+                        onCancel={this.handleCancel}>
+                        <form>
+                            <label for="event">Event Name:</label>
+                            <input type="text"></input>
+                        </form>
+                    </Modal>
+                    {this.renderSidebar()}
+                    <div className="container-fluid">
+                        <FullCalendar
+                            theme={true}
+                            plugins={[
+                                dayGridPlugin,
+                                timeGridPlugin,
+                                interactionPlugin,
+                                listPlugin,
+                            ]}
+                            headerToolbar={{
+                                left: "prev,next today",
+                                center: "title",
+                                right:
+                                    "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                            }}
+                            initialView="dayGridMonth"
+                            editable={true}
+                            selectable={true}
+                            selectMirror={true}
+                            dayMaxEvents={true}
+                            weekends={this.state.weekendsVisible}
+                            themeSystem="Lux"
+                            initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+                            select={this.handleDateSelect}
+                            eventContent={renderEventContent} // custom render function
+                            eventClick={this.showModal}
+                            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+                            /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
             eventRemove={function(){}}
             */
-                    />
+                        />
+                    </div>
                 </div>
             </div>
         );

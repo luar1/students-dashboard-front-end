@@ -6,20 +6,22 @@ import { Space, Card, Button, Typography } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import FrontEnd from "../../../graphics/frontEnd.png";
 import * as ROUTES from "../../../constants/routes";
+import { StyledDivSummary, StyledDivBadge } from "./styles";
 
 const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
     return (
         <>
             <Space direction="vertical">
-                <Card type="inner" hoverable>
+                <Card type="inner" hoverable className="cards-border">
                     <Typography.Title level={4}>
                         You are starting Front End 1 Week 1
                     </Typography.Title>
-                    <div className="badge">
+                    <StyledDivBadge>
                         <div>
                             <img src={FrontEnd} alt="" className="badge"></img>
                         </div>
-                        <div>
+                        <br />
+                        <p>
                             <Typography.Title level={5}>Summary</Typography.Title>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Proin malesuada feugiat tellus, eu feugiat nisi aliquet
@@ -27,9 +29,9 @@ const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
                             tempus in nibh. Suspendisse ultrices, massa a laoreet
                             gravida, diam lacus tincidunt est, at congue turpis erat
                             in elit.
-                        </div>
-                    </div>
-                    <div className="summary">
+                        </p>
+                    </StyledDivBadge>
+                    <StyledDivSummary>
                         <Link
                             to={`${ROUTES.HOME}${ROUTES.ASSIGNMENTS}`}
                             onClick={() => setSelectedKey(menuKey)}>
@@ -37,7 +39,7 @@ const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
                                 Start the Assignment
                             </Button>
                         </Link>
-                    </div>
+                    </StyledDivSummary>
                 </Card>
             </Space>
         </>

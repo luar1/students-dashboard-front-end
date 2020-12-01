@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import { Progress, Card, Row, Col, Space, Typography } from "antd";
+import { Progress, Card, Row, Col, Typography } from "antd";
 import { Link } from "react-router-dom";
 
 const MainProgress = () => {
@@ -23,53 +23,54 @@ const MainProgress = () => {
     const { Meta } = Card;
     return (
         <>
-            <Space direction="vertical">
-                <Card type="inner" hoverable>
-                    <Typography.Title level={4} className="left">
-                        Your Progress
-                    </Typography.Title>
-                    <div className="site-card-wrapper">
-                        <Row gutter={16}>
-                            {progress
-                                ? progress.records.map((week) => {
-                                      return (
-                                          <Col span={8}>
-                                              <Card
-                                                  style={{
-                                                      height: 255,
-                                                      textAlign: "center",
-                                                      paddingTop: 20,
-                                                      marginBottom: 20,
-                                                  }}
-                                                  cover={
-                                                      <Link to="/home/assignments/">
-                                                          {" "}
-                                                          <Progress
-                                                              type="circle"
-                                                              strokeColor={{
-                                                                  "0%": "#108ee9",
-                                                                  "100%": "#87d068",
-                                                              }}
-                                                              percent={
-                                                                  week.fields
-                                                                      .Progress
-                                                              }
-                                                          />
-                                                      </Link>
-                                                  }>
-                                                  <Meta
-                                                      title={week.fields.Unit}
-                                                      description="This is the description"
-                                                  />
-                                              </Card>
-                                          </Col>
-                                      );
-                                  })
-                                : null}
-                        </Row>
-                    </div>
-                </Card>
-            </Space>
+            <Card hoverable className="cards-border">
+                <Typography.Title level={4} className="left">
+                    Your Progress
+                </Typography.Title>
+                <div>
+                    <Row
+                        gutter={{ xs: 24, sm: 24, md: 24, lg: 32 }}
+                        wrap={false}
+                        className="center">
+                        {progress
+                            ? progress.records.map((week) => {
+                                  return (
+                                      <Col flex="auto">
+                                          <Card
+                                              hoverable
+                                              style={{
+                                                  height: 255,
+                                                  textAlign: "center",
+                                                  padding: "8px 0",
+                                                  margin: "8px 0",
+                                              }}
+                                              cover={
+                                                  <Link to="/home/assignments/">
+                                                      {" "}
+                                                      <Progress
+                                                          type="circle"
+                                                          strokeColor={{
+                                                              "0%": "#108ee9",
+                                                              "100%": "#87d068",
+                                                          }}
+                                                          percent={
+                                                              week.fields.Progress
+                                                          }
+                                                      />
+                                                  </Link>
+                                              }>
+                                              <Meta
+                                                  title={week.fields.Unit}
+                                                  description="This is the description"
+                                              />
+                                          </Card>
+                                      </Col>
+                                  );
+                              })
+                            : null}
+                    </Row>
+                </div>
+            </Card>
         </>
     );
 };
