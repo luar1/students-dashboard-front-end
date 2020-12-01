@@ -1,9 +1,8 @@
-/** @format */
-
 import React from "react";
 import { Row, Col, Divider, Card, Typography } from "antd";
 import { MessageOutlined, CustomerServiceOutlined } from "@ant-design/icons";
-import MentorForm from "../mentorForm/MentorForm";
+
+import MentorForm from "../../mentorForm/MentorForm";
 
 const GetHelp = () => {
     return (

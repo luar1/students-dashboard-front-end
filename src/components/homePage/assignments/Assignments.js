@@ -156,31 +156,6 @@ const Assignments = ({ match, history, menuKey, setSelectedKey }) => {
   };
 
   const tabPanes = (classKey) => {
-    // return (
-    //   classInfo.units[classKey].lessons.map((lesson, index) => {
-    //     return (
-    //       <TabPane tab={<Link to={`${match.path}`}>Week {index + 1}</Link>} key={`${index}`} >
-    //         <h3 className="courseOutline" align="center">{savedProgress ? <CheckOutlined /> : <FileDoneOutlined />}<Link to={`${match.path}${ROUTES.INSTRUCTIONS}`}>Instructions & Goals</Link> <LineOutlined /> <YoutubeOutlined /><Link to={`${match.path}${ROUTES.VIDEOS}`}> Resources</Link> <LineOutlined /> <GithubOutlined /><Link to={`${match.path}${ROUTES.SUBMISSION}`}> Github Link </Link><LineOutlined /> <SmileOutlined /> Done</h3>
-    //         <div className="cardContent">
-    //           <Switch>
-    //             <Route exact path={`${match.path}`} render={props => <Summary {...props} lesson={lesson.lesson_name} />} />
-    //             <Route exact path={`${match.path}${ROUTES.DASHBOARD}`} component={Instructions} />
-    //             <Route exact path={`${match.path}${ROUTES.VIDEOS}`} render={props => <Videos {...props} lessons={classInfo.units[clickedUnitKey].lessons[clickedLessonKey]} />} />
-    //             <Route exact path={`${match.path}${ROUTES.SUBMISSION}`} render={props => <GithubLink {...props} githubLink={classInfo} />} />
-    //           </Switch>
-    //           <div style={{
-    //             position: 'absolute', right: 0, bottom: 0, marginBottom: '4.5rem',
-    //             marginRight: '4.5rem'
-    //           }}>
-    //             <Form style={{ display: 'inline-block' }} onFinish={handleSubmit}><Button style={{ marginRight: '1rem' }} type="primary" htmlType="submit">Save Progress</Button></Form>
-    //             <Link to={location => nextPage(location)}><Button type="primary">Next</Button></Link>
-    //           </div>
-    //         </div>
-    //       </TabPane>
-    //     )
-    //   })
-    // )
-
     return (
       classInfo.units[classKey].lessons.map((lesson, index) => {
         return (
@@ -223,64 +198,30 @@ const Assignments = ({ match, history, menuKey, setSelectedKey }) => {
         )
       })
     )
-
-
-    return (
-      <TabPane>
-        <div className="cardContent">
-          <Steps current={current}>
-            {steps.map(item => (
-              <Step key={item.title} title={item.title} icon={item.icon} />
-            ))}
-          </Steps>
-          {steps[current].content}
-          <div className="steps-action">
-            {current < steps.length - 1 && (
-              <Button type="primary" onClick={() => next()}>
-                Next
-              </Button>
-            )}
-            {current === steps.length - 1 && (
-              <Button type="primary" onClick={() => message.success('Processing complete!')}>
-                Done
-              </Button>
-            )}
-            {current > 0 && (
-              <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                Previous
-              </Button>
-            )}
-          </div>
-        </div>
-      </TabPane>
-    );
   }
-
-
 
   return (
     <StyledDiv>
-      <Card
-        style={{ height: '500px', width: '890px' }}
-        title={!_.isEmpty(classInfo) ? classInfo.units[clickedUnitKey].unit_name : null}
-        extra={<AssignmentsDropdown />}
-        activeTabKey={key}
-      >
-        <StyledSection>
-          <div className="card-container">
-            {
-              !_.isEmpty(classInfo) ?
+      {
+        !_.isEmpty(classInfo) ?
+          <Card
+            style={{ height: '500px', width: '890px' }}
+            title={!_.isEmpty(classInfo) ? classInfo.units[clickedUnitKey].unit_name : null}
+            extra={<AssignmentsDropdown />}
+            activeTabKey={key}
+          >
+            <StyledSection>
+              <div className="card-container">
                 <Tabs type="card" onChange={key => setClickedLessonKey(key)}>{tabPanes(clickedUnitKey)}</Tabs>
-                :
-                (<Row>
-                  <Col span={12} offset={12}>
-                    <Spin size="large" />
-                  </Col>
-                </Row>)
-            }
-          </div>
-        </StyledSection>
-      </Card>
+              </div>
+            </StyledSection>
+          </Card>
+          : (<Row>
+            <Col span={12} offset={12}>
+              <Spin size="large" />
+            </Col>
+          </Row>)
+      }
     </StyledDiv >
   )
 }
