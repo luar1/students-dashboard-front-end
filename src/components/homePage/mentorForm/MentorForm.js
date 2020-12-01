@@ -36,7 +36,7 @@ const CreateForm = ({ visible, onCreate, onCancel }) => {
     let unique_mentors = [
       ...new Map(mentors.records.map((o) => [o.fields.Key, o])).values(),
     ];
-    console.log(unique_mentors);
+
     unique_mentors.forEach((mentor) => {
       let object = {};
       object.value = mentor.fields.Key;
