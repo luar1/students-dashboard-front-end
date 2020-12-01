@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { Button, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined, AlignLeftOutlined } from '@ant-design/icons';
 
-import './index.css';
 import * as ROUTES from '../../constants/routes';
 import ForgotPassword from './ForgotPassword';
 import AuthContext from '../contexts/AuthContext';
@@ -31,7 +30,6 @@ const Login = ({ history }) => {
 			if (res.hasOwnProperty('token')) {
 				// Update auth context with jwt
 				setAuthUser(res.token);
-				console.log(values)
 				// dispatch({ type: 'all', payload: { field: 'all', value: { email, username: 'Jerry', course: 'High Noon' } } });
 				// Switch to home page
 				history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);

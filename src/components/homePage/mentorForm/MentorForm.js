@@ -38,7 +38,7 @@ const CreateForm = ({ visible, onCreate, onCancel }) => {
         let unique_mentors = [
             ...new Map(mentors.records.map((o) => [o.fields.Key, o])).values(),
         ];
-        console.log(unique_mentors);
+
         unique_mentors.forEach((mentor) => {
             let object = {};
             object.value = mentor.fields.Key;
@@ -56,111 +56,142 @@ const CreateForm = ({ visible, onCreate, onCancel }) => {
                     children: [],
                 };
                 let times_foreach_date = mentors.records.filter(
-                    (x) =>
-                        x.fields.Key === key &&
-                        x.fields.Dates === element.fields.Dates
+                    (x) => x.fields.Key === key && x.fields.Dates === element.fields.Dates
                 );
-                times_foreach_date.forEach((time) => {
-                    new_date.children.push({
-                        value: time.fields.Times,
-                        label: time.fields.Times,
+                const mentorsData = await response.json();
+                return mentorsData;
+            };
+
+            const [mentors, setMentors] = useState(null);
+
+            const getOptions = () => {
+                let options = [];
+                let unique_mentors = [
+                    ...new Map(mentors.records.map((o) => [o.fields.Key, o])).values(),
+                ];
+                console.log(unique_mentors);
+                unique_mentors.forEach((mentor) => {
+                    let object = {};
+                    object.value = mentor.fields.Key;
+                    object.label = mentor.fields.Name;
+                    object.children = [];
+                    let key = mentor.fields.Key;
+                    let dates_for_each_mentor = mentors.records.filter(
+                        (x) => x.fields.Key === key
+                    );
+
+                    dates_for_each_mentor.forEach((element) => {
+                        let new_date = {
+                            value: element.fields.Dates,
+                            label: element.fields.Dates,
+                            children: [],
+                        };
+                        let times_foreach_date = mentors.records.filter(
+                            (x) =>
+                                x.fields.Key === key &&
+                                x.fields.Dates === element.fields.Dates
+                        );
+                        times_foreach_date.forEach((time) => {
+                            new_date.children.push({
+                                value: time.fields.Times,
+                                label: time.fields.Times,
+                            });
+                        });
+                        object.children.push(new_date);
                     });
+                    options.push(object);
                 });
-                object.children.push(new_date);
-            });
-            options.push(object);
-        });
-        return options;
-    };
+                return options;
+            };
 
-    useEffect(() => {
-        getMentorsData().then((data) => setMentors(data));
-    }, []);
+            useEffect(() => {
+                getMentorsData().then((data) => setMentors(data));
+            }, []);
 
-    return (
-        <Modal
-            visible={visible}
-            title="Mentor Session"
-            okText="Submit"
-            cancelText="Cancel"
-            onCancel={onCancel}
-            onOk={() => {
-                form.validateFields()
-                    .then((values) => {
-                        form.resetFields();
-                        onCreate(values);
-                    })
-                    .catch((info) => {
-                        console.log("Validate Failed:", info);
-                    });
-            }}>
-            <Form
-                form={form}
-                layout="vertical"
-                name="form_in_modal"
-                initialValues={{
-                    modifier: "public",
-                }}>
-                <Form.Item label="Mentor">
-                    {mentors && <Cascader options={getOptions()} />}
-                </Form.Item>
-                <Form.Item label="Date">
-                    <DatePicker />
-                </Form.Item>
+            return (
+                <Modal
+                    visible={visible}
+                    title="Mentor Session"
+                    okText="Submit"
+                    cancelText="Cancel"
+                    onCancel={onCancel}
+                    onOk={() => {
+                        form.validateFields()
+                            .then((values) => {
+                                form.resetFields();
+                                onCreate(values);
+                            })
+                            .catch((info) => {
+                                console.log("Validate Failed:", info);
+                            });
+                    }}>
+                    <Form
+                        form={form}
+                        layout="vertical"
+                        name="form_in_modal"
+                        initialValues={{
+                            modifier: "public",
+                        }}>
+                        <Form.Item label="Mentor">
+                            {mentors && <Cascader options={getOptions()} />}
+                        </Form.Item>
+                        <Form.Item label="Date">
+                            <DatePicker />
+                        </Form.Item>
 
-                <Form.Item label="Type">
-                    <Select>
-                        <Select.Option value="regularsession">
-                            Mentor Session
+                        <Form.Item label="Type">
+                            <Select>
+                                <Select.Option value="regularsession">
+                                    Mentor Session
                         </Select.Option>
-                        <Select.Option value="1on1">1 on 1</Select.Option>
-                    </Select>
-                </Form.Item>
+                                <Select.Option value="1on1">1 on 1</Select.Option>
+                            </Select>
+                        </Form.Item>
 
-                <Form.Item label="Have you started the assignment? ">
-                    <Checkbox.Group
-                        options={plainOptions}
-                        defaultValue={["Yes"]}
-                        onChange={onChange}
-                    />
-                </Form.Item>
+                        <Form.Item label="Have you started the assignment? ">
+                            <Checkbox.Group
+                                options={plainOptions}
+                                defaultValue={["Yes"]}
+                                onChange={onChange}
+                            />
+                        </Form.Item>
 
-                <Form.Item
-                    name="description"
-                    label="Any questions or topics would you like to discuss at the session?">
-                    <Input type="textarea" />
-                </Form.Item>
-            </Form>
-        </Modal>
-    );
-};
+                        <Form.Item
+                            name="description"
+                            label="Any questions or topics would you like to discuss at the session?">
+                            <Input type="textarea" />
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            );
+        };
 
-const MentorForm = () => {
-    const [visible, setVisible] = useState(false);
+        const MentorForm = () => {
+            const [visible, setVisible] = useState(false);
 
-    const onCreate = (values) => {
-        console.log("Received values of form: ", values);
-        setVisible(false);
-    };
+            const onCreate = (values) => {
+                console.log("Received values of form: ", values);
+                setVisible(false);
+            };
 
-    return (
-        <>
-            <Button
-                type="primary"
-                onClick={() => {
-                    setVisible(true);
-                }}>
-                Here
+            return (
+                <>
+                    <Button
+                        type="primary"
+                        onClick={() => {
+                            setVisible(true);
+                        }}>
+                        Here
             </Button>
-            <CreateForm
-                visible={visible}
-                onCreate={onCreate}
-                onCancel={() => {
-                    setVisible(false);
-                }}
-            />
-        </>
-    );
-};
+                    <CreateForm
+                        visible={visible}
+                        onCreate={onCreate}
+                        onCancel={() => {
+                            setVisible(false);
+                        }}
+                    />
+                </>
+            );
+        };
 
-export default MentorForm;
+        export default MentorForm;

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Typography, Checkbox } from "antd";
 import "./styles.css";
 import { CheckSquareFilled, CloseSquareFilled } from "@ant-design/icons";
+
 const Todo = ({ todo, completeTodo }) => {
     return (
         <div style={{ textDecoration: todo.Status ? "line-through" : "" }}>
@@ -21,7 +22,7 @@ const Todo = ({ todo, completeTodo }) => {
 const ToDoList = () => {
     const getToDoData = async () => {
         const response = await fetch(
-            "https://api.airtable.com/v0/appm5NPkqO7P8ePUK/List?api_key=keyclOytaXo7NHQ8M"
+            process.env.REACT_APP_GET_TODO_LIST
         );
         const todoData = await response.json();
         return todoData;
@@ -32,7 +33,7 @@ const ToDoList = () => {
     }, []);
 
     const completeTodo = (id, status) => {
-        fetch("https://api.airtable.com/v0/appm5NPkqO7P8ePUK/List", {
+        fetch(process.env.REACT_APP_UPDATE_TODO_LIST, {
             body: JSON.stringify({
                 records: [
                     {
@@ -40,41 +41,34 @@ const ToDoList = () => {
                         fields: {
                             Status: status,
                         },
-                    },
-                ],
-            }),
-            headers: {
-                Authorization: "Bearer keyclOytaXo7NHQ8M",
-                "Content-Type": "application/json",
-            },
-            method: "PATCH",
-        })
-            .then(() => {
-                getToDoData().then((data) => setTodos(data.records));
-            })
-            .catch((e) => {
-                console.log(e);
-                alert("Unable to update to do ");
-            });
-    };
+                        method: "PATCH",
+                    })
+                .then(() => {
+                    getToDoData().then((data) => setTodos(data.records));
+                })
+                .catch((e) => {
+                    console.log(e);
+                    alert("Unable to update to do ");
+                });
+        };
 
-    return (
-        <>
+        return (
             <>
-                <Card className="card-todo white-gray shadow center">
-                    <Typography.Title level={4}>To Do</Typography.Title>
-                    {todos &&
-                        todos.map((todo, index) => (
-                            <Todo
-                                key={index}
-                                id={todo.id}
-                                todo={todo}
-                                completeTodo={completeTodo}
-                            />
-                        ))}
-                </Card>
+                <>
+                    <Card className="card-todo white-gray shadow center">
+                        <Typography.Title level={4}>To Do</Typography.Title>
+                        {todos &&
+                            todos.map((todo, index) => (
+                                <Todo
+                                    key={index}
+                                    id={todo.id}
+                                    todo={todo}
+                                    completeTodo={completeTodo}
+                                />
+                            ))}
+                    </Card>
+                </>
             </>
-        </>
-    );
-};
-export default ToDoList;
+        );
+    };
+    export default ToDoList;

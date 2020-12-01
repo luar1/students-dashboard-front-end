@@ -5,8 +5,7 @@ import { Space } from "antd";
 import styled from "styled-components";
 import { CalendarOutlined, VideoCameraOutlined } from "@ant-design/icons";
 
-const HomeButtons = () => {
-    const ButtonStyle = styled.button`
+const ButtonStyle = styled.button`
         color: #12284c;
         font-size: 1em;
         margin: 0 auto;
@@ -48,26 +47,47 @@ const HomeButtons = () => {
                 line-height:1;
                  box-shadow: 7px 7px 19px -12px rgba(0, 0, 0, 0.32);
                  transition: all 0.1s ease-in-out;
-}
-        }
+          }
     `;
 
-    return (
-        <>
-            <Space direction="vertical" className="center">
-                <ButtonStyle as="a" href="/" className="shadow ">
-                    <CalendarOutlined /> View Calendar
+<<<<<<< HEAD:src/components/homePage/homeButtons/HomeButtons.js
+return (
+  <>
+    <Space direction="vertical" className="center">
+      <ButtonStyle as="a" href="/" className="shadow ">
+        <CalendarOutlined /> View Calendar
                 </ButtonStyle>
-                <ButtonStyle
-                    as="a"
-                    href="https://us02web.zoom.us/j/8270372532?pwd=cGJHazFVUURyTTc1a3REQytqZjYyZz09"
-                    target="_blank"
-                    className="shadow ">
-                    <VideoCameraOutlined /> Mentor Session
+      <ButtonStyle
+        as="a"
+        href="https://us02web.zoom.us/j/8270372532?pwd=cGJHazFVUURyTTc1a3REQytqZjYyZz09"
+        target="_blank"
+        className="shadow ">
+        <VideoCameraOutlined /> Mentor Session
                 </ButtonStyle>
-            </Space>
-        </>
-    );
+    </Space>
+  </>
+);
+=======
+
+const HomeButtons = () => {
+  return (
+    <>
+      <Space direction="vertical" className="center">
+        <ButtonStyle as="a" href="/">
+          <CalendarOutlined /> View Calendar
+        </ButtonStyle>
+        <ButtonStyle
+          as="a"
+          href="https://us02web.zoom.us/j/8270372532?pwd=cGJHazFVUURyTTc1a3REQytqZjYyZz09"
+          target="_blank"
+        >
+          <VideoCameraOutlined /> Mentor Session
+        </ButtonStyle>
+      </Space>
+      <br />
+    </>
+  );
+>>>>>>> newPush:src/components/homePage/dashboard/homeButtons/HomeButtons.js
 };
 
 export default HomeButtons;
