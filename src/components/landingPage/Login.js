@@ -30,7 +30,6 @@ const Login = ({ history }) => {
 			if (res.hasOwnProperty('token')) {
 				// Update auth context with jwt
 				setAuthUser(res.token);
-				console.log(values)
 				// dispatch({ type: 'all', payload: { field: 'all', value: { email, username: 'Jerry', course: 'High Noon' } } });
 				// Switch to home page
 				history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);

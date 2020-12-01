@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Row, Col, Space } from "antd";
 
-import Progress from "../progress/MainProgress";
-import GetHelp from "../getHelp/GetHelp";
-import TodoList from "../todoList/TodoList";
-import SmallCalendar from "../smallCalendar/SmallCalendar";
-import AssignmentSummary from "../assignments/AssignmentSummary";
-import HomeButtons from "../homeButtons/HomeButtons";
+import Progress from "./progress/MainProgress";
+import GetHelp from "./getHelp/GetHelp";
+import TodoList from "./todoList/TodoList";
+import SmallCalendar from "./smallCalendar/SmallCalendar";
+import AssignmentSummary from "./assignmentSummary/AssignmentSummary";
+import HomeButtons from "./homeButtons/HomeButtons";
 
 const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
     const { assignmentsKey, calendarKey, dashboardKey } = menuKey;

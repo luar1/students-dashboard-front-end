@@ -1,25 +1,24 @@
-/** @format */
-
 import React from "react";
 import { Row, Col, Divider, Card, Typography } from "antd";
 import { MessageOutlined, CustomerServiceOutlined } from "@ant-design/icons";
-import MentorForm from "../mentorForm/MentorForm";
+import MentorForm from "../../dashboard/mentorForm/MentorForm";
+import { StyledDiv } from "./styles";
 
 const GetHelp = () => {
     return (
         <>
-            <Card type="inner" hoverable>
+            <Card type="inner" hoverable className="cards-border">
                 <Typography.Title level={4} className="left">
                     Quick Links
                 </Typography.Title>
 
-                <Row gutter={16}>
-                    <div className="badge">
-                        <Col span={11} style={{ paddingTop: 30 }}>
+                <Row gutter={[16, 16]}>
+                    <StyledDiv>
+                        <Col span={12} style={{ borderRight: "1px solid #ccc" }}>
                             <Typography.Title level={5} className="left">
-                                <CustomerServiceOutlined /> Need Help?
+                                <CustomerServiceOutlined />
+                                Need Help?
                             </Typography.Title>
-                            <br />
                             Contact
                             <a
                                 href="https://www.codethedream.org/contact-us/"
@@ -29,16 +28,15 @@ const GetHelp = () => {
                             </a>
                             the CTD staff for assistance
                         </Col>
-                        <Divider type="vertical" style={{ height: 200 }} />
-                        <Col span={11} style={{ paddingTop: 30 }}>
-                            <Typography.Title level={5} className="left">
-                                <MessageOutlined /> Mentor Session
+
+                        <Col span={12} style={{ paddingLeft: 60 }}>
+                            <Typography.Title level={5}>
+                                <MessageOutlined />
+                                Mentor Session
                             </Typography.Title>
-                            <br />
-                            Schedule a mentor session
-                            <MentorForm />
+                            Schedule a mentor session <MentorForm />
                         </Col>
-                    </div>
+                    </StyledDiv>
                 </Row>
             </Card>
         </>
