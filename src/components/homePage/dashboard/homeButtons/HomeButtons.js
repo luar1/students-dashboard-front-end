@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { Space } from "antd";
 import styled from "styled-components";
@@ -10,10 +12,11 @@ const ButtonStyle = styled.button`
         padding: 8px;
         background-color: #ff5c35;
         border: 1px solid #f1f1f2;
-        border-radius: 5px;
-        width: 300px;
+        border-radius: 3px;
+        width: 305px;
         text-align: center;
         display: block;
+
         a {
             color: #12284c;
         }

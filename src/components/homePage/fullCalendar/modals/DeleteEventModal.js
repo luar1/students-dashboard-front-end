@@ -5,7 +5,7 @@ import { Modal, Form, Input, Button } from "antd";
 const DeleteEventModal = () => {
   return (
     <Modal
-      title="Add Event"
+      title="Delete Event"
       visible={visible}
       onOk={handleOk}
       onCancel={handleCancel}>
