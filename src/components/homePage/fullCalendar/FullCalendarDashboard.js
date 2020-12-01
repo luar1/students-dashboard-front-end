@@ -12,6 +12,7 @@ import CalendarContext from "../../contexts/CalendarContext";
 
 const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
     const [selectedDate, setSelectedDate] = useContext(CalendarContext);
+    const [visible, setVisibility] = useState(false);
 
     const [state, setState] = useState({
         weekendsVisible: true,
@@ -23,47 +24,49 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
         setSelectedKey(menuKey);
     }, [])
 
+    useEffect(() => {
+        const getWeeksData = async () => {
+            const data = await fetch('https://students-dashboard-back-end.herokuapp.com/courses/4/weeks');
+            const res = await data.json();
+            console.log(res)
+        }
+        getWeeksData();
+    }, [])
+
     const showModal = (selectInfo) => {
-        setState({ ...state, visible: true });
+        setVisibility(true);
     };
 
     const handleOk = (e) => {
         console.log(e);
-        setState({ ...state, visible: false });
+        setVisibility(false);
     };
 
     const handleCancel = (e) => {
-        setState({ ...state, visible: false });
+        setVisibility(false);
     };
 
     const handleDateSelect = (selectInfo) => {
-        let title = prompt("Please enter a new title for your event");
+        // let title = prompt("Please enter a new title for your event");
+        showModal();
+
         let calendarApi = selectInfo.view.calendar;
 
         calendarApi.unselect(); // clear date selection
 
-        if (title) {
-            calendarApi.addEvent({
-                id: createEventId(),
-                title,
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-                allDay: selectInfo.allDay,
-            });
-        }
-    };
-
-    const renderSidebar = () => {
-        return <div className="demo-app-sidebar"></div>;
-    }
-
-    const handleWeekendsToggle = () => {
-        setState({
-            ...state, weekendsVisible: !state.weekendsVisible,
-        });
+        // if (title) {
+        //     calendarApi.addEvent({
+        //         id: createEventId(),
+        //         title,
+        //         start: selectInfo.startStr,
+        //         end: selectInfo.endStr,
+        //         allDay: selectInfo.allDay,
+        //     });
+        // }
     };
 
     const handleEventClick = (clickInfo) => {
+        console.log(clickInfo)
         if (
             window.confirm(
                 `Are you sure you want to delete the event '${clickInfo.event.title}'`
@@ -85,7 +88,7 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
             style={{ padding: 24, minHeight: 360 }}>
             <Modal
                 title="Add Event"
-                visible={state.visible}
+                visible={visible}
                 onOk={handleOk}
                 onCancel={handleCancel}>
                 <form>
@@ -93,7 +96,6 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
                     <input type="text"></input>
                 </form>
             </Modal>
-            {renderSidebar()}
             <div className="container-fluid">
                 <FullCalendar
                     theme={true}
@@ -120,7 +122,7 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
                     initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                     select={handleDateSelect}
                     eventContent={renderEventContent} // custom render function
-                    eventClick={showModal}
+                    eventClick={handleEventClick}
                     eventsSet={handleEvents} // called after events are initialized/added/changed/removed
                 /* you can update a remote database when these fire:
     eventAdd={function(){}}
@@ -147,18 +149,5 @@ function renderEventContent(eventInfo) {
         </>
     );
 }
-function renderSidebarEvent(event) {
-    return (
-        <li key={event.id}>
-            <strong>
-                {formatDate(event.start, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                })}
-            </strong>
-            <em>{event.title}</em>
-        </li>
-    );
-}
+
 export default FullCalendarDashboard;
