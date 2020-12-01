@@ -1,11 +1,14 @@
-/** @format */
-
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Checkbox } from "antd";
-import "./styles.css";
 import { CheckSquareFilled, CloseSquareFilled } from "@ant-design/icons";
 
 const Todo = ({ todo, completeTodo }) => {
+    const boxesStyle = {
+        marginRight: 5,
+        color: "#0275D8",
+        border: "none",
+        paddingLeft: 8,
+    };
     return (
         <div style={{ textDecoration: todo.Status ? "line-through" : "" }}>
             <div>
@@ -13,7 +16,7 @@ const Todo = ({ todo, completeTodo }) => {
                     checked={todo.fields.Status ? true : null}
                     onChange={() => completeTodo(todo.id, !todo.fields.Status)}
                 />
-                <span style={{ paddingLeft: 10 }}>{todo.fields.ToDo}</span>
+                {todo.fields.ToDo}
             </div>
         </div>
     );
@@ -41,34 +44,49 @@ const ToDoList = () => {
                         fields: {
                             Status: status,
                         },
-                        method: "PATCH",
-                    })
-                .then(() => {
-                    getToDoData().then((data) => setTodos(data.records));
-                })
-                .catch((e) => {
-                    console.log(e);
-                    alert("Unable to update to do ");
-                });
-        };
-
-        return (
-            <>
-                <>
-                    <Card className="card-todo white-gray shadow center">
-                        <Typography.Title level={4}>To Do</Typography.Title>
-                        {todos &&
-                            todos.map((todo, index) => (
-                                <Todo
-                                    key={index}
-                                    id={todo.id}
-                                    todo={todo}
-                                    completeTodo={completeTodo}
-                                />
-                            ))}
-                    </Card>
-                </>
-            </>
-        );
+                    },
+                ],
+            }),
+            headers: {
+                Authorization: "Bearer keyclOytaXo7NHQ8M",
+                "Content-Type": "application/json",
+            },
+            method: "PATCH",
+        })
+            .then(() => {
+                getToDoData().then((data) => setTodos(data.records));
+            })
+            .catch((e) => {
+                console.log(e);
+                alert("Unable to update to do ");
+            });
     };
-    export default ToDoList;
+
+    return (
+        <>
+            <Card
+                className="shadow center"
+                style={{
+                    width: 295,
+                    padding: 0,
+                    border: "1px solid #D3D3D3",
+                    borderRadius: 6,
+                    background: "#F1F1F2",
+                }}
+            >
+                <Typography.Title level={4}>To Do</Typography.Title>
+                {todos &&
+                    todos.map((todo, index) => (
+                        <Todo
+                            key={index}
+                            id={todo.id}
+                            todo={todo}
+                            completeTodo={completeTodo}
+                        />
+                    ))}
+                <br></br>
+            </Card>
+        </>
+    );
+};
+export default ToDoList;

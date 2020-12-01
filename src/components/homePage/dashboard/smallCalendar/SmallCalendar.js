@@ -1,18 +1,17 @@
 import React, { useState, useContext } from "react";
 import { Calendar, Badge, Space, Select, Radio, Col, Row, Typography } from "antd";
 
-import CalendarContext from "../../../contexts/CalendarContext";
 import "../../HomePage.css";
+import CalendarContext from "../../../contexts/CalendarContext";
+import { StyledDiv, StyledLegend, StyledEvents } from "./styles";
 import * as ROUTES from "../../../../constants/routes";
 
-
-const onPanelChange = (value, mode) => {
-    // console.log(value, mode);
+function onPanelChange(value, mode) {
+    console.log(value, mode);
 }
 
-const SmallCalendar = ({ history, setSelectedKey, menuKey }) => {
+const SmallCalendar = ({ history }) => {
     const [selectedDate, setSelectedDate] = useContext(CalendarContext);
-
     function getListData(value) {
         let listData;
         switch (value.date()) {
@@ -47,9 +46,9 @@ const SmallCalendar = ({ history, setSelectedKey, menuKey }) => {
     }
 
     function getMonthData(value) {
-        // if (value.month() === 8) {
-        //     return 1394;
-        // }
+        if (value.month() === 8) {
+            return 1394;
+        }
     }
 
     function monthCellRender(value) {
@@ -62,7 +61,6 @@ const SmallCalendar = ({ history, setSelectedKey, menuKey }) => {
         ) : null;
     }
     function onSelect(selectedDate) {
-        setSelectedKey(menuKey);
         setSelectedDate(selectedDate);
         history.push(`${ROUTES.HOME}${ROUTES.CALENDAR}`);
     }
@@ -81,7 +79,7 @@ const SmallCalendar = ({ history, setSelectedKey, menuKey }) => {
                             const monthOptions = [];
 
                             const current = value.clone();
-
+                            console.log(current);
                             const localeData = value.localeData();
                             const months = [];
                             for (let i = 0; i < 12; i++) {

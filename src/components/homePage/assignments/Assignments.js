@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import {
@@ -35,9 +33,9 @@ import Instructions from "./Instructions";
 import Summary from "./Summary";
 import Videos from "./Resources";
 import GithubLink from "./GithubLink";
-import TodoList from "../todoList/TodoList";
-import SmallCalendar from "../smallCalendar/SmallCalendar";
-import HomeButtons from "../homeButtons/HomeButtons";
+import TodoList from "../dashboard/todoList/TodoList";
+import SmallCalendar from "../dashboard/smallCalendar/SmallCalendar";
+import HomeButtons from "../dashboard/homeButtons/HomeButtons";
 const { TabPane } = Tabs;
 const { Step } = Steps;
 
@@ -68,18 +66,14 @@ const reducer = (state, action) => {
     }
 };
 
-const Assignments = ({ match, history, menuKey, setSelectedKey }) => {
-    const [state, setState] = useState({ key: 'Week 1' });
+const Assignments = ({ match, history }) => {
+    const [state, setState] = useState({ key: "Week 1" });
     const [savedProgress, setSavedProgress] = useState(null);
     const { key } = state;
     const [clickedUnitKey, setClickedUnitKey] = useState(0);
     const [clickedLessonKey, setClickedLessonKey] = useState(0);
     const [classInfo, dispatchClass] = useReducer(reducer, INITIAL_STATE);
     const [userInfo, dispatchUser] = useContext(UserContext);
-
-    useEffect(() => {
-        setSelectedKey(menuKey);
-    }, [])
 
     useEffect(() => {
         const getAssignments = async () => {
@@ -151,7 +145,7 @@ const Assignments = ({ match, history, menuKey, setSelectedKey }) => {
 
     const steps = [
         {
-            title: "Instructions & Goals",
+            title: "Instructions",
             link: `${match.path}${ROUTES.INSTRUCTIONS}`,
             icon: <FileDoneOutlined />,
         },
@@ -178,75 +172,185 @@ const Assignments = ({ match, history, menuKey, setSelectedKey }) => {
         setCurrent(current + 1);
     };
 
+    const prev = () => {
+        setCurrent(current - 1);
+    };
+
     const tabPanes = (classKey) => {
-        return (
-            classInfo.units[classKey].lessons.map((lesson, index) => {
-                return (
-                    <TabPane tab={<Link to={`${match.path}`}>Week {index + 1}</Link>} key={`${index}`} >
-                        <Steps current={current}>
-                            {steps.map(item => (
-                                <Step key={item.title} title={item.title} icon={<Link to={item.link} onClick={() => setCurrent(steps.findIndex((curr) => curr.link === item.link))} style={{ color: 'inherit' }}>{item.icon}</Link>} />
-                            ))}
-                        </Steps>
-                        <div className="cardContent">
-                            <Switch>
-                                <Route exact path={`${match.path}`} render={props => <Summary {...props} lesson={lesson.lesson_name} />} />
-                                <Route exact path={`${match.path}${ROUTES.DASHBOARD}`} component={Instructions} />
-                                <Route exact path={`${match.path}${ROUTES.VIDEOS}`} render={props => <Videos {...props} lessons={classInfo.units[clickedUnitKey].lessons[clickedLessonKey]} />} />
-                                <Route exact path={`${match.path}${ROUTES.SUBMISSION}`} render={props => <GithubLink {...props} githubLink={classInfo} />} />
-                            </Switch>
-                            <div style={{
-                                position: 'absolute', right: 0, bottom: 0, marginBottom: '4.5rem',
-                                marginRight: '4.5rem'
-                            }}>
-                                <Form style={{ display: 'inline-block' }} onFinish={handleSubmit}><Button style={{ marginRight: '1rem' }} type="primary" htmlType="submit">Save Progress</Button></Form>
-                                {current < steps.length - 1 && (
-                                    <Link to={steps[current + 1].link}><Button type="primary" onClick={() => next()}>
+        return classInfo.units[classKey].lessons.map((lesson, index) => {
+            return (
+                <TabPane
+                    tab={<Link to={`${match.path}`}>Week {index + 1}</Link>}
+                    key={`${index}`}>
+                    <Steps current={current}>
+                        {steps.map((item) => (
+                            <Step
+                                key={item.title}
+                                title={item.title}
+                                icon={
+                                    <Link
+                                        to={item.link}
+                                        onClick={() =>
+                                            setCurrent(
+                                                steps.findIndex(
+                                                    (curr) => curr.link === item.link
+                                                )
+                                            )
+                                        }
+                                        style={{ color: "inherit" }}>
+                                        {item.icon}
+                                    </Link>
+                                }
+                            />
+                        ))}
+                    </Steps>
+                    <div className="cardContent">
+                        <Switch>
+                            <Route
+                                exact
+                                path={`${match.path}`}
+                                render={(props) => (
+                                    <Summary
+                                        {...props}
+                                        lesson={lesson.lesson_name}
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path={`${match.path}${ROUTES.DASHBOARD}`}
+                                component={Instructions}
+                            />
+                            <Route
+                                exact
+                                path={`${match.path}${ROUTES.VIDEOS}`}
+                                render={(props) => (
+                                    <Videos
+                                        {...props}
+                                        lessons={
+                                            classInfo.units[clickedUnitKey].lessons[
+                                            clickedLessonKey
+                                            ]
+                                        }
+                                    />
+                                )}
+                            />
+                            <Route
+                                exact
+                                path={`${match.path}${ROUTES.SUBMISSION}`}
+                                render={(props) => (
+                                    <GithubLink {...props} githubLink={classInfo} />
+                                )}
+                            />
+                        </Switch>
+                        <StyledDivSummary>
+                            <Form
+                                style={{ display: "inline-block" }}
+                                onFinish={handleSubmit}>
+                                <Button
+                                    style={{ marginRight: "1rem" }}
+                                    type="primary"
+                                    htmlType="submit"
+                                    onClick={() =>
+                                        message.success("Progress Saved")
+                                    }>
+                                    Save Progress
+                                </Button>
+                            </Form>
+                            {current < steps.length - 1 && (
+                                <Link to={steps[current + 1].link}>
+                                    <Button type="primary" onClick={() => next()}>
                                         Next
-                  </Button></Link>
-                                )}
-                                {current === steps.length - 1 && (
-                                    <Button type="primary" onClick={() => message.success('Processing complete!')}>
-                                        Done
                                     </Button>
-                                )}
-                                {current > -1 && (
-                                    <Link to={current > 0 ? steps[current - 1].link : match.path}><Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+                                </Link>
+                            )}
+                            {current === steps.length - 1 && (
+                                <Button
+                                    type="primary"
+                                    onClick={() =>
+                                        message.success(
+                                            "You have finished this assignment"
+                                        )
+                                    }>
+                                    Done
+                                </Button>
+                            )}
+                            {current > -1 && (
+                                <Link
+                                    to={
+                                        current > 0
+                                            ? steps[current - 1].link
+                                            : match.path
+                                    }>
+                                    <Button
+                                        style={{ margin: "0 8px" }}
+                                        onClick={() => prev()}>
                                         Previous
-                  </Button></Link>
-                                )}
-                            </div>
-                        </div>
-                    </TabPane>
-                )
-            })
-        )
-    }
+                                    </Button>
+                                </Link>
+                            )}
+                        </StyledDivSummary>
+                    </div>
+                </TabPane>
+            );
+        });
+    };
 
     return (
-        <StyledDiv>
-            {
-                !_.isEmpty(classInfo) ?
-                    <Card
-                        style={{ height: '500px', width: '890px' }}
-                        title={!_.isEmpty(classInfo) ? classInfo.units[clickedUnitKey].unit_name : null}
-                        extra={<AssignmentsDropdown />}
-                        activeTabKey={key}
-                    >
-                        <StyledSection>
-                            <div className="card-container">
-                                <Tabs type="card" onChange={key => setClickedLessonKey(key)}>{tabPanes(clickedUnitKey)}</Tabs>
-                            </div>
-                        </StyledSection>
-                    </Card>
-                    : (<Row>
-                        <Col span={12} offset={12}>
-                            <Spin size="large" />
-                        </Col>
-                    </Row>)
-            }
-        </StyledDiv >
-    )
-}
+        <div className="container-fluid">
+            <Row gutter={[16, 24]}>
+                <Col xs={24} sm={24} md={24} lg={14} xl={16} xxl={18}>
+                    <StyledDiv>
+                        {!_.isEmpty(classInfo) ?
+                            <Card
+                                className="cards-border"
+                                title={
+                                    !_.isEmpty(classInfo)
+                                        ? classInfo.units[clickedUnitKey].unit_name
+                                        : null
+                                }
+                                extra={<AssignmentsDropdown />}
+                                activeTabKey={key}>
+                                <StyledSection>
+                                    <div className="card-container">
+                                        <Tabs
+                                            type="card"
+                                            onChange={(key) =>
+                                                setClickedLessonKey(key)
+                                            }>
+                                            {tabPanes(clickedUnitKey)}
+                                        </Tabs>
+
+                                    </div>
+                                </StyledSection>
+                            </Card>
+                            : (
+                                <Row>
+                                    <Col span={12} offset={12}>
+                                        <Spin size="large" />
+                                    </Col>
+                                </Row>
+                            )
+                        }
+                    </StyledDiv>
+                </Col>
+                <Col
+                    xs={24}
+                    sm={24}
+                    md={24}
+                    lg={10}
+                    xl={8}
+                    xxl={6}
+                    className="site-layout-right">
+                    <Space direction="vertical">
+                        <HomeButtons />
+                        <TodoList />
+                        <SmallCalendar history={history} />
+                    </Space>
+                </Col>
+            </Row>
+        </div>
+    );
+};
 
 export default Assignments;

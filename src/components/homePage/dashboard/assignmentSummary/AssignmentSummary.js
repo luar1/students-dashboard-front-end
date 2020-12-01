@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Space, Card, Button, Typography } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
+
 import FrontEnd from "../../../../graphics/frontEnd.png";
 import * as ROUTES from "../../../../constants/routes";
+import { StyledDivSummary, StyledDivBadge } from "../../assignments/styles";
+
 
 const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
     return (

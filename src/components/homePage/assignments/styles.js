@@ -1,5 +1,3 @@
-/** @format */
-
 import styled from "styled-components";
 
 export const StyledSection = styled.section`
@@ -10,18 +8,15 @@ export const StyledSection = styled.section`
     .courseOutline {
         margin: 2rem 0;
     }
-
     .cardContent {
         margin: 20px;
         padding: 20px;
         border: 1px solid pink;
     }
-
     .card-container p {
         margin-bottom: 10px;
         border: 1px solid blue;
     }
-
     .card-container > .ant-steps-item-wait,
     .ant-steps-item-container,
     .ant-steps-item-content,
@@ -32,7 +27,6 @@ export const StyledSection = styled.section`
     .card-container > .ant-steps-item-icon {
         width: 1em;
     }
-
     .card-container > .ant-tabs-card .ant-tabs-content {
         min-height: 100vh;
         margin-top: -16px;
@@ -54,7 +48,6 @@ export const StyledSection = styled.section`
         border-color: #fff;
         background: #fff;
     }
-
     [data-theme="compact"] .card-container > .ant-tabs-card .ant-tabs-content {
         height: 120px;
         margin-top: -8px;
@@ -97,7 +90,6 @@ export const StyledDivSummary = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
     button {
         margin: 10px;
     }
