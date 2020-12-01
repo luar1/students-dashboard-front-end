@@ -50,24 +50,6 @@ const ButtonStyle = styled.button`
           }
     `;
 
-<<<<<<< HEAD:src/components/homePage/homeButtons/HomeButtons.js
-return (
-  <>
-    <Space direction="vertical" className="center">
-      <ButtonStyle as="a" href="/" className="shadow ">
-        <CalendarOutlined /> View Calendar
-                </ButtonStyle>
-      <ButtonStyle
-        as="a"
-        href="https://us02web.zoom.us/j/8270372532?pwd=cGJHazFVUURyTTc1a3REQytqZjYyZz09"
-        target="_blank"
-        className="shadow ">
-        <VideoCameraOutlined /> Mentor Session
-                </ButtonStyle>
-    </Space>
-  </>
-);
-=======
 
 const HomeButtons = () => {
   return (
@@ -87,7 +69,6 @@ const HomeButtons = () => {
       <br />
     </>
   );
->>>>>>> newPush:src/components/homePage/dashboard/homeButtons/HomeButtons.js
 };
 
 export default HomeButtons;

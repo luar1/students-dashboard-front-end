@@ -80,25 +80,14 @@ const SmallCalendar = ({ history, setSelectedKey, menuKey }) => {
                             const end = 12;
                             const monthOptions = [];
 
-<<<<<<< HEAD:src/components/homePage/smallCalendar/SmallCalendar.js
                             const current = value.clone();
-                            console.log(current);
+
                             const localeData = value.localeData();
                             const months = [];
                             for (let i = 0; i < 12; i++) {
                                 current.month(i);
                                 months.push(localeData.monthsShort(current));
                             }
-=======
-                        const current = value.clone();
-
-                        const localeData = value.localeData();
-                        const months = [];
-                        for (let i = 0; i < 12; i++) {
-                            current.month(i);
-                            months.push(localeData.monthsShort(current));
-                        }
->>>>>>> newPush:src/components/homePage/dashboard/smallCalendar/SmallCalendar.js
 
                             for (let index = start; index < end; index++) {
                                 monthOptions.push(
