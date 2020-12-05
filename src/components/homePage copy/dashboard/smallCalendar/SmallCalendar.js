@@ -36,8 +36,8 @@ const SmallCalendar = ({ history }) => {
         const listData = getListData(value);
         return (
             <StyledEvents>
-                {listData.map((item) => (
-                    <div key={item.content}>
+                {listData.map((item, index) => (
+                    <div key={index}>
                         <Badge status={item.type} text={item.content} />
                     </div>
                 ))}
@@ -62,7 +62,7 @@ const SmallCalendar = ({ history }) => {
     }
     function onSelect(selectedDate) {
         setSelectedDate(selectedDate);
-        history.push(`${ROUTES.STAFFHOME}${ROUTES.CALENDAR}`);
+        history.push(`${ROUTES.HOME}${ROUTES.CALENDAR}`);
     }
     return (
         <>
