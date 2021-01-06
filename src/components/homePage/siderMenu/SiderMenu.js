@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Menu, Row, Col, Avatar, Layout } from "antd";
 import { Link } from "react-router-dom";
 
@@ -18,10 +18,8 @@ import {
 
 import * as ROUTES from "../../../constants/routes";
 
-
 const { Sider } = Layout;
 const { SubMenu } = Menu;
-
 
 const SiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -59,8 +57,8 @@ const SiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
         </Col>
         <Col span={24} align="center">
           <div className="username" style={{ paddingBottom: "30px" }}>
-            Username
-            </div>
+            Staff Name
+          </div>
         </Col>
       </Row>
       <Menu
@@ -69,49 +67,56 @@ const SiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
         defaultSelectedKeys={selectedKey}
         mode="inline"
         selectedKeys={selectedKey}
-        onClick={({ key }) => setSelectedKey(key)}>
+        onClick={({ key }) => setSelectedKey(key)}
+      >
         <Menu.Item key={keys[0]} icon={<DashboardOutlined />}>
-          <Link to={`${match.path}${ROUTES.DASHBOARD}`}>
-            Dashboard
-                        </Link>
+          <Link to={`${match.path}${ROUTES.STAFFDASHBOARD}`}>Dashboard</Link>
         </Menu.Item>
         <Menu.Item key={keys[1]} icon={<NotificationOutlined />}>
-          News
-                    </Menu.Item>
-        <Menu.Item key={keys[2]} icon={<BookOutlined />}>
-          <Link to={`${match.path}${ROUTES.ASSIGNMENTS}`}>
-            Assignments
-                        </Link>
+          Announcements
         </Menu.Item>
-        <Menu.Item key={keys[3]} icon={<CalendarOutlined />}>
-          <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
-        </Menu.Item>
-        <Menu.Item key={keys[4]} icon={<UserOutlined />}>
-          Mentors
-                    </Menu.Item>
-        <Menu.Item key={keys[5]} icon={<TeamOutlined />}>
-          Classmates
-                    </Menu.Item>
-        <Menu.Item key={keys[6]} icon={<DisconnectOutlined />}>
-          CTD
-                    </Menu.Item>
         <SubMenu
           key="sub1"
-          icon={<FundProjectionScreenOutlined />}
-          title="Resources">
-          <Menu.Item key={keys[7]} icon={<SlackOutlined />}>
-            Slack Channel
-                        </Menu.Item>
-          <Menu.Item key={keys[8]} icon={<YoutubeOutlined />}>
-            Treehouse
-                        </Menu.Item>
+          icon={<BookOutlined />}
+          title="Classes"
+        >
+          <Menu.Item key={keys[2]} icon={<UserOutlined />}>
+            Courses
+          </Menu.Item>
+          <Menu.Item key={keys[3]} icon={<CalendarOutlined />}>
+            Assignments
+          </Menu.Item>
         </SubMenu>
-        <Menu.Item key={keys[9]} icon={<RocketOutlined />}>
+        <Menu.Item key={keys[4]} icon={<TeamOutlined />}>
+          Students
+        </Menu.Item>
+        <Menu.Item key={keys[5]} icon={<UserOutlined />}>
+          Mentors
+        </Menu.Item>
+        <Menu.Item key={keys[6]} icon={<CalendarOutlined />}>
+          <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
+        </Menu.Item>
+        <Menu.Item key={keys[7]} icon={<DisconnectOutlined />}>
+          CTD
+        </Menu.Item>
+        <SubMenu
+          key="sub2"
+          icon={<FundProjectionScreenOutlined />}
+          title="Resources"
+        >
+          <Menu.Item key={keys[8]} icon={<SlackOutlined />}>
+            Slack Channel
+          </Menu.Item>
+          <Menu.Item key={keys[9]} icon={<YoutubeOutlined />}>
+            Treehouse
+          </Menu.Item>
+        </SubMenu>
+        <Menu.Item key={keys[10]} icon={<RocketOutlined />}>
           Students Projects
-                    </Menu.Item>
+        </Menu.Item>
       </Menu>
     </Sider>
-  )
-}
+  );
+};
 
 export default SiderMenu;

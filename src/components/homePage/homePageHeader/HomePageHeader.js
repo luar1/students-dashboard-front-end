@@ -8,38 +8,38 @@ import logo from "../../../graphics/logo.png";
 const { Header } = Layout;
 
 const HomePageHeader = () => {
-  //Fetching data from airtable
-  const getNotificationData = async () => {
-    const response = await fetch(
-      "https://api.airtable.com/v0/appm5NPkqO7P8ePUK/Notifications?api_key=keyclOytaXo7NHQ8M"
-    );
-    const notificationData = await response.json();
-    return notificationData;
-  };
+  // //Fetching data from airtable
+  // const getNotificationData = async () => {
+  //   const response = await fetch(
+  //     "https://api.airtable.com/v0/appm5NPkqO7P8ePUK/Notifications?api_key=keyclOytaXo7NHQ8M"
+  //   );
+  //   const notificationData = await response.json();
+  //   return notificationData;
+  // };
 
-  const [notifications, setNotifications] = useState(null);
+  // const [notifications, setNotifications] = useState(null);
 
-  useEffect(() => {
-    getNotificationData().then((data) => setNotifications(data));
-  }, []);
+  // useEffect(() => {
+  //   getNotificationData().then((data) => setNotifications(data));
+  // }, []);
 
-  const openNotification = () => {
-    notification.open({
-      message: "notification title",
-      description:
-        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-      onClick: () => {
-        console.log("Notification Clicked!");
-      },
-    });
-  };
-  const menu = (
-    <Menu>
-      <Menu.Item key="0">
-        <a href="#">View all</a>
-      </Menu.Item>
-    </Menu>
-  );
+  // const openNotification = () => {
+  //   notification.open({
+  //     message: "notification title",
+  //     description:
+  //       "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+  //     onClick: () => {
+  //       console.log("Notification Clicked!");
+  //     },
+  //   });
+  // };
+  // const menu = (
+  //   <Menu>
+  //     <Menu.Item key="0">
+  //       <a href="#">View all</a>
+  //     </Menu.Item>
+  //   </Menu>
+  // );
 
   return (
     <HeaderPage>
@@ -64,19 +64,19 @@ const HomePageHeader = () => {
           <Col span={12} align="right">
             <TopNav className="top-nav">
 
-              {/* notification  */}
+              {/* notification 
               <a onClick={openNotification}>
-                {" "}
+                {" "} */}
                 <BellOutlined />
-              </a>
-              <Dropdown overlay={menu} trigger={["click"]}>
+              {/* </a> */}
+              {/* <Dropdown overlay={menu} trigger={["click"]}>
                 <a
                   className="ant-dropdown-link"
                   onClick={(e) => e.preventDefault()}
                 >
                 <DownOutlined />
                 </a>
-              </Dropdown>
+              </Dropdown> */}
 
               <SettingOutlined />
               <UserCircle style={{ width: "25px" }} />

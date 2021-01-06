@@ -32,7 +32,7 @@ const Login = ({ history }) => {
 				setAuthUser(res.token);
 				// dispatch({ type: 'all', payload: { field: 'all', value: { email, username: 'Jerry', course: 'High Noon' } } });
 				// Switch to home page
-				history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);
+				history.push(`${ROUTES.STAFFHOME}${ROUTES.STAFFDASHBOARD}`);
 			}
 
 		} catch (e) {

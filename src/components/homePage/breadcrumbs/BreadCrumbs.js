@@ -9,14 +9,14 @@ const Breadcrumbs = ({ page, match, keys, setSelectedKey }) => {
     <PageHeader
       className="white-gray"
       style={{ backgroundColor: "#fff", margin: "15px" }}
-      title="Welcome, Student!">
+      title="Welcome, Staff!">
       <Breadcrumb style={{ margin: "0" }}>
         <Breadcrumb.Item>
           {page === "Dashboard" ? (
             "Home"
           ) : (
               <Link
-                to={`${match.path}${ROUTES.DASHBOARD}`}
+                to={`${match.path}${ROUTES.STAFFDASHBOARD}`}
                 onClick={() => setSelectedKey(keys[0])}>
                 Home
               </Link>

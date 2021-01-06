@@ -23,8 +23,8 @@ const App = () => {
             <CalendarStore>
               <GlobalStyles />
               <Switch>
-                <Route path={ROUTES.HOME} exact render={() => <Redirect to={`${ROUTES.HOME}${ROUTES.DASHBOARD}`} />} />
-                <PrivateRoute path={ROUTES.HOME} component={HomePage} />
+                <Route path={ROUTES.STAFFHOME} exact render={() => <Redirect to={`${ROUTES.STAFFHOME}${ROUTES.STAFFDASHBOARD}`} />} />
+                <PrivateRoute path={ROUTES.STAFFHOME} component={HomePage} />
                 <Route exact path={ROUTES.LANDING} component={LandingPage} />
               </Switch>
             </CalendarStore>
