@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Checkbox } from "antd";
-import { CheckSquareFilled, CloseSquareFilled } from "@ant-design/icons";
 
 const Todo = ({ todo, completeTodo }) => {
     const boxesStyle = {
