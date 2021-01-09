@@ -1,33 +1,35 @@
-import React, { useState } from "react";
-import { Menu, Row, Col, Avatar, Layout } from "antd";
-import { Link } from "react-router-dom";
-
+import React, { useState, useContext } from 'react';
+import { Row, Col, Avatar, Layout } from "antd";
 import {
-  DashboardOutlined,
-  NotificationOutlined,
-  BookOutlined,
-  CalendarOutlined,
-  TeamOutlined,
   UserOutlined,
-  DisconnectOutlined,
-  FundProjectionScreenOutlined,
-  SlackOutlined,
-  YoutubeOutlined,
-  RocketOutlined,
 } from "@ant-design/icons";
 
-import * as ROUTES from "../../../constants/routes";
+import UserContext from '../../contexts/UserContext';
+import StudentSiderMenu from './student/StudentSiderMenu';
+import StaffSiderMenu from './staff/StaffSiderMenu';
+
 
 const { Sider } = Layout;
-const { SubMenu } = Menu;
 
 const SiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
-  console.log(keys)
   const [collapsed, setCollapsed] = useState(false);
-
+  const [authToken, setAuthToken, userInfo, setUserInfo] = useContext(UserContext);
+  console.log(keys)
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
+
+  const displaySider = () => {
+    if (userInfo.role === 'student') {
+      return <StudentSiderMenu match={match} keys={keys} setSelectedKey={setSelectedKey} selectedKey={selectedKey} />;
+    } else if (userInfo.role === 'staff') {
+      return <StaffSiderMenu match={match} keys={keys} setSelectedKey={setSelectedKey} selectedKey={selectedKey} />;
+    } else if (userInfo.role === 'admin') {
+      return null;
+    } else {
+      return null;
+    }
+  }
 
   return (
     <Sider
@@ -58,13 +60,15 @@ const SiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
         </Col>
         <Col span={24} align="center">
           <div className="username" style={{ paddingBottom: "30px" }}>
-            Staff Name
-          </div>
+            Username
+            </div>
         </Col>
       </Row>
-
+      {
+        displaySider()
+      }
     </Sider>
-  );
-};
+  )
+}
 
 export default SiderMenu;

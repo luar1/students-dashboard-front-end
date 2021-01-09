@@ -34,9 +34,9 @@ import Summary from "./Summary";
 import Videos from "./Resources";
 import GithubLink from "./GithubLink";
 import Done from "./Done";
-import TodoList from "../dashboard/todoList/TodoList";
-import SmallCalendar from "../dashboard/smallCalendar/SmallCalendar";
-import HomeButtons from "../dashboard/homeButtons/HomeButtons";
+import TodoList from "../dashboard/studentDashboard/todoList/TodoList";
+import SmallCalendar from "../dashboard/studentDashboard/smallCalendar/SmallCalendar";
+import HomeButtons from "../dashboard/studentDashboard/homeButtons/HomeButtons";
 const { TabPane } = Tabs;
 const { Step } = Steps;
 

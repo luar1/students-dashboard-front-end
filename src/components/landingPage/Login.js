@@ -4,18 +4,14 @@ import { UserOutlined, LockOutlined, AlignLeftOutlined } from '@ant-design/icons
 
 import * as ROUTES from '../../constants/routes';
 import ForgotPassword from './ForgotPassword';
-import AuthContext from '../contexts/AuthContext';
+// import AuthContext from '../contexts/AuthContext';
 import UserContext from '../contexts/UserContext';
 import { LOGIN_LINK } from '../../constants/constants';
 
 const Login = ({ history }) => {
 	const [loginState, setLoginState] = useState({ error: null, loading: null });
 	const { error, loading } = loginState;
-	const [authUser, setAuthUser] = useContext(AuthContext);
-	const [userInfo, dispatchUser] = useContext(UserContext);
-	// const [state, dispatch] = useContext(AuthContext);
-	// const { authUser, username, email, course } = state;
-	// console.log('authUser', authUser)
+	const [authUser, setAuthUser] = useContext(UserContext);
 
 	const onFinish = async (values) => {
 		const { email } = values;
@@ -25,12 +21,11 @@ const Login = ({ history }) => {
 			// Get user information + token
 			const res = await fetchData(values);
 			// Update state with form values, token, loading=false
-			setLoginState({ error: res, loading: false });
+			setLoginState({ error: res.token, loading: false });
 			// Update auth context with jwt
-			setAuthUser(res.token);
-			// dispatch({ type: 'all', payload: { field: 'all', value: { email, username: 'Jerry', course: 'High Noon' } } });
+			setAuthUser(res);
 			// Switch to home page
-			history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);
+			history.push(`${ROUTES.STAFFHOME}${ROUTES.STAFFDASHBOARD}`);
 			// Check if res has jwt
 			// if (res.hasOwnProperty('token')) {
 			// 	// Update auth context with jwt
@@ -47,21 +42,22 @@ const Login = ({ history }) => {
 
 	async function fetchData(values) {
 		try {
-			const response = await fetch(LOGIN_LINK, {
+			// const response = await fetch(LOGIN_LINK, {
+			// 	method: 'POST',
+			// 	body: JSON.stringify(values),
+			// 	headers: { 'Content-Type': 'application/json' }
+			// });
+			const response = await fetch('https://forked-student-dashboard.herokuapp.com/auth/login', {
 				method: 'POST',
+				mode: 'cors',
+				credentials: 'include',
 				body: JSON.stringify(values),
 				headers: { 'Content-Type': 'application/json' }
 			});
-			// const response = await fetch('https://students-dashboard-back-end.herokuapp.com/auth/login', {
-			// 	method: 'POST',
-			// 	mode: 'cors',
-			// 	credentials: 'include',
-			// 	body: JSON.stringify(values),
-			// 	headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-			// });
 			const message = await response.json();
-			console.log(response.headers.get('Set-Cookie'))
-			return message;
+			const token = response.headers.get('Authentication');
+
+			return { info: { ...message }, token };
 		} catch (e) {
 			console.log(e.message);
 		}
