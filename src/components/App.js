@@ -1,14 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
-import { AuthStore } from './contexts/AuthContext';
 import { UserStore } from './contexts/UserContext';
 import { CalendarStore } from "./contexts/CalendarContext";
 
 
 import * as ROUTES from '../constants/routes';
 import PrivateRoute from './routes/PrivateRoute';
-import PublicRoute from './routes/PublicRoute';
 import LandingPage from './landingPage_copy/LandingPage';
 import HomePage from './homePage_copy/HomePage';
 import GlobalStyles from '../styles/Global';
@@ -18,7 +16,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <CookiesProvider>
-        {/* <AuthStore> */}
         <UserStore>
           <CalendarStore>
             <GlobalStyles />
@@ -29,7 +26,6 @@ const App = () => {
             </Switch>
           </CalendarStore>
         </UserStore>
-        {/* </AuthStore> */}
       </CookiesProvider>
     </BrowserRouter>
   )

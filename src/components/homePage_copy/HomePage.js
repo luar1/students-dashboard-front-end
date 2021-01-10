@@ -23,9 +23,9 @@ const HomePage = ({ match, history }) => {
     useEffect(() => {
         if (userInfo) {
             if (userInfo.role === 'student') {
-                console.log('hello')
                 setSelectedKey(KEYS['student'][page])
             } else if (userInfo.role = 'staff') {
+                console.log('hello')
                 setSelectedKey(KEYS['staff'][page])
             } else {
                 // Need to put setSelectedKey for other roles  ('mentor', 'admin')

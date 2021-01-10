@@ -19,13 +19,13 @@ const StaffHomeContent = ({ keys, selectedKey, setSelectedKey, match }) => {
             path={`${match.path}${ROUTES.STAFFDASHBOARD}`}
             component={Dashboard}
             // menuKey={{ dashboardKey: keys[0], assignmentsKey: keys[2], calendarKey: keys[3] }}
-            menuKey={{ dashboardKey: keys[0], calendarKey: keys[3] }}
+            menuKey={{ dashboardKey: keys['Dashboard'], calendarKey: keys['Calendar'] }}
             selectedKey={selectedKey}
             setSelectedKey={setSelectedKey}
           />
           <PrivateRoute
             path={`${match.path}${ROUTES.CALENDAR}`}
-            menuKey={keys[3]}
+            menuKey={keys['Calendar']}
             selectedKey={selectedKey}
             setSelectedKey={setSelectedKey}
             component={FullCalendarDashboard}

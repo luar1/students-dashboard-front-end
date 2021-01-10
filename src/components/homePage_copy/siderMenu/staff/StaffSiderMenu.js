@@ -36,10 +36,10 @@ const StaffSiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
       {
         authToken ?
           <>
-            <Menu.Item key={keys[0]} icon={<DashboardOutlined />}>
+            <Menu.Item key={keys['Dashboard']} icon={<DashboardOutlined />}>
               <Link to={`${match.path}${ROUTES.STAFFDASHBOARD}`}>Dashboard</Link>
             </Menu.Item>
-            <Menu.Item key={keys[1]} icon={<NotificationOutlined />}>
+            <Menu.Item key={keys['Announcements']} icon={<NotificationOutlined />}>
               Announcements
         </Menu.Item>
             <SubMenu
@@ -47,23 +47,23 @@ const StaffSiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
               icon={<BookOutlined />}
               title="Classes"
             >
-              <Menu.Item key={keys[2]} icon={<UserOutlined />}>
+              <Menu.Item key={keys['Courses']} icon={<UserOutlined />}>
                 Courses
           </Menu.Item>
-              <Menu.Item key={keys[3]} icon={<CalendarOutlined />}>
+              <Menu.Item key={keys['Assignments']} icon={<CalendarOutlined />}>
                 Assignments
           </Menu.Item>
             </SubMenu>
-            <Menu.Item key={keys[4]} icon={<TeamOutlined />}>
+            <Menu.Item key={keys['Students']} icon={<TeamOutlined />}>
               Students
         </Menu.Item>
-            <Menu.Item key={keys[5]} icon={<UserOutlined />}>
+            <Menu.Item key={keys['Mentors']} icon={<UserOutlined />}>
               Mentors
         </Menu.Item>
-            <Menu.Item key={keys[6]} icon={<CalendarOutlined />}>
+            <Menu.Item key={keys['Calendar']} icon={<CalendarOutlined />}>
               <Link to={`${match.path}${ROUTES.CALENDAR}`}>Calendar</Link>
             </Menu.Item>
-            <Menu.Item key={keys[7]} icon={<DisconnectOutlined />}>
+            <Menu.Item key={keys['CTD']} icon={<DisconnectOutlined />}>
               CTD
         </Menu.Item>
             <SubMenu
@@ -71,14 +71,14 @@ const StaffSiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
               icon={<FundProjectionScreenOutlined />}
               title="Resources"
             >
-              <Menu.Item key={keys[8]} icon={<SlackOutlined />}>
+              <Menu.Item key={keys['Slack_Channel']} icon={<SlackOutlined />}>
                 Slack Channel
           </Menu.Item>
-              <Menu.Item key={keys[9]} icon={<YoutubeOutlined />}>
+              <Menu.Item key={keys['Treehouse']} icon={<YoutubeOutlined />}>
                 Treehouse
           </Menu.Item>
             </SubMenu>
-            <Menu.Item key={keys[10]} icon={<RocketOutlined />}>
+            <Menu.Item key={keys['Projects']} icon={<RocketOutlined />}>
               Students Projects
         </Menu.Item>
           </> : null
