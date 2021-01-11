@@ -1,8 +1,6 @@
 export const LANDING = '/';
-export const STAFFHOME = '/home';
 export const CALENDAR = "/calendar";
 export const ASSIGNMENTS = '/assignments';
-export const STAFFDASHBOARD = '/dashboard';
 export const DASHBOARD = '/dashboard';
 export const HOME = '/home';
 export const INSTRUCTIONS = '/instructions';

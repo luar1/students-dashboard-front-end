@@ -37,7 +37,7 @@ const StaffSiderMenu = ({ match, keys, setSelectedKey, selectedKey }) => {
         authToken ?
           <>
             <Menu.Item key={keys['Dashboard']} icon={<DashboardOutlined />}>
-              <Link to={`${match.path}${ROUTES.STAFFDASHBOARD}`}>Dashboard</Link>
+              <Link to={`${match.path}${ROUTES.DASHBOARD}`}>Dashboard</Link>
             </Menu.Item>
             <Menu.Item key={keys['Announcements']} icon={<NotificationOutlined />}>
               Announcements

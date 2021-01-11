@@ -1,79 +1,68 @@
-import React, { useEffect, useState } from "react";
-import { Layout } from "antd";
+import React, { useEffect, useState, useContext } from "react";
+import { Layout } from 'antd';
 
 import "./HomePage.css";
-import SiderMenu from "./siderMenu/SiderMenu";
-import FooterHome from "./footer/FooterHome";
-import HomeContent from "./homeContent/HomeContent";
-import Breadcrumbs from "./breadcrumbs/BreadCrumbs";
-import HomePageHeader from "./homePageHeader/HomePageHeader";
+import SiderMenu from './siderMenu/SiderMenu';
+import FooterHome from './footer/FooterHome';
+import StudentHomeContent from './homeContent/student/StudentHomeContent';
+import StaffHomeContent from './homeContent/staff/StaffHomeContent';
+import Breadcrumbs from './breadcrumbs/BreadCrumbs';
+import HomePageHeader from './homePageHeader/HomePageHeader';
+import UserContext from '../../components/contexts/UserContext';
+import { KEYS } from './utils/constants/homepage_keys';
 
 const HomePage = ({ match, history }) => {
-  const KEYS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const [selectedKey, setSelectedKey] = useState([KEYS[0]]);
-  const page = `${history.location.pathname
-    .split("/")[2]
-    .charAt(0)
-    .toUpperCase()}${history.location.pathname.split("/")[2].slice(1)}`;
+    // const KEYS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    const [authToken, setAuthToken, userInfo, setUserInfo] = useContext(UserContext);
+    const [selectedKey, setSelectedKey] = useState(0);
+    const page = `${history.location.pathname
+        .split("/")[2]
+        .charAt(0)
+        .toUpperCase()}${history.location.pathname.split("/")[2].slice(1)}`;
 
-  useEffect(() => {
-    switch (page) {
-      case "Dashboard":
-        return setSelectedKey(KEYS[0]);
-      case "Announcements":
-        return setSelectedKey(KEYS[1]);
-      case "Courses":
-        return setSelectedKey(KEYS[2]);
-      case "Assignments":
-        return setSelectedKey(KEYS[3]);
-      case "Students":
-        return setSelectedKey(KEYS[4]);
-      case "Mentors":
-        return setSelectedKey(KEYS[5]);
-      case "Calendar":
-        return setSelectedKey(KEYS[6]);
-      case "CTD":
-        return setSelectedKey(KEYS[7]);
-      case "Slack_Channel":
-        return setSelectedKey(KEYS[8]);
-      case "Treehouse":
-        return setSelectedKey(KEYS[9]);
-      case "Projects":
-        return setSelectedKey(KEYS[10]);
-      default:
-        return new Error();
+    useEffect(() => {
+        if (userInfo) {
+            if (userInfo.role === 'student') {
+                setSelectedKey(KEYS['student'][page])
+            } else if (userInfo.role = 'staff') {
+                setSelectedKey(KEYS['staff'][page])
+            } else {
+                // Need to put setSelectedKey for other roles  ('mentor', 'admin')
+            }
+        }
+    }, [userInfo]);
+    console.log(selectedKey)
+
+    const displayHomeContent = () => {
+        if (userInfo.role === 'student') {
+            return <StudentHomeContent keys={KEYS[userInfo.role]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} match={match} history={history} />;
+        } else if (userInfo.role === 'staff') {
+            return <StaffHomeContent keys={KEYS[userInfo.role]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} match={match} history={history} />;
+        } else {
+            // add HomeContent for other roles ('mentor', 'admin')
+        }
     }
-  }, []);
 
-  return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <SiderMenu
-        match={match}
-        keys={KEYS}
-        selectedKey={selectedKey}
-        setSelectedKey={setSelectedKey}
-      />
-      <div className="container-fluid">
-        <Layout className="site-layout">
-          <HomePageHeader />
-          <Breadcrumbs
-            page={page}
-            match={match}
-            keys={KEYS}
-            setSelectedKey={setSelectedKey}
-          />
-          <HomeContent
-            keys={KEYS}
-            selectedKey={selectedKey}
-            setSelectedKey={setSelectedKey}
-            match={match}
-            history={history}
-          />
-          <FooterHome />
+    return (
+        <Layout style={{ minHeight: "100vh" }}>
+            { userInfo ?
+                <>
+                    <SiderMenu match={match} keys={KEYS[userInfo.role]} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
+                    <div className="container-fluid">
+                        <Layout className="site-layout">
+                            <HomePageHeader />
+                            <Breadcrumbs page={page} match={match} keys={KEYS[userInfo.role]} setSelectedKey={setSelectedKey} />
+                            {
+                                displayHomeContent()
+                            }
+                            <FooterHome />
+                        </Layout>
+                    </div>
+                </>
+                : null
+            }
         </Layout>
-      </div>
-    </Layout>
-  );
+    );
 };
 
 export default HomePage;

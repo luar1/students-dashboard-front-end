@@ -7,8 +7,8 @@ import { CalendarStore } from "./contexts/CalendarContext";
 
 import * as ROUTES from '../constants/routes';
 import PrivateRoute from './routes/PrivateRoute';
-import LandingPage from './landingPage_copy/LandingPage';
-import HomePage from './homePage_copy/HomePage';
+import LandingPage from './landingPage/LandingPage';
+import HomePage from './homePage/HomePage';
 import GlobalStyles from '../styles/Global';
 import 'antd/dist/antd.css';
 

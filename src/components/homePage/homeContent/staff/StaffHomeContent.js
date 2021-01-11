@@ -16,7 +16,7 @@ const StaffHomeContent = ({ keys, selectedKey, setSelectedKey, match }) => {
       <div className="site-layout-background">
         <Switch>
           <PrivateRoute
-            path={`${match.path}${ROUTES.STAFFDASHBOARD}`}
+            path={`${match.path}${ROUTES.DASHBOARD}`}
             component={Dashboard}
             // menuKey={{ dashboardKey: keys[0], assignmentsKey: keys[2], calendarKey: keys[3] }}
             menuKey={{ dashboardKey: keys['Dashboard'], calendarKey: keys['Calendar'] }}

@@ -34,9 +34,9 @@ import Summary from "./Summary";
 import Videos from "./Resources";
 import GithubLink from "./GithubLink";
 import Done from "./Done";
-import TodoList from "../dashboard/todoList/TodoList";
-import SmallCalendar from "../dashboard/smallCalendar/SmallCalendar";
-import HomeButtons from "../dashboard/homeButtons/HomeButtons";
+import TodoList from "../dashboard/studentDashboard/todoList/TodoList";
+import SmallCalendar from "../dashboard/studentDashboard/smallCalendar/SmallCalendar";
+import HomeButtons from "../dashboard/studentDashboard/homeButtons/HomeButtons";
 const { TabPane } = Tabs;
 const { Step } = Steps;
 
@@ -94,12 +94,18 @@ const Assignments = ({ match, history }) => {
     const [step, setStep] = useState(-1);
     const [classInfo, dispatchClass] = useReducer(reducerClassInfo, INITIAL_STATE);
     const [progressData, dispatchProgress] = useReducer(reducerProgress, INITIAL_STATE);
-    const [userInfo, dispatchUser] = useContext(UserContext);
+    const [authToken, setAuthToken, userInfo, setUserInfo] = useContext(UserContext);
+
+    const stepsPath = { '/home/assignments': -1, '/home/assignments/instructions': 0, '/home/assignments/videos': 1, '/home/assignments/submission': 2, '/home/assignments/done': 3 }
+
+    const assignments = ['Instructions', 'Treehouse', 'Assignment'];
+
+    console.log(progressData)
 
     useEffect(() => {
         const getAssignments = async () => {
             const dataUnits = await fetch(
-                `${process.env.REACT_APP_GET_COURSES}${userInfo.courseID}`
+                `${process.env.REACT_APP_GET_COURSES}${userInfo.student.student_course.course.id}`
             );
             const resUnits = await dataUnits.json();
             dispatchClass({
@@ -135,7 +141,7 @@ const Assignments = ({ match, history }) => {
             process.env.REACT_APP_AIRTABLE_LINK
         );
         const data = await response.json();
-
+        console.log(data)
         return data.records.reduce((acc, curr) => {
             switch (curr.fields.Unit) {
                 case 'Frontend 1':
@@ -147,24 +153,27 @@ const Assignments = ({ match, history }) => {
         }, { 0: [], 1: [] })
     };
 
+
+
     const determineStep = (pathLocation) => {
-        switch (pathLocation) {
-            case '/home/assignments':
-                setStep(-1);
-                break;
-            case '/home/assignments/instructions':
-                setStep(0);
-                break;
-            case '/home/assignments/videos':
-                setStep(1);
-                break;
-            case '/home/assignments/submission':
-                setStep(2);
-                break;
-            case '/home/assignments/done':
-                setStep(3);
-                break;
-        }
+        setStep(stepsPath[pathLocation]);
+        // switch (pathLocation) {
+        //     case '/home/assignments':
+        //         setStep(-1);
+        //         break;
+        //     case '/home/assignments/instructions':
+        //         setStep(0);
+        //         break;
+        //     case '/home/assignments/videos':
+        //         setStep(1);
+        //         break;
+        //     case '/home/assignments/submission':
+        //         setStep(2);
+        //         break;
+        //     case '/home/assignments/done':
+        //         setStep(3);
+        //         break;
+        // }
     }
 
     const menu = () => {
@@ -239,21 +248,23 @@ const Assignments = ({ match, history }) => {
     //     setCurrent(current - 1);
     // };
 
+
+
     const handleSubmit = async () => {
-        let assignment
-        switch (step) {
-            case 0:
-                assignment = 'Instructions';
-                break;
-            case 1:
-                assignment = 'Treehouse';
-                break;
-            case 2:
-                assignment = 'Assignment';
-                break;
-            default:
-                assignment = null;
-        }
+        let assignment = assignments[step]
+        // switch (step) {
+        //     case 0:
+        //         assignment = 'Instructions';
+        //         break;
+        //     case 1:
+        //         assignment = 'Treehouse';
+        //         break;
+        //     case 2:
+        //         assignment = 'Assignment';
+        //         break;
+        //     default:
+        //         assignment = null;
+        // }
         // Store step after save progress button is clicked
         setStepStatus({ ...stepStatus, [step]: 2 })
         // setStepStatus([...stepStaus, step]);
@@ -281,6 +292,8 @@ const Assignments = ({ match, history }) => {
         // Go to the next step component
         history.push(`${steps[step + 1].link}`);
     };
+
+    console.log(stepStatus);
 
     const tabPanes = (classKey) => {
         return classInfo.units[classKey].lessons.map((lesson, index) => {

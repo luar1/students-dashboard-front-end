@@ -4,14 +4,12 @@ import { UserOutlined, LockOutlined, AlignLeftOutlined } from '@ant-design/icons
 
 import * as ROUTES from '../../constants/routes';
 import ForgotPassword from './ForgotPassword';
-// import AuthContext from '../contexts/AuthContext';
 import UserContext from '../contexts/UserContext';
-import { LOGIN_LINK } from '../../constants/constants';
 
 const Login = ({ history }) => {
 	const [loginState, setLoginState] = useState({ error: null, loading: null });
 	const { error, loading } = loginState;
-	const [authUser, setAuthUser] = useContext(UserContext);
+	const [authToken, setAuthToken] = useContext(UserContext);
 
 	const onFinish = async (values) => {
 		const { email } = values;
@@ -21,20 +19,17 @@ const Login = ({ history }) => {
 			// Get user information + token
 			const res = await fetchData(values);
 			// Update state with form values, token, loading=false
-			setLoginState({ error: res.token, loading: false });
-			// Update auth context with jwt
-			setAuthUser(res);
-			// Switch to home page
-			history.push(`${ROUTES.STAFFHOME}${ROUTES.STAFFDASHBOARD}`);
+			setLoginState({ error: null, loading: false });
+			console.log(res)
 			// Check if res has jwt
-			// if (res.hasOwnProperty('token')) {
-			// 	// Update auth context with jwt
-			// 	setAuthUser(res.token);
-			// 	// dispatch({ type: 'all', payload: { field: 'all', value: { email, username: 'Jerry', course: 'High Noon' } } });
-			// 	// Switch to home page
-			// 	history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);
-			// }
-
+			if (res.token) {
+				// 	// Update auth context with jwt
+				setAuthToken(res);
+				// 	// Switch to home page
+				history.push(`${ROUTES.HOME}${ROUTES.DASHBOARD}`);
+			} else {
+				setLoginState({ error: res.info.message, loading: false });
+			}
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -42,11 +37,6 @@ const Login = ({ history }) => {
 
 	async function fetchData(values) {
 		try {
-			// const response = await fetch(LOGIN_LINK, {
-			// 	method: 'POST',
-			// 	body: JSON.stringify(values),
-			// 	headers: { 'Content-Type': 'application/json' }
-			// });
 			const response = await fetch('https://forked-student-dashboard.herokuapp.com/auth/login', {
 				method: 'POST',
 				mode: 'cors',
@@ -73,7 +63,7 @@ const Login = ({ history }) => {
 			<div className='form'>
 				<h2>Sign In</h2>
 				{
-					authUser ?
+					authToken ?
 						<div>
 							You are signed in
 				</div>
@@ -126,9 +116,9 @@ const Login = ({ history }) => {
 							</Button>
 								</Form.Item>
 							</Form>
-							{/* <div align="center">
-						{signIn ? signIn.error : null}
-					</div> */}
+							<div align="center" style={{ color: "red" }}>
+								{loginState.error ? loginState.error : null}
+							</div>
 						</div>
 				}
 			</div>
