@@ -3,17 +3,24 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import _ from "lodash";
+
+import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import _ from "lodash";
 const Context = React.createContext();
+
 export const UserStore = ({ children }) => {
     const [cookies, setCookie] = useCookies(["auth_token"]);
     const [authToken, setAuthToken] = useState(cookies["auth_token"]);
     const [userInfo, setUserInfo] = useState(null);
+
     useEffect(() => {
         if (authToken && _.isEmpty(cookies)) {
             setCookie("auth_token", authToken.token);
             setUserInfo(authToken.info);
         }
     }, [authToken]);
+
     useEffect(() => {
         if (!_.isEmpty(cookies)) {
             const getData = async () => {
@@ -28,16 +35,20 @@ export const UserStore = ({ children }) => {
                     }
                 );
                 const data = await response.json();
+
                 setUserInfo(data);
             };
             getData();
         }
     }, []);
+
     console.log(userInfo);
+
     return (
         <Context.Provider value={[authToken, setAuthToken, userInfo, setUserInfo]}>
             {children}
         </Context.Provider>
     );
 };
+
 export default Context;

@@ -13,10 +13,10 @@ import {
     Card,
 } from "antd";
 import CalLegends from "../calLegends/CalLegends";
-import "../../HomePage.css";
-import CalendarContext from "../../../contexts/CalendarContext";
 import { StyledDiv, StyledEvents } from "./styles";
-import * as ROUTES from "../../../../constants/routes";
+import "../../../HomePage.css";
+import CalendarContext from "../../../../contexts/CalendarContext";
+import * as ROUTES from "../../../../../constants/routes";
 
 function onPanelChange(value, mode) {
     console.log(value, mode);
@@ -35,8 +35,8 @@ const SmallCalendar = ({ history }) => {
         const listData = getListData(value);
         return (
             <StyledEvents>
-                {listData.map((item) => (
-                    <div key={item.content}>
+                {listData.map((item, index) => (
+                    <div key={index}>
                         <Badge status={item.type} text={item.content} />
                     </div>
                 ))}

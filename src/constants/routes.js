@@ -10,3 +10,4 @@ export const INSTRUCTIONS = "/instructions";
 export const VIDEOS = "/videos";
 export const SUBMISSION = "/submission";
 export const DONE = "/done";
+export const NOTIFICATIONSETTINGS = "/notificationsettings";

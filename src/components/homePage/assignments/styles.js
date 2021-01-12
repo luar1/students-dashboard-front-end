@@ -109,3 +109,17 @@ export const StyledDivBadge = styled.div`
         display: var(--display);
     }
 `;
+
+export const StyledList = styled.div`
+    ul {
+        list-style-type: square;
+    }
+
+    li a {
+        color: inherit;
+    }
+`;
+
+export const StyledDivGithub = styled.div`
+    margin-bottom: 50px;
+`;
