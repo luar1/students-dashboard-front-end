@@ -1,0 +1,26 @@
+/** @format */
+
+import React from "react";
+import { Button } from "antd";
+import { StyledDiv } from "./styles.js";
+import { CalendarOutlined } from "@ant-design/icons";
+
+const EventsButton = () => {
+    return (
+        <>
+            <StyledDiv>
+                <Button
+                    type="primary"
+                    block
+                    as="a"
+                    href="/"
+                    className="shadow"
+                    style={{ marginBottom: "8px" }}>
+                    <CalendarOutlined /> Month Events
+                </Button>
+            </StyledDiv>
+        </>
+    );
+};
+
+export default EventsButton;

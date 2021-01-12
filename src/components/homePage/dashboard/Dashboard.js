@@ -1,19 +1,22 @@
+/** @format */
+
 import React, { useEffect } from "react";
 import { Row, Col, Space } from "antd";
 
 import Progress from "./progress/MainProgress";
 import GetHelp from "./getHelp/GetHelp";
+import SignUpMentor from "./signUpMentor/signUpMentor";
 import TodoList from "./todoList/TodoList";
 import SmallCalendar from "./smallCalendar/SmallCalendar";
 import AssignmentSummary from "./assignmentSummary/AssignmentSummary";
-import HomeButtons from "./homeButtons/HomeButtons";
-
+import EventsButton from "./eventsButton/eventsButton";
+import MeetingButton from "./meetingButton/meetingButton";
 const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
     const { assignmentsKey, calendarKey, dashboardKey } = menuKey;
 
     useEffect(() => {
         setSelectedKey(dashboardKey);
-    }, [])
+    }, []);
 
     return (
         <div className="container-fluid">
@@ -26,19 +29,20 @@ const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
                             setSelectedKey={setSelectedKey}
                         />
                         <Progress />
-                        <GetHelp />
+                        <Row gutter={[16, 16]}>
+                            <Col span={12}>
+                                <GetHelp />
+                            </Col>
+                            <Col span={12}>
+                                <SignUpMentor />
+                            </Col>
+                        </Row>
                     </Space>
                 </Col>
-                <Col
-                    xs={24}
-                    sm={24}
-                    md={24}
-                    lg={10}
-                    xl={8}
-                    xxl={6}
-                    className="site-layout-right">
+                <Col xs={24} sm={24} md={24} lg={10} xl={8} xxl={6}>
                     <Space direction="vertical">
-                        <HomeButtons />
+                        <EventsButton />
+                        <MeetingButton />
                         <TodoList />
                         <SmallCalendar
                             history={history}

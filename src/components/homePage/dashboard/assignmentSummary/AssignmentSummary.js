@@ -1,24 +1,23 @@
+/** @format */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Space, Card, Button, Typography } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
-
 import FrontEnd from "../../../../graphics/frontEnd.png";
 import * as ROUTES from "../../../../constants/routes";
 import { StyledDivSummary, StyledDivBadge } from "../../assignments/styles";
-
 
 const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
     return (
         <>
             <Space direction="vertical">
-                <Card type="inner" hoverable className="cards-border">
+                <Card type="inner" hoverable>
                     <Typography.Title level={4}>
                         You are starting Front End 1 Week 1
                     </Typography.Title>
                     <StyledDivBadge>
                         <div>
-                            <img src={FrontEnd} alt="" className="badge"></img>
+                            <img src={FrontEnd} alt=""></img>
                         </div>
                         <br />
                         <p>
@@ -35,9 +34,7 @@ const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
                         <Link
                             to={`${ROUTES.HOME}${ROUTES.ASSIGNMENTS}`}
                             onClick={() => setSelectedKey(menuKey)}>
-                            <Button type="primary" icon={<DownloadOutlined />}>
-                                Start the Assignment
-                            </Button>
+                            <Button type="primary">Go to Assignment</Button>
                         </Link>
                     </StyledDivSummary>
                 </Card>

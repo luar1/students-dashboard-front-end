@@ -1,12 +1,14 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
-import { Layout } from 'antd';
+import { Layout } from "antd";
 
 import "./HomePage.css";
-import SiderMenu from './siderMenu/SiderMenu';
-import FooterHome from './footer/FooterHome';
-import HomeContent from './homeContent/HomeContent';
-import Breadcrumbs from './breadcrumbs/BreadCrumbs';
-import HomePageHeader from './homePageHeader/HomePageHeader';
+import SiderMenu from "./siderMenu/SiderMenu";
+import FooterHome from "./footer/FooterHome";
+import HomeContent from "./homeContent/HomeContent";
+import Breadcrumbs from "./breadcrumbs/BreadCrumbs";
+import HomePageHeader from "./homeTopNav/HomePageHeader";
 
 const HomePage = ({ match, history }) => {
     const KEYS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -45,12 +47,28 @@ const HomePage = ({ match, history }) => {
 
     return (
         <Layout style={{ minHeight: "100vh" }}>
-            <SiderMenu match={match} keys={KEYS} selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
+            <SiderMenu
+                match={match}
+                keys={KEYS}
+                selectedKey={selectedKey}
+                setSelectedKey={setSelectedKey}
+            />
             <div className="container-fluid">
                 <Layout className="site-layout">
                     <HomePageHeader />
-                    <Breadcrumbs page={page} match={match} keys={KEYS} setSelectedKey={setSelectedKey} />
-                    <HomeContent keys={KEYS} selectedKey={selectedKey} setSelectedKey={setSelectedKey} match={match} history={history} />
+                    <Breadcrumbs
+                        page={page}
+                        match={match}
+                        keys={KEYS}
+                        setSelectedKey={setSelectedKey}
+                    />
+                    <HomeContent
+                        keys={KEYS}
+                        selectedKey={selectedKey}
+                        setSelectedKey={setSelectedKey}
+                        match={match}
+                        history={history}
+                    />
                     <FooterHome />
                 </Layout>
             </div>

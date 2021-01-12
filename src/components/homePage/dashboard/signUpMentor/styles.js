@@ -17,13 +17,12 @@ export const StyledMain = styled.div`
     }
 `;
 
-export const StyledHelp = styled.div`
+export const StyledSignUp = styled.div`
     width: 100%;
-
     .ant-card {
-        background-color: #c8e4ff;
-    }
-    .ant-card-body {
-        padding: 45px;
+        background-color: #ffd95e;
+        .ant-card-body {
+            padding: 45px;
+        }
     }
 `;

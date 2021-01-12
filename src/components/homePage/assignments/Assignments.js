@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import {
@@ -35,7 +37,8 @@ import Videos from "./Resources";
 import GithubLink from "./GithubLink";
 import TodoList from "../dashboard/todoList/TodoList";
 import SmallCalendar from "../dashboard/smallCalendar/SmallCalendar";
-import HomeButtons from "../dashboard/homeButtons/HomeButtons";
+import EventsButton from "../dashboard/eventsButton/eventsButton";
+import MeetingButton from "../dashboard/meetingButton/meetingButton";
 const { TabPane } = Tabs;
 const { Step } = Steps;
 
@@ -110,14 +113,14 @@ const Assignments = ({ match, history }) => {
             <Menu onClick={({ key }) => setClickedUnitKey(key)}>
                 {classInfo
                     ? classInfo.units.map((unit, index) => {
-                        return (
-                            <Menu.Item key={index}>
-                                <a target="_blank" rel="noopener noreferrer">
-                                    {unit.unit_name}
-                                </a>
-                            </Menu.Item>
-                        );
-                    })
+                          return (
+                              <Menu.Item key={index}>
+                                  <a target="_blank" rel="noopener noreferrer">
+                                      {unit.unit_name}
+                                  </a>
+                              </Menu.Item>
+                          );
+                      })
                     : null}
             </Menu>
         );
@@ -229,7 +232,7 @@ const Assignments = ({ match, history }) => {
                                         {...props}
                                         lessons={
                                             classInfo.units[clickedUnitKey].lessons[
-                                            clickedLessonKey
+                                                clickedLessonKey
                                             ]
                                         }
                                     />
@@ -301,9 +304,8 @@ const Assignments = ({ match, history }) => {
             <Row gutter={[16, 24]}>
                 <Col xs={24} sm={24} md={24} lg={14} xl={16} xxl={18}>
                     <StyledDiv>
-                        {!_.isEmpty(classInfo) ?
+                        {!_.isEmpty(classInfo) ? (
                             <Card
-                                className="cards-border"
                                 title={
                                     !_.isEmpty(classInfo)
                                         ? classInfo.units[clickedUnitKey].unit_name
@@ -320,18 +322,16 @@ const Assignments = ({ match, history }) => {
                                             }>
                                             {tabPanes(clickedUnitKey)}
                                         </Tabs>
-
                                     </div>
                                 </StyledSection>
                             </Card>
-                            : (
-                                <Row>
-                                    <Col span={12} offset={12}>
-                                        <Spin size="large" />
-                                    </Col>
-                                </Row>
-                            )
-                        }
+                        ) : (
+                            <Row>
+                                <Col span={12} offset={12}>
+                                    <Spin size="large" />
+                                </Col>
+                            </Row>
+                        )}
                     </StyledDiv>
                 </Col>
                 <Col
@@ -343,7 +343,8 @@ const Assignments = ({ match, history }) => {
                     xxl={6}
                     className="site-layout-right">
                     <Space direction="vertical">
-                        <HomeButtons />
+                        <EventsButton />
+                        <MeetingButton />
                         <TodoList />
                         <SmallCalendar history={history} />
                     </Space>

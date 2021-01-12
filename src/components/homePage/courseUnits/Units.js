@@ -1,15 +1,15 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import { Progress, Card, Row, Col, Space, Typography, Spin } from "antd";
+import { Progress, Card, Row, Col, Typography, Spin } from "antd";
 import { Link } from "react-router-dom";
 const { Meta } = Card;
-const MainProgress = () => {
+const Units = () => {
     const [progress, setProgress] = useState(null);
     //Fetching data from airtable
     useEffect(() => {
         const getMentorsData = async () => {
-            const response = await fetch(process.env.REACT_APP_AIRTABLE_LINK);
+            const response = await fetch(process.env.REACT_APP_UNITS_LINK);
             const progressData = await response.json();
             setProgress(progressData);
         };
@@ -18,21 +18,22 @@ const MainProgress = () => {
     }, []);
     return (
         <>
-            <Space direction="vertical" style={{ width: "100%" }}>
-                <Card type="inner" hoverable>
+            <div className="container-fluid">
+                <Card type="inner">
                     <Typography.Title level={4} className="left">
-                        Your Progress
+                        Course Units Progress
                     </Typography.Title>
                     <div className="progress">
-                        <Row
-                            justify="center"
-                            align="middle"
-                            gutter={[8, 16]}
-                            wrap={false}>
+                        <p>
+                            Use the links below to navigate to the individual units
+                            of Code the Dream’s Web Development course.
+                        </p>
+                        <Row gutter={24}>
                             {progress ? (
-                                progress.records.map((week, index) => {
+                                progress.records.map((percentage, index) => {
+                                    console.log(progress);
                                     return (
-                                        <Col flex="1 1 150px" key={index}>
+                                        <Col flex="1 1 400px" key={index}>
                                             <Card
                                                 hoverable
                                                 style={{
@@ -47,18 +48,21 @@ const MainProgress = () => {
                                                         <Progress
                                                             type="circle"
                                                             strokeColor={{
-                                                                "0%": "#5cdbd3",
-                                                                "100%": "#52C41A",
+                                                                "0%": "#ff5c35",
+                                                                "100%": "#f9d418",
                                                             }}
                                                             strokeWidth={10}
                                                             percent={
-                                                                week.fields.Progress
+                                                                percentage.fields
+                                                                    .percentage
                                                             }
                                                         />
                                                     </Link>
                                                 }>
                                                 <Meta
-                                                    title={week.fields.Lesson}
+                                                    title={
+                                                        percentage.fields.Unit_Name
+                                                    }
                                                     description="This is the description"
                                                 />
                                             </Card>
@@ -75,8 +79,8 @@ const MainProgress = () => {
                         </Row>
                     </div>
                 </Card>
-            </Space>
+            </div>
         </>
     );
 };
-export default MainProgress;
+export default Units;
