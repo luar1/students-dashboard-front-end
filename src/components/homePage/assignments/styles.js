@@ -94,19 +94,21 @@ export const StyledDivSummary = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
     button {
-        margin: 10px;
+        margin-top: 10px;
     }
 `;
 export const StyledDivBadge = styled.div`
     width: 100%;
     display: var(--display);
-     
+     justify-content: flex-end;
+    align-items: center;
 }
     img {
-        width: 100px;
-        margin-right: 40px;
+        width: 250px;
         display: var(--display);
+        align-items:center;
     }
 `;
 

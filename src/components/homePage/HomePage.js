@@ -9,7 +9,7 @@ import FooterHome from "./footer/FooterHome";
 import StudentHomeContent from "./homeContent/student/StudentHomeContent";
 import StaffHomeContent from "./homeContent/staff/StaffHomeContent";
 import Breadcrumbs from "./breadcrumbs/BreadCrumbs";
-import HomePageHeader from "./homePageHeader/HomePageHeader";
+import HomePageHeader from "./homeTopNav/HomePageHeader";
 import UserContext from "../../components/contexts/UserContext";
 import { KEYS } from "./utils/constants/homepage_keys";
 

@@ -16,7 +16,7 @@ const EventsButton = () => {
                     href="/"
                     className="shadow"
                     style={{ marginBottom: "8px" }}>
-                    <CalendarOutlined /> Month Events
+                    <CalendarOutlined /> List of Events
                 </Button>
             </StyledDiv>
         </>

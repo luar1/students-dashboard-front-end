@@ -17,7 +17,7 @@ const meetingButton = () => {
                     target="_blank"
                     className="shadow ">
                     <VideoCameraOutlined />
-                    Mentor Session
+                    Join a Meeting
                 </Button>
             </StyledDiv>
         </>

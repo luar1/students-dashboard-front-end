@@ -35,7 +35,7 @@ import Instructions from "./Instructions";
 import Summary from "./Summary";
 import Videos from "./Resources";
 import GithubLink from "./GithubLink";
-import EventsButton from "../dashboard/studentDashboard/eventsButton/eventsButtontton/eventsButton";
+import EventsButton from "../dashboard/studentDashboard/eventsButton/eventsButton";
 import MeetingButton from "../dashboard/studentDashboard/meetingButton/meetingButton";
 import Done from "./Done";
 import TodoList from "../dashboard/studentDashboard/todoList/TodoList";

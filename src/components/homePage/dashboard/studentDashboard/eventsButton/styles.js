@@ -7,6 +7,7 @@ export const StyledDiv = styled.div`
 }
 .ant-btn{
     color: #12284c;
+    font-size:16px;
         text-align: center;
         font-weight:600;
         border-radius: 6px;
@@ -14,7 +15,7 @@ export const StyledDiv = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #ff5c35;
+        background-color: white;
         border: 1px solid #f1f1f2;
         a{
             color: #12284c;

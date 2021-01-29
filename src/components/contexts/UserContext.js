@@ -3,10 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import _ from "lodash";
-
-import React, { useState, useEffect } from "react";
-import { useCookies } from "react-cookie";
-import _ from "lodash";
 const Context = React.createContext();
 
 export const UserStore = ({ children }) => {
@@ -24,19 +20,22 @@ export const UserStore = ({ children }) => {
     useEffect(() => {
         if (!_.isEmpty(cookies)) {
             const getData = async () => {
-                const response = await fetch(
-                    "https://forked-student-dashboard.herokuapp.com/user",
-                    {
-                        method: "POST",
-                        mode: "cors",
-                        credentials: "include",
-                        body: JSON.stringify({ token: authToken }),
-                        headers: { "Content-Type": "application/json" },
-                    }
-                );
-                const data = await response.json();
-
-                setUserInfo(data);
+                try {
+                    const response = await fetch(
+                        "https://forked-student-dashboard.herokuapp.com/user",
+                        {
+                            method: "POST",
+                            mode: "cors",
+                            credentials: "include",
+                            body: JSON.stringify({ token: authToken }),
+                            headers: { "Content-Type": "application/json" },
+                        }
+                    );
+                    const data = await response.json();
+                    setUserInfo(data);
+                } catch (error) {
+                    console.log(error);
+                }
             };
             getData();
         }

@@ -1,3 +1,5 @@
+/** @format */
+
 import styled from "styled-components";
 
 export const StyledDiv = styled.div`
@@ -13,7 +15,7 @@ export const StyledLegend = styled.div`
         margin-left:17px;
         margin-top:17px;
         padding: 30px 10px;
-        width: 300px;
+        width: 240px;
         border-top: 1px solid #ccc;
 }
         `;

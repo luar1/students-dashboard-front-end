@@ -3,7 +3,7 @@
 import React from "react";
 import { Badge, Space, Card } from "antd";
 
-import { StyledLegend } from "../smallCalendar/styles";
+import { StyledLegend } from "../studentDashboard/smallCalendar/styles";
 const CalLegends = () => {
     return (
         <>

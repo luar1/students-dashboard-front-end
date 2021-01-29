@@ -12,7 +12,7 @@ import {
     Typography,
     Card,
 } from "antd";
-import CalLegends from "../calLegends/CalLegends";
+import CalLegends from "../../calLegends/CalLegends";
 import { StyledDiv, StyledEvents } from "./styles";
 import "../../../HomePage.css";
 import CalendarContext from "../../../../contexts/CalendarContext";
@@ -179,9 +179,6 @@ const SmallCalendar = ({ history }) => {
                         />
                     </StyledDiv>
                 </Card>
-            </Space>
-            <Space direction="vertical ">
-                <CalLegends />
             </Space>
         </>
     );
