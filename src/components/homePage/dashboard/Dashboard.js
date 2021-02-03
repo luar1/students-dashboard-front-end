@@ -10,7 +10,6 @@ import GetHelp from "./studentDashboard/getHelp/GetHelp";
 import TodoList from "./studentDashboard/todoList/TodoList";
 import SmallCalendar from "./studentDashboard/smallCalendar/SmallCalendar";
 import AssignmentSummary from "./studentDashboard/assignmentSummary/AssignmentSummary";
-import HomeButtons from "./studentDashboard/homeButtons/HomeButtons";
 import StaffTopLinks from "./staffDashboard/staffTopLinks/StaffTopLinks";
 import CurrentCourses from "./staffDashboard/currentCourses/CurrentCourses";
 import Announcements from "./staffDashboard/announcements/Announcements";
@@ -33,8 +32,14 @@ const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
                         setSelectedKey={setSelectedKey}
                     />
                     <Progress />
-                    <GetHelp />
-                    <SignUpMentor />
+                    <Row gutter={[16, 16]}>
+                        <Col span={12}>
+                            <GetHelp />
+                        </Col>
+                        <Col span={12}>
+                            <SignUpMentor />
+                        </Col>
+                    </Row>
                 </>
             );
         } else if (userInfo.role === "staff") {
@@ -69,7 +74,8 @@ const Dashboard = ({ history, menuKey, selectedKey, setSelectedKey }) => {
             return (
                 <>
                     <Announcements />
-                    <HomeButtons />
+                    <EventsButton />
+                    <MeetingButton />
                     <SmallCalendar
                         history={history}
                         menuKey={calendarKey}

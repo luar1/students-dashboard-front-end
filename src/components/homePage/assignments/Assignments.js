@@ -26,7 +26,7 @@ import {
     SmileOutlined,
     CheckOutlined,
 } from "@ant-design/icons";
-
+import Announcements from "../dashboard/staffDashboard/announcements/Announcements";
 import * as ROUTES from "../../../constants/routes";
 import { StyledSection, StyledDiv, StyledDivSummary } from "./styles";
 import UserContext from "../../contexts/UserContext";
@@ -505,6 +505,7 @@ const Assignments = ({ match, history }) => {
                     xxl={6}
                     className="site-layout-right">
                     <Space direction="vertical">
+                        <Announcements />
                         <EventsButton />
                         <MeetingButton />
                         <TodoList />
