@@ -60,7 +60,7 @@ const ToDoList = () => {
     return (
         <>
             <Card className="card-todo">
-                <Typography.Title level={5} style={{ color: "black" }}>
+                <Typography.Title level={4} style={{ color: "white" }}>
                     To Do
                 </Typography.Title>
                 {todos &&

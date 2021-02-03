@@ -24,7 +24,6 @@ const AssignmentSummary = ({ setSelectedKey, menuKey }) => {
                         </div>
                         <br />
                         <div>
-                            <Typography.Title level={5}>Summary</Typography.Title>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Proin malesuada feugiat tellus, eu feugiat nisi aliquet
                             in. Donec neque ligula, placerat in sollicitudin at,

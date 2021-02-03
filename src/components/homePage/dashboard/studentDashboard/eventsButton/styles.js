@@ -6,7 +6,7 @@ export const StyledDiv = styled.div`
 
 }
 .ant-btn{
-    color: white;
+    color: #12284c;
     font-size:16px;
         text-align: center;
         font-weight:600;
@@ -15,15 +15,15 @@ export const StyledDiv = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #12284c;
+        background-color: white;
         border: 1px solid #f1f1f2;
         a{
             color: #12284c;
         }
         &:hover {
-            background-color: #1890FF;
-            color: white;
-            border: 1px solid #1890FF;
+            background-color: #f1f1f2;
+            color: #ff5c35;
+            border: 1px solid #c0c0c0;
         }
         .anticon {
 

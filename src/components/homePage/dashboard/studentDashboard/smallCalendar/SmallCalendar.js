@@ -65,11 +65,12 @@ const SmallCalendar = ({ history }) => {
     }
     return (
         <>
-            <StyledDiv>
-                <Space direction="vertical" className="center">
-                    <Card>
+            <Space direction="vertical" className="center">
+                <Card>
+                    <StyledDiv>
                         <Calendar
                             fullscreen={false}
+                            dateCellRender={dateCellRender}
                             onSelect={onSelect}
                             monthCellRender={monthCellRender}
                             headerRender={({
@@ -116,7 +117,42 @@ const SmallCalendar = ({ history }) => {
                                 }
                                 return (
                                     <div>
-                                        <Row gutter={16}>
+                                        <Typography.Title
+                                            level={4}
+                                            className="center">
+                                            Calendar
+                                        </Typography.Title>
+                                        <Row gutter={8}>
+                                            <Col>
+                                                <Radio.Group
+                                                    size="small"
+                                                    onChange={(e) =>
+                                                        onTypeChange(e.target.value)
+                                                    }
+                                                    value={type}>
+                                                    <Radio.Button value="month">
+                                                        Month
+                                                    </Radio.Button>
+                                                    <Radio.Button value="year">
+                                                        Year
+                                                    </Radio.Button>
+                                                </Radio.Group>
+                                            </Col>
+                                            <Col>
+                                                <Select
+                                                    size="small"
+                                                    dropdownMatchSelectWidth={true}
+                                                    className="my-year-select"
+                                                    onChange={(newYear) => {
+                                                        const now = value
+                                                            .clone()
+                                                            .year(newYear);
+                                                        onChange(now);
+                                                    }}
+                                                    value={String(year)}>
+                                                    {options}
+                                                </Select>
+                                            </Col>
                                             <Col>
                                                 <Select
                                                     size="small"
@@ -135,37 +171,15 @@ const SmallCalendar = ({ history }) => {
                                                     {monthOptions}
                                                 </Select>
                                             </Col>
-                                            <Col>
-                                                <Typography.Title
-                                                    level={5}
-                                                    className="center">
-                                                    Calendar
-                                                </Typography.Title>
-                                            </Col>
-                                            <Col>
-                                                <Select
-                                                    size="small"
-                                                    dropdownMatchSelectWidth={true}
-                                                    className="my-year-select"
-                                                    onChange={(newYear) => {
-                                                        const now = value
-                                                            .clone()
-                                                            .year(newYear);
-                                                        onChange(now);
-                                                    }}
-                                                    value={String(year)}>
-                                                    {options}
-                                                </Select>
-                                            </Col>
                                         </Row>
                                     </div>
                                 );
                             }}
                             onPanelChange={onPanelChange}
                         />
-                    </Card>
-                </Space>
-            </StyledDiv>
+                    </StyledDiv>
+                </Card>
+            </Space>
         </>
     );
 };
