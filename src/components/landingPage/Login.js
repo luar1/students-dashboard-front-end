@@ -3,11 +3,11 @@
 import React, { useState, useContext } from "react";
 import { Button, Form, Input } from "antd";
 import { UserOutlined, LockOutlined, AlignLeftOutlined } from "@ant-design/icons";
+
 import * as ROUTES from "../../constants/routes";
 import ForgotPassword from "./ForgotPassword";
-// import AuthContext from '../contexts/AuthContext';
 import UserContext from "../contexts/UserContext";
-import { LOGIN_LINK } from "../../constants/constants";
+
 const Login = ({ history }) => {
     const [loginState, setLoginState] = useState({ error: null, loading: null });
     const { error, loading } = loginState;
@@ -20,9 +20,9 @@ const Login = ({ history }) => {
             setLoginState({ loading: true });
             // Get user information + token
             const res = await fetchData(values);
+            console.log(res);
             // Update state with form values, token, loading=false
             setLoginState({ error: null, loading: false });
-            console.log(res);
             // Check if res has jwt
             if (res.token) {
                 // 	// Update auth context with jwt
@@ -50,7 +50,7 @@ const Login = ({ history }) => {
                 }
             );
             const message = await response.json();
-            const token = response.headers.get("Authentication");
+            const token = response.headers.get("authorization");
 
             return { info: { ...message }, token };
         } catch (e) {
@@ -79,6 +79,8 @@ const Login = ({ history }) => {
                             className="login-form"
                             initialValues={{
                                 remember: true,
+                                email: "user7@gmail.com",
+                                password: "123456",
                             }}
                             onFinish={onFinish}>
                             <Form.Item

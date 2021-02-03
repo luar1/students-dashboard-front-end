@@ -19,6 +19,7 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
     const [authToken, setAuthToken, userInfo, setUserInfo] = useContext(UserContext);
     const [visible, setVisibility] = useState(false);
     const [eventsInfo, setEvents] = useState([]);
+    const [mentorsInfo, setMentorEvents] = useState([]);
     console.log(userInfo);
     const [state, setState] = useState({
         weekendsVisible: true,
@@ -32,9 +33,14 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
 
     useEffect(() => {
         if (userInfo) {
-            console.log(userInfo.student.student_weekly_progresses[0].course_id);
-            getEventsData();
-            getMentorEventData();
+            /* console.log(userInfo.student.student_weekly_progresses[0].course_id); */
+            Promise.all([getMentorEventData(), getEventsData()])
+                .then(([mentorDataResponse, studentsDataResponse]) => {
+                    console.log(mentorDataResponse, studentsDataResponse);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     }, [userInfo]);
 
@@ -122,7 +128,7 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
         });
     };
 
-    const showModal = (selectInfo) => {
+    /*  const showModal = (selectInfo) => {
         setVisibility(true);
     };
 
@@ -142,17 +148,17 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
         let calendarApi = selectInfo.view.calendar;
 
         calendarApi.unselect(); // clear date selection
-
-        // if (title) {
-        //     calendarApi.addEvent({
-        //         id: createEventId(),
-        //         title,
-        //         start: selectInfo.startStr,
-        //         end: selectInfo.endStr,
-        //         allDay: selectInfo.allDay,
-        //     });
-        // }
-    };
+ */
+    // if (title) {
+    //     calendarApi.addEvent({
+    //         id: createEventId(),
+    //         title,
+    //         start: selectInfo.startStr,
+    //         end: selectInfo.endStr,
+    //         allDay: selectInfo.allDay,
+    //     });
+    // }
+    /*    }; */
 
     /*const handleEventClick = (clickInfo) => {
         console.log(clickInfo);
@@ -175,7 +181,7 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
     return (
         <div className="container-fluid">
             <Row gutter={8}>
-                <Col xs={24} sm={24} md={18} lg={18} xl={20} xxl={20}>
+                <Col xs={24} sm={24} md={16} lg={16} xl={18} xxl={18}>
                     <div className="site-layout-background">
                         <div className="container-fluid">
                             <Card>
@@ -201,7 +207,7 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
                                     selectable={true}
                                     selectMirror={true}
                                     dayMaxEvents={true}
-                                    weekends={state.weekendsVisible}
+                                    weekends={true}
                                     events={eventsInfo} // alternatively, use the `events` setting to fetch from a feed
                                     select={""}
                                     eventContent={renderEventContent} // custom render function
@@ -225,53 +231,51 @@ const FullCalendarDashboard = ({ menuKey, setSelectedKey }) => {
     );
 };
 
-const renderContent = (eventInfo, mentorsInfo) => {
-    if (eventInfo) {
-        return (
-            <div>
-                <Descriptions
-                    title={eventInfo.event.title}
-                    layout="horizontal"
-                    bordered>
-                    <Descriptions.Item label="Unit Name:" span={3}>
-                        {eventInfo.event.extendedProps.unit}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Description:" span={3}>
-                        {eventInfo.event.extendedProps.description}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Lesson Name:" span={3}>
-                        {eventInfo.event.extendedProps.lesson_name}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Due Date:" span={3}>
-                        {eventInfo.event.extendedProps.end}
-                    </Descriptions.Item>
-                </Descriptions>
-            </div>
-        );
-    } else {
-        return (
-            <div>
-                <Descriptions
-                    title={mentorsInfo.event.title}
-                    layout="horizontal"
-                    bordered>
-                    <Descriptions.Item label="About the Mentor:" span={3}>
-                        {mentorsInfo.event.mentor.title}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Day:" span={3}>
-                        {mentorsInfo.event.daysOfWeek}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Start Time:" span={3}>
-                        {mentorsInfo.eventstartTime}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="End Time:" span={3}>
-                        {mentorsInfo.event.endTime}
-                    </Descriptions.Item>
-                    <Button>Sign Up for Mentor Session</Button>
-                </Descriptions>
-            </div>
-        );
-    }
+const renderContent = (eventInfo) => {
+    return (
+        <div>
+            <Descriptions title={eventInfo.event.title} layout="horizontal" bordered>
+                <Descriptions.Item label="Unit Name:" span={3}>
+                    {eventInfo.event.extendedProps.unit}
+                </Descriptions.Item>
+                <Descriptions.Item label="Description:" span={3}>
+                    {eventInfo.event.extendedProps.description}
+                </Descriptions.Item>
+                <Descriptions.Item label="Lesson Name:" span={3}>
+                    {eventInfo.event.extendedProps.lesson_name}
+                </Descriptions.Item>
+                <Descriptions.Item label="Due Date:" span={3}>
+                    {eventInfo.event.extendedProps.end}
+                </Descriptions.Item>
+            </Descriptions>
+        </div>
+    );
+};
+
+const renderContentMentors = (mentorsInfo) => {
+    console.log(mentorsInfo);
+    return (
+        <div>
+            <Descriptions
+                title={mentorsInfo.event.title}
+                layout="horizontal"
+                bordered>
+                <Descriptions.Item label="About the Mentor:" span={3}>
+                    {mentorsInfo.event.mentor.title}
+                </Descriptions.Item>
+                <Descriptions.Item label="Day:" span={3}>
+                    {mentorsInfo.event.daysOfWeek}
+                </Descriptions.Item>
+                <Descriptions.Item label="Start Time:" span={3}>
+                    {mentorsInfo.eventstartTime}
+                </Descriptions.Item>
+                <Descriptions.Item label="End Time:" span={3}>
+                    {mentorsInfo.event.endTime}
+                </Descriptions.Item>
+                <Button>Sign Up for Mentor Session</Button>
+            </Descriptions>
+        </div>
+    );
 };
 
 function renderEventContent(eventInfo) {
